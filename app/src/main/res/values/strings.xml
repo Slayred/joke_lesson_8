@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">joke_lesson_8</string>
     <string name="get_joke">GET JOKE</string>
+    <string name="no_connection">NO CONNECTION</string>
+    <string name="service_unavailable">SERVICE UNAVAILABLE</string>
+    <string name="ssl_error">SSL ERROR</string>
 </resources>
