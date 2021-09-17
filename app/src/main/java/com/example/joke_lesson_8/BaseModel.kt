@@ -5,6 +5,7 @@ import android.webkit.SslErrorHandler
 import retrofit2.Call
 import retrofit2.Response
 import java.net.UnknownHostException
+import javax.net.ssl.SSLHandshakeException
 
 class BaseModel(private val service: JokeService
 , private val resourceManager: ResourceManager): Model {
@@ -24,7 +25,7 @@ class BaseModel(private val service: JokeService
             override fun onFailure(call: Call<JokeDTO>, t: Throwable) {
                 if(t is UnknownHostException)
                     callback?.provideError(noConnection)
-                if (t is SslErrorHandler)
+                if (t is SSLHandshakeException)
                     callback?.provideError(SSLerror_exc)
                 else
                     callback?.provideError(serviceUnavailible)

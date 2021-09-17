@@ -1,6 +1,6 @@
 package com.example.joke_lesson_8
 
-import com.google.gson.Gson
+//import com.google.gson.Gson
 import java.io.BufferedInputStream
 import java.io.InputStreamReader
 import java.lang.Exception
@@ -9,7 +9,7 @@ import java.net.URL
 import java.net.UnknownHostException
 import javax.net.ssl.SSLHandshakeException
 
-class BaseJokeService(private val gson: Gson) {
+class BaseJokeService(/*private val gson: Gson*/) {
 //
 //     fun getJoke(callback: ServiceCallback) {
 //        Thread{
