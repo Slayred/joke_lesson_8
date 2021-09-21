@@ -4,4 +4,5 @@
     <string name="no_connection">NO CONNECTION</string>
     <string name="service_unavailable">SERVICE UNAVAILABLE</string>
     <string name="ssl_error">SSL ERROR</string>
+    <string name="show_favorite_joke">Show Favorite Joke</string>
 </resources>

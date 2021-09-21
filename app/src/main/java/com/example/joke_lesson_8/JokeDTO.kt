@@ -11,5 +11,5 @@ class JokeDTO (
     private val image: String
     )
 {
-    fun toJoke() = Joke(answer,image)
+    fun toJoke() = BaseJoke(answer,image)
 }

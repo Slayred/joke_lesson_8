@@ -2,7 +2,7 @@ package com.example.joke_lesson_8
 
 class TestModel(resourceManager: ResourceManager): Model {
 
-    private var callback: ResultCallback? = null
+    private var callBack: ResultCallBack? = null
     private var count = 0
     private val noConnection = NoConnection(resourceManager)
     private val serviceUnavailible = ServiceUnavailible(resourceManager)
@@ -17,9 +17,9 @@ class TestModel(resourceManager: ResourceManager): Model {
 //            callback?.provideError("error")
 //        }
             when(count){
-                0 -> callback?.provideSuccess(Joke("testtext","testPunch"))
-                1 -> callback?.provideError(noConnection)
-                2 -> callback?.provideError(serviceUnavailible)
+                0 -> callBack?.provideJoke(BaseJoke("testtext","testPunch"))
+                1 -> callBack?.provideJoke(FavoriteJoke("favoriteJoke","favorite joke punh"))
+                2 -> callBack?.provideJoke(FailedJoke(serviceUnavailible.getMessage()))
 
             }
             count++
@@ -27,12 +27,13 @@ class TestModel(resourceManager: ResourceManager): Model {
         }.start()
     }
 
-    override fun init(callback: ResultCallback) {
-        this.callback = callback
+
+    override fun initModel(callback: ResultCallBack) {
+        this.callBack = callBack
     }
 
     override fun clear() {
-        callback = null
+        callBack = null
     }
 
 }

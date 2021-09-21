@@ -3,9 +3,8 @@ package com.example.joke_lesson_8
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
+import com.example.joke_lesson_8.interfaces.DataCallback
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +20,13 @@ class MainActivity : AppCompatActivity() {
         var tView = findViewById<TextView>(R.id.tvJoke)
         var progBar = findViewById<ProgressBar>(R.id.progressBar)
         progBar.visibility = View.INVISIBLE
+        val checkBox = findViewById<CheckBox>(R.id.checkBox)
+        val iconImage = findViewById<ImageView>(R.id.iconView)
+
+        checkBox.setOnCheckedChangeListener{_, isChecked ->
+            viewModel.chooseFavorites(isChecked)
+
+        }
 
         btn.setOnClickListener{
             btn.isEnabled = false
@@ -28,11 +34,15 @@ class MainActivity : AppCompatActivity() {
             viewModel.getJoke()
         }
 
-        viewModel.init(object : TextCallback{
+        viewModel.initViewModel(object : DataCallback{
             override fun provideText(test: String) = runOnUiThread {
                 btn.isEnabled  = true
                 progBar.visibility= View.INVISIBLE
                 tView.text = test
+            }
+
+            override fun provideIconRes(id: Int)  =  runOnUiThread{
+                iconImage.setImageResource(id)
             }
         })
     }
