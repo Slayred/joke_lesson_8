@@ -11,11 +11,6 @@ class TestModel(resourceManager: ResourceManager): Model {
     override fun getJoke() {
         Thread{
         Thread.sleep(1000)
-//        if (count % 2 == 0){
-//            callback?.provideSuccess("succes")
-//        } else {
-//            callback?.provideError("error")
-//        }
             when(count){
                 0 -> callBack?.provideJoke(BaseJoke("testtext","testPunch"))
                 1 -> callBack?.provideJoke(FavoriteJoke("favoriteJoke","favorite joke punh"))

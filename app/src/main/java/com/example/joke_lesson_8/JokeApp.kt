@@ -11,6 +11,7 @@ import retrofit2.create
 class JokeApp: Application() {
 
     lateinit var viewModel: ViewModel
+    private final val BASE_URL = "http://92.63.192.103:3005"
 
     override fun onCreate() {
         super.onCreate()

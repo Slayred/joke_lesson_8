@@ -1,5 +1,6 @@
 package com.example.joke_lesson_8
 
+import com.example.joke_lesson_8.model.JokeServerModel
 import com.google.gson.Gson
 import java.io.BufferedInputStream
 import java.io.InputStreamReader
@@ -20,7 +21,7 @@ class BaseJokeService(/*private val gson: Gson*/) {
                 InputStreamReader(BufferedInputStream(connection.inputStream)).use{
                     val line: String = it.readText()
                     //val dto = Gson.fromJson(line, JokeDTO::class.java)
-                    val dto = Gson().fromJson(line,JokeDTO::class.java)
+                    val dto = Gson().fromJson(line, JokeServerModel::class.java)
                     callback.returnSuccess(dto)
                 }
             }catch (e: Exception){
