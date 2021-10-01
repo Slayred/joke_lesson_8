@@ -3,13 +3,13 @@ package com.example.joke_lesson_8
 import com.example.joke_lesson_8.interfaces.DataCallback
 
 
-class ViewModel(private val model: Model) {
+class ViewModel(private val modelOld: ModelOld) {
 
     private var callback: DataCallback? = null
 
     fun initViewModel(callback: DataCallback){
         this.callback = callback
-        model.initModel(
+        modelOld.initModel(
             object :ResultCallBack{
                 override fun provideJoke(joke: Joke) {
                     callback.let {
@@ -38,12 +38,12 @@ class ViewModel(private val model: Model) {
     }
 
     fun getJoke(){
-        model.getJoke()
+        modelOld.getJoke()
     }
 
     fun clear(){
         callback = null
-        model.clear()
+        modelOld.clear()
     }
 
     fun chooseFavorites(checked: Boolean) {

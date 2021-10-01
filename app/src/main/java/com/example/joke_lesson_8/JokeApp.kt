@@ -1,12 +1,6 @@
 package com.example.joke_lesson_8
 
 import android.app.Application
-import com.example.joke_lesson_8.factory.RetrofitFactory
-import com.google.gson.Gson
-import com.google.gson.internal.GsonBuildConfig
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 class JokeApp: Application() {
 
@@ -21,6 +15,6 @@ class JokeApp: Application() {
 //            .build()
 //        viewModel = ViewModel(
 //            BaseModel(RetrofitFactory.getService("https://yesno.wtf"), ResourceManager(this)))
-        viewModel = ViewModel(TestModel(ResourceManager(this)))
+        viewModel = ViewModel(TestModelOld(ResourceManager(this)))
     }
 }

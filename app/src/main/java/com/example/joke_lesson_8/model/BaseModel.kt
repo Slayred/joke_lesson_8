@@ -1,47 +1,46 @@
 package com.example.joke_lesson_8.model
 
 import com.example.joke_lesson_8.*
-import retrofit2.Call
-import retrofit2.Response
-import java.net.UnknownHostException
-import javax.net.ssl.SSLHandshakeException
+import com.example.joke_lesson_8.interfaces.CacheDataSource
+import com.example.joke_lesson_8.interfaces.CloudDataSoruce
+import com.example.joke_lesson_8.interfaces.JokeCallback
+import com.example.joke_lesson_8.interfaces.JokeCloudCallback
 
- class BaseModel(
-     private val service: JokeService,
-     private val resourceManager: ResourceManager
- ): Model {
-    private var callbackOld: ResultCallbackOld? = null
+class BaseModel(
+    private val cacheDataSource: CacheDataSource,
+    private val cloudDataSoruce: CloudDataSoruce,
+    private val resourceManager: ResourceManager
+): Model {
+
     private val noConnection by lazy { NoConnection(resourceManager) }
-    private val serviceUnavailible by lazy { ServiceUnavailible(resourceManager) }
-    private val SSLerror_exc by lazy { SSLError_exception(resourceManager) }
+    private val serviceUnavailible by  lazy { ServiceUnavailible(resourceManager) }
+    private var jokeCloudCallback: JokeCloudCallback? = null
+    private var jokeCallback: JokeCallback? = null
+
+    private var cachedJokeServerModel: JokeServerModel? = null
+
     override fun getJoke() {
-        service.getJoke().enqueue(object : retrofit2.Callback<JokeServerModel>{
-            override fun onResponse(call: Call<JokeServerModel>, response: Response<JokeServerModel>) {
-                if(response.isSuccessful){
-                    callbackOld?.provideSuccess(response.body()!!.toJoke())
-                }
-                else callbackOld?.provideError(serviceUnavailible)
+        cloudDataSoruce.getJoke(object : JokeCloudCallback{
+            override fun provide(joke: JokeServerModel) {
+                cachedJokeServerModel = joke
+                jokeCallback?.provide(joke.toBaseJoke())
             }
 
-            override fun onFailure(call: Call<JokeServerModel>, t: Throwable) {
-                if(t is UnknownHostException)
-                    callbackOld?.provideError(noConnection)
-                if (t is SSLHandshakeException)
-                    callbackOld?.provideError(SSLerror_exc)
-                else
-                    callbackOld?.provideError(serviceUnavailible)
+            override fun fail(error: ErrorType) {
+                cachedJokeServerModel = null
+                val failure = if(error == ErrorType.NO_CONNECTION) noConnection else serviceUnavailible
+                jokeCallback?.provide(FailedJoke(failure.getMessage()))
             }
 
         })
     }
 
-    override fun initModel(callback: ResultCallBack) {
-        this.callbackOld = callbackOld
+    override fun initModel(callback: JokeCloudCallback) {
+        this.jokeCloudCallback  = callback
     }
+
 
     override fun clear() {
-        callbackOld = null
+        jokeCloudCallback = null
     }
-
-
 }

@@ -1,6 +1,7 @@
 package com.example.joke_lesson_8.model
 
 import com.example.joke_lesson_8.BaseJoke
+import com.example.joke_lesson_8.FavoriteJoke
 import com.example.joke_lesson_8.interfaces.CacheDataSource
 import com.google.gson.annotations.SerializedName
 
@@ -16,7 +17,9 @@ class JokeServerModel (
 
     )
 {
-    fun toJoke() = BaseJoke(setup,punchline)
+    fun toBaseJoke() = BaseJoke(setup,punchline)
+
+    fun toFavoriteJoke() = FavoriteJoke(setup,punchline)
 
     fun change(cacheDataSource: CacheDataSource) = cacheDataSource.addOrRemove(id, this)
 }

@@ -1,6 +1,6 @@
 package com.example.joke_lesson_8
 
-class TestModel(resourceManager: ResourceManager): Model {
+class TestModelOld(resourceManager: ResourceManager): ModelOld {
 
     private var callBack: ResultCallBack? = null
     private var count = 0

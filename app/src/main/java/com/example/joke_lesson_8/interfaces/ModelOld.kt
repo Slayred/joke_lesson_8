@@ -1,6 +1,8 @@
 package com.example.joke_lesson_8
 
-interface Model {
+import com.example.joke_lesson_8.interfaces.JokeCloudCallback
+
+interface ModelOld {
         fun getJoke()
 
         fun initModel(callback: ResultCallBack)
@@ -8,6 +10,16 @@ interface Model {
 
         fun clear()
 }
+
+interface Model{
+
+    fun getJoke()
+
+    fun initModel(callback: JokeCloudCallback)
+
+    fun clear()
+}
+
 interface ResultCallbackOld{
 
     fun provideSuccess(data: Joke)
