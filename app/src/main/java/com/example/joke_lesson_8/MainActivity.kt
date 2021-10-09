@@ -35,10 +35,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.initViewModel(object : DataCallback{
-            override fun provideText(test: String) = runOnUiThread {
+            override fun provideText(text: String) = runOnUiThread {
                 btn.isEnabled  = true
                 progBar.visibility= View.INVISIBLE
-                tView.text = test
+                tView.text = text
             }
 
             override fun provideIconRes(id: Int)  =  runOnUiThread{

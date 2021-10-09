@@ -24,7 +24,7 @@ class TestModelOld(resourceManager: ResourceManager): ModelOld {
 
 
     override fun initModel(callback: ResultCallBack) {
-        this.callBack = callBack
+        this.callBack = callback
     }
 
     override fun clear() {
