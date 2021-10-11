@@ -1,53 +1,40 @@
 package com.example.joke_lesson_8
 
 import com.example.joke_lesson_8.interfaces.DataCallback
+import com.example.joke_lesson_8.interfaces.JokeCallback
 
 
-class ViewModel(private val modelOld: ModelOld) {
+class ViewModel(private val model: Model) {
 
-    private var callback: DataCallback? = null
+    private var dataCallback: DataCallback? = null
+    private val jokeCallback = object : JokeCallback{
+        override fun provide(joke: Joke) {
+            dataCallback?.let {
+                joke.map(it)
+            }
+        }
+    }
 
     fun initViewModel(callback: DataCallback){
-        this.callback = callback
-        modelOld.initModel(
-            object :ResultCallBack{
-                override fun provideJoke(joke: Joke) {
-                    callback.let {
-                        joke.map(it)
-                    }
-//                    callback.run {//it's mean two separate line for each method
-//                        provideIconRes(joke.getIconResId())
-//                        provideText(joke.getJokeUi())
-//                    }
-                }
-
-            }
-//            object : ResultCallbackOld {
-//            override fun provideSuccess(data: BaseJoke) {
-//                callback.provideText(data.getJokeUi())
-//                callback.provideIconRes(data.getIconResId())
-//            }
-//            override fun provideError(error: JokeError) {
-//                val joke = FailedJoke(error.getMessage())
-//                callback.provideText(joke.getJokeUi())
-//                callback.provideIconRes(joke.getIconResId())
-//            }
-//
-//            }
-        )
+        this.dataCallback = callback
+        model.initModel(jokeCallback)
     }
 
     fun getJoke(){
-        modelOld.getJoke()
+        model.getJoke()
     }
 
     fun clear(){
-        callback = null
-        modelOld.clear()
+        dataCallback = null
+        model.clear()
     }
 
     fun chooseFavorites(checked: Boolean) {
 
+    }
+
+    fun changeJokeStatus() {
+        model.changeJokeStatus(jokeCallback)
     }
 
 }

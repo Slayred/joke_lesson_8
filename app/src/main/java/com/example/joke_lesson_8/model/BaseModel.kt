@@ -35,8 +35,14 @@ class BaseModel(
         })
     }
 
-    override fun initModel(callback: JokeCloudCallback) {
-        this.jokeCloudCallback  = callback
+    override fun initModel(callback: JokeCallback) {
+        this.jokeCallback = callback
+    }
+
+    override fun changeJokeStatus(jokeCallback: JokeCallback) {
+        cachedJokeServerModel?.change(cacheDataSource)?.let {
+            jokeCallback.provide(it)
+        }
     }
 
 

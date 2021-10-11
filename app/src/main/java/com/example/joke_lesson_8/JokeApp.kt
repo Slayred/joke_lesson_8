@@ -1,6 +1,10 @@
 package com.example.joke_lesson_8
 
 import android.app.Application
+import com.example.joke_lesson_8.interfaces.CloudDataSoruce
+import com.example.joke_lesson_8.model.BaseModel
+import com.example.joke_lesson_8.model.TestCloudDataSource
+import com.example.joke_lesson_8.source.TestCacheDataSource
 
 class JokeApp: Application() {
 
@@ -15,6 +19,6 @@ class JokeApp: Application() {
 //            .build()
 //        viewModel = ViewModel(
 //            BaseModel(RetrofitFactory.getService("https://yesno.wtf"), ResourceManager(this)))
-        viewModel = ViewModel(TestModelOld(ResourceManager(this)))
+        viewModel = ViewModel(BaseModel(TestCacheDataSource(),TestCloudDataSource(), ResourceManager(this)))
     }
 }

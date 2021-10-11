@@ -7,5 +7,5 @@ import com.example.joke_lesson_8.model.JokeServerModel
 interface JokeCallback {
 
     fun provide(joke: Joke)
-    fun fail(error: ErrorType)
+    //fun fail(error: ErrorType)
 }

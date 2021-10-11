@@ -21,11 +21,14 @@ class MainActivity : AppCompatActivity() {
         var progBar = findViewById<ProgressBar>(R.id.progressBar)
         progBar.visibility = View.INVISIBLE
         val checkBox = findViewById<CheckBox>(R.id.checkBox)
-        val iconImage = findViewById<ImageView>(R.id.iconView)
+        val iconImage = findViewById<ImageButton>(R.id.changeBtn)
 
         checkBox.setOnCheckedChangeListener{_, isChecked ->
             viewModel.chooseFavorites(isChecked)
 
+        }
+        iconImage.setOnClickListener {
+            viewModel.changeJokeStatus()
         }
 
         btn.setOnClickListener{
