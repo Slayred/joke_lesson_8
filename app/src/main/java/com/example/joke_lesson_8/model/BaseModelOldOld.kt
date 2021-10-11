@@ -14,7 +14,7 @@ import javax.net.ssl.SSLHandshakeException
     private var callbackOld: ResultCallbackOld? = null
     private val noConnection by lazy { NoConnection(resourceManager) }
     private val serviceUnavailible by lazy { ServiceUnavailible(resourceManager) }
-    private val SSLerror_exc by lazy { SSLError_exception(resourceManager) }
+    private val SSLerror_exc by lazy { SSLFailure_exception(resourceManager) }
     override fun getJoke() {
         service.getJoke().enqueue(object : retrofit2.Callback<JokeServerModel>{
             override fun onResponse(call: Call<JokeServerModel>, response: Response<JokeServerModel>) {

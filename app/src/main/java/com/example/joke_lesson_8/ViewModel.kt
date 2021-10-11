@@ -29,7 +29,8 @@ class ViewModel(private val model: Model) {
         model.clear()
     }
 
-    fun chooseFavorites(checked: Boolean) {
+    fun chooseFavorites(favorites: Boolean) {
+        model.chooseDataSource(favorites)
 
     }
 

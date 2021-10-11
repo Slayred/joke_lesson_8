@@ -24,6 +24,8 @@ class FailedJoke(text: String): Joke(text,""){
 
 }
 
+
+
 abstract class Joke(private val text: String, private val punchline: String){
     fun getJokeUi() = "$text\n$punchline"
 
@@ -38,23 +40,29 @@ abstract class Joke(private val text: String, private val punchline: String){
 }
 
 
-interface JokeError{
+interface JokeFailure{
     fun getMessage(): String
 }
 
-class NoConnection(private val resourceManager: ResourceManager): JokeError{
+class NoCachedJoke(private val resourceManager: ResourceManager):JokeFailure{
+    override fun getMessage(): String {
+        return resourceManager.getString(R.string.no_cached_joke)
+    }
+}
+
+class NoConnection(private val resourceManager: ResourceManager): JokeFailure{
     override fun getMessage(): String {
         return resourceManager.getString(R.string.no_connection)
     }
 }
 
-class ServiceUnavailible(private val resourceManager: ResourceManager): JokeError {
+class ServiceUnavailible(private val resourceManager: ResourceManager): JokeFailure {
     override fun getMessage(): String {
         return resourceManager.getString(R.string.service_unavailable)
     }
 }
 
-class SSLError_exception(private val resourceManager: ResourceManager): JokeError{
+class SSLFailure_exception(private val resourceManager: ResourceManager): JokeFailure{
     override fun getMessage(): String {
         return resourceManager.getString(R.string.ssl_error)
     }

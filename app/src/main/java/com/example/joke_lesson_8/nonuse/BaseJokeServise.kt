@@ -20,7 +20,6 @@ class BaseJokeService(/*private val gson: Gson*/) {
                 connection = url.openConnection() as HttpURLConnection
                 InputStreamReader(BufferedInputStream(connection.inputStream)).use{
                     val line: String = it.readText()
-                    //val dto = Gson.fromJson(line, JokeDTO::class.java)
                     val dto = Gson().fromJson(line, JokeServerModel::class.java)
                     callback.returnSuccess(dto)
                 }

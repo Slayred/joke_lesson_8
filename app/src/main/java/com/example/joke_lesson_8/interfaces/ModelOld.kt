@@ -1,7 +1,6 @@
 package com.example.joke_lesson_8
 
 import com.example.joke_lesson_8.interfaces.JokeCallback
-import com.example.joke_lesson_8.interfaces.JokeCloudCallback
 
 interface ModelOld {
         fun getJoke()
@@ -21,13 +20,15 @@ interface Model{
     fun changeJokeStatus(jokeCallback: JokeCallback)
 
     fun clear()
+
+    fun chooseDataSource(favorites: Boolean)
 }
 
 interface ResultCallbackOld{
 
     fun provideSuccess(data: Joke)
 
-    fun provideError(error: JokeError)
+    fun provideError(failure: JokeFailure)
 
 }
 
