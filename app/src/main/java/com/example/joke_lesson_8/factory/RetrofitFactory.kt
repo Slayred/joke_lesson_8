@@ -25,7 +25,7 @@ class RetrofitFactory {
               .build()
       }
 
-      fun getService(url: String) = getRetrofitInstance(url).create(JokeService::class.java)
+      fun getService(url: String): JokeService = getRetrofitInstance(url).create(JokeService::class.java)
 
   }
 }

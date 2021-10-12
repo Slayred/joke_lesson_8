@@ -1,10 +1,15 @@
 package com.example.joke_lesson_8
 
 import android.app.Application
+import com.example.joke_lesson_8.factory.RetrofitFactory
 import com.example.joke_lesson_8.interfaces.CloudDataSoruce
 import com.example.joke_lesson_8.model.BaseModel
 import com.example.joke_lesson_8.model.TestCloudDataSource
+import com.example.joke_lesson_8.source.BaseCacheDataSource
+import com.example.joke_lesson_8.source.BaseCloadDataSource
+import com.example.joke_lesson_8.source.BaseRealmCachedDataSource
 import com.example.joke_lesson_8.source.TestCacheDataSource
+import io.realm.Realm
 
 class JokeApp: Application() {
 
@@ -13,12 +18,9 @@ class JokeApp: Application() {
 
     override fun onCreate() {
         super.onCreate()
-//        val retr = Retrofit.Builder()
-//            .baseUrl("https://habr.com/ru/post/314028/")
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .build()
-//        viewModel = ViewModel(
-//            BaseModel(RetrofitFactory.getService("https://yesno.wtf"), ResourceManager(this)))
-        viewModel = ViewModel(BaseModel(TestCacheDataSource(),TestCloudDataSource(), ResourceManager(this)))
+        Realm.init(this)
+        viewModel = ViewModel(BaseModel(BaseRealmCachedDataSource(Realm.getDefaultInstance())
+            ,BaseCloadDataSource(RetrofitFactory.getService(BASE_URL))
+            ,ResourceManager(this)))
     }
 }
