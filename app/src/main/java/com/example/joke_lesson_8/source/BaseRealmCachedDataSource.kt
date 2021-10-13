@@ -1,11 +1,13 @@
 package com.example.joke_lesson_8.source
 
+import androidx.annotation.RequiresPermission
 import com.example.joke_lesson_8.Joke
 import com.example.joke_lesson_8.interfaces.CacheDataSource
 import com.example.joke_lesson_8.interfaces.JokeCachedCallback
 import com.example.joke_lesson_8.model.JokeRealm
 import com.example.joke_lesson_8.model.JokeServerModel
 import io.realm.Realm
+import io.realm.kotlin.delete
 
 class BaseRealmCachedDataSource(private val realm: Realm): CacheDataSource {
     override fun addOrRemove(id: Int, joke: JokeServerModel): Joke {
@@ -19,15 +21,17 @@ class BaseRealmCachedDataSource(private val realm: Realm): CacheDataSource {
                     transaction.insert(newJoke)
                 }
                 joke.toFavoriteJoke()
-            } else{
+            } else {
                 //TODO fix crash with thread
-                it.executeTransactionAsync{
-                    jokeRealm.deleteFromRealm()
+                it.executeTransactionAsync{ trans ->
+                    trans.where(JokeRealm::class.java).equalTo("id",id).findFirst()
+                        ?.deleteFromRealm()
                 }
                 joke.toBaseJoke()
 
             }
         }
+
     }
 
     override fun getJoke(jokeCachedCallback: JokeCachedCallback) {
