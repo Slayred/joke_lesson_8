@@ -3,21 +3,21 @@ package com.example.joke_lesson_8
 import androidx.annotation.DrawableRes
 import com.example.joke_lesson_8.interfaces.DataCallback
 
-class BaseJoke(private var text: String, private val punchline: String) : Joke(text,punchline) {
+class BaseJokeUiModel(private var text: String, private val punchline: String) : JokeUIModel(text,punchline) {
 //    fun getJokeUiOld() = "$text\n$punchline"
     override fun getIconResId(): Int {
          return R.drawable.baseline_favorite_border_24
     }
 }
 
-class FavoriteJoke(text: String, punchline: String): Joke(text,punchline){
+class FavoriteJokeUIModel(text: String, punchline: String): JokeUIModel(text,punchline){
     override fun getIconResId(): Int {
         return R.drawable.baseline_favorite_24
     }
 
 }
 
-class FailedJoke(text: String): Joke(text,""){
+class FailedJokeUIModel(text: String): JokeUIModel(text,""){
     override fun getIconResId(): Int {
         return 0
     }
@@ -26,7 +26,7 @@ class FailedJoke(text: String): Joke(text,""){
 
 
 
-abstract class Joke(private val text: String, private val punchline: String){
+abstract class JokeUIModel(private val text: String, private val punchline: String){
     fun getJokeUi() = "$text\n$punchline"
 
     @DrawableRes

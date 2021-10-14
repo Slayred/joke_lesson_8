@@ -19,19 +19,18 @@ class BaseCloadDataSource(private val service: JokeService): CloudDataSoruce {
                 response: Response<JokeServerModel>
             ) {
                 if(response.isSuccessful){
-                    callback.provide(response.body()!!)
+                    callback.provide(response.body()!!.toJoke())
                 } else{
                     callback.fail(ErrorType.OTHER)
                 }
             }
 
-            override fun onFailure(call: Call<JokeServerModel>, t: Throwable) {
+            override fun onFailure(call: Call<JokeServerModel>, t: Throwable) =
                 if( t is UnknownHostException){
                     callback.fail(ErrorType.NO_CONNECTION)
                 }  else if (t is SSLHandshakeException){
                     callback.fail(ErrorType.SLL_ERROR)
                 } else callback.fail(ErrorType.OTHER)
-            }
 
         })
     }

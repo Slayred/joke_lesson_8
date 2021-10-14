@@ -1,6 +1,6 @@
 package com.example.joke_lesson_8.source
 
-import com.example.joke_lesson_8.Joke
+import com.example.joke_lesson_8.JokeUIModel
 import com.example.joke_lesson_8.interfaces.CacheDataSource
 import com.example.joke_lesson_8.interfaces.JokeCachedCallback
 import com.example.joke_lesson_8.model.JokeServerModel
@@ -10,7 +10,7 @@ class BaseCacheDataSource : CacheDataSource {
     private val list = ArrayList<Pair<Int,JokeServerModel>>()
 
 
-    override fun addOrRemove(id: Int, joke: JokeServerModel): Joke {
+    override fun addOrRemove(id: Int, joke: JokeServerModel): JokeUIModel {
         val found = list.find {
             it.first == id
         }

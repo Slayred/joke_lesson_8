@@ -1,8 +1,7 @@
 package com.example.joke_lesson_8.model
 
-import com.example.joke_lesson_8.BaseJoke
-import com.example.joke_lesson_8.FavoriteJoke
-import com.example.joke_lesson_8.Joke
+import com.example.joke_lesson_8.BaseJokeUiModel
+import com.example.joke_lesson_8.FavoriteJokeUIModel
 import com.example.joke_lesson_8.interfaces.CacheDataSource
 import com.google.gson.annotations.SerializedName
 
@@ -18,9 +17,9 @@ class JokeServerModel (
 
     )
 {
-    fun toBaseJoke() = BaseJoke(setup,punchline)
+    fun toBaseJoke() = BaseJokeUiModel(setup,punchline)
 
-    fun toFavoriteJoke() = FavoriteJoke(setup,punchline)
+    fun toFavoriteJoke() = FavoriteJokeUIModel(setup,punchline)
 
     fun toJokeRealm() : JokeRealm {
         return JokeRealm().also {
@@ -31,5 +30,7 @@ class JokeServerModel (
         }
     }
 
-    fun change(cacheDataSource: CacheDataSource) = cacheDataSource.addOrRemove(id, this)
+    fun toJoke() = Joke(id,type,setup,punchline)
+
+    //fun change(cacheDataSource: CacheDataSource) = cacheDataSource.addOrRemove(id, this)
 }

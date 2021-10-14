@@ -12,9 +12,9 @@ class TestModelOld(resourceManager: ResourceManager): ModelOld {
         Thread{
         Thread.sleep(1000)
             when(count){
-                0 -> callBack?.provideJoke(BaseJoke("testtext","testPunch"))
-                1 -> callBack?.provideJoke(FavoriteJoke("favoriteJoke","favorite joke punh"))
-                2 -> callBack?.provideJoke(FailedJoke(serviceUnavailible.getMessage()))
+                0 -> callBack?.provideJoke(BaseJokeUiModel("testtext","testPunch"))
+                1 -> callBack?.provideJoke(FavoriteJokeUIModel("favoriteJoke","favorite joke punh"))
+                2 -> callBack?.provideJoke(FailedJokeUIModel(serviceUnavailible.getMessage()))
 
             }
             count++

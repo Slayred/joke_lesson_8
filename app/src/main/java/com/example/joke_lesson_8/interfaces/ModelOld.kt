@@ -26,7 +26,7 @@ interface Model{
 
 interface ResultCallbackOld{
 
-    fun provideSuccess(data: Joke)
+    fun provideSuccess(data: JokeUIModel)
 
     fun provideError(failure: JokeFailure)
 
@@ -34,5 +34,5 @@ interface ResultCallbackOld{
 
 interface ResultCallBack{
 
-    fun provideJoke(joke: Joke)
+    fun provideJoke(jokeUIModel: JokeUIModel)
 }
