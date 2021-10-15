@@ -1,6 +1,8 @@
 package com.example.joke_lesson_8
 
 import com.example.joke_lesson_8.model.JokeServerModel
+import com.example.joke_lesson_8.service.ErrorType
+import com.example.joke_lesson_8.service.ServiceCallback
 import com.google.gson.Gson
 import java.io.BufferedInputStream
 import java.io.InputStreamReader

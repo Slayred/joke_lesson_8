@@ -1,11 +1,14 @@
 package com.example.joke_lesson_8.model
 
 import com.example.joke_lesson_8.*
+import com.example.joke_lesson_8.data.Result
 import com.example.joke_lesson_8.interfaces.*
+import com.example.joke_lesson_8.service.ErrorType
+import java.lang.Exception
 
 class BaseModel(
     private val cacheDataSource: CacheDataSource,
-    private val cloudDataSoruce: CloudDataSoruce,
+    private val cloudDataSource: CloudDataSource,
     private val resourceManager: ResourceManager
 ): Model {
 
@@ -18,49 +21,78 @@ class BaseModel(
 
     private var getJokeFromCache = false
 
-    override fun getJoke() {
-        if(getJokeFromCache) {
-            cacheDataSource.getJoke(object : JokeCachedCallback{
-                override fun provide(joke: Joke) {
-                    cachedJoke = joke
-                    jokeCallback?.provide(joke.toFavoriteJoke())
-                }
-
-                override fun fail() {
-                    jokeCallback?.provide((FailedJokeUIModel(noCachedJoke.getMessage())))
-                }
-
-            })
-        }
-        else {
-//            cloudDataSoruce.getJoke(object : JokeCloudCallback{
-//                override fun provide(joke: JokeServerModel) {
+//region beforeCoroutines
+//    override fun getJoke() {
+//        if(getJokeFromCache) {
+//            cacheDataSource.getJoke(object : JokeCachedCallback{
+//                override fun provide(joke: Joke) {
+//                    cachedJoke = joke
+//                    jokeCallback?.provide(joke.toFavoriteJoke())
+//                }
+//
+//                override fun fail() {
+//                    jokeCallback?.provide((FailedJokeUIModel(noCachedJoke.getMessage())))
+//                }
+//
+//            })
+//        }
+//        else {
+////            cloudDataSoruce.getJoke(object : JokeCloudCallback{
+////                override fun provide(joke: JokeServerModel) {
+////                    cachedJoke = joke
+////                    jokeCallback?.provide(joke.toBaseJoke())
+////                }
+////
+////                override fun fail(error: ErrorType) {
+////                    cachedJoke = null
+////                    val failure =
+////                        if (error == ErrorType.NO_CONNECTION) noConnection else serviceUnavailable
+////                    jokeCallback?.provide(FailedJokeUIModel(failure.getMessage()))
+////                }
+////
+////
+////            })
+//            cloudDataSource.getJoke(object : JokeCloudCallback{
+//                override fun provide(joke: Joke) {
 //                    cachedJoke = joke
 //                    jokeCallback?.provide(joke.toBaseJoke())
 //                }
 //
 //                override fun fail(error: ErrorType) {
 //                    cachedJoke = null
-//                    val failure =
-//                        if (error == ErrorType.NO_CONNECTION) noConnection else serviceUnavailable
+//                    val  failure =
+//                        if(error == ErrorType.NO_CONNECTION) noConnection else serviceUnavailable
 //                    jokeCallback?.provide(FailedJokeUIModel(failure.getMessage()))
 //                }
-//
-//
 //            })
-            cloudDataSoruce.getJoke(object : JokeCloudCallback{
-                override fun provide(joke: Joke) {
-                    cachedJoke = joke
-                    jokeCallback?.provide(joke.toBaseJoke())
-                }
+//        }
+//    }
+//endregion
 
-                override fun fail(error: ErrorType) {
-                    cachedJoke = null
-                    val  failure =
-                        if(error == ErrorType.NO_CONNECTION) noConnection else serviceUnavailable
-                    jokeCallback?.provide(FailedJokeUIModel(failure.getMessage()))
+    override suspend fun getJoke(): JokeUIModel {
+        if(getJokeFromCache) {
+           return when (val result = cacheDataSource.getJoke()){
+                is Result.Success<Joke> -> result.data.toFavoriteJoke()
+                is Result.Error<Unit> -> FailedJokeUIModel(noCachedJoke.getMessage())
+            }
+
+        } else {
+            return when (val result = cloudDataSource.getJoke()) {
+                is Result.Success<JokeServerModel> -> {
+                    result.data.toJoke().let {
+                        cachedJoke = it
+                        it.toBaseJoke()
+                    }
                 }
-            })
+                is Result.Error<ErrorType> -> {
+                    cachedJoke = null
+                    var failure: JokeFailure? = when (result.exception) {
+                        ErrorType.NO_CONNECTION -> noConnection
+                        else -> serviceUnavailable
+                    }
+                    FailedJokeUIModel(failure!!.getMessage())
+                }
+            }
         }
     }
 

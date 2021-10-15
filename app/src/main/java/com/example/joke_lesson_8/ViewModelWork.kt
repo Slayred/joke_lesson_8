@@ -1,10 +1,11 @@
 package com.example.joke_lesson_8
 
+import androidx.lifecycle.ViewModel
 import com.example.joke_lesson_8.interfaces.DataCallback
 import com.example.joke_lesson_8.interfaces.JokeCallback
 
 
-class ViewModel(private val model: Model) {
+class ViewModelWork(private val model: Model) : ViewModel() {
 
     private var dataCallback: DataCallback? = null
     private val jokeCallback = object : JokeCallback{
@@ -20,7 +21,7 @@ class ViewModel(private val model: Model) {
         model.initModel(jokeCallback)
     }
 
-    fun getJoke(){
+    suspend fun getJoke(){
         model.getJoke()
     }
 

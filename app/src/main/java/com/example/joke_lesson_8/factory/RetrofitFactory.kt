@@ -1,6 +1,6 @@
 package com.example.joke_lesson_8.factory
 
-import com.example.joke_lesson_8.JokeService
+import com.example.joke_lesson_8.service.JokeService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

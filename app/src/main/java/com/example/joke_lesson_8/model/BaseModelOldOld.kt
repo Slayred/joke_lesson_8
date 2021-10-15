@@ -1,6 +1,7 @@
 package com.example.joke_lesson_8.model
 
 import com.example.joke_lesson_8.*
+import com.example.joke_lesson_8.service.JokeService
 import retrofit2.Call
 import retrofit2.Response
 import java.net.UnknownHostException

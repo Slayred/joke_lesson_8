@@ -13,7 +13,7 @@ interface ModelOld {
 
 interface Model{
 
-    fun getJoke()
+    suspend fun getJoke(): JokeUIModel
 
     fun initModel(callback: JokeCallback)
 

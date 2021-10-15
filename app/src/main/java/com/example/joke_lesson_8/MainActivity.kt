@@ -9,13 +9,13 @@ import com.example.joke_lesson_8.interfaces.DataCallback
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: ViewModel
+    private lateinit var viewModelWork: ViewModelWork
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        viewModel = (application as JokeApp).viewModel
+        viewModelWork = (application as JokeApp).viewModelWork
         var btn = findViewById<Button>(R.id.btnJoke)
         var tView = findViewById<TextView>(R.id.tvJoke)
         var progBar = findViewById<ProgressBar>(R.id.progressBar)
@@ -24,20 +24,20 @@ class MainActivity : AppCompatActivity() {
         val iconImage = findViewById<ImageButton>(R.id.changeBtn)
 
         checkBox.setOnCheckedChangeListener{_, isChecked ->
-            viewModel.chooseFavorites(isChecked)
+            viewModelWork.chooseFavorites(isChecked)
 
         }
         iconImage.setOnClickListener {
-            viewModel.changeJokeStatus()
+            viewModelWork.changeJokeStatus()
         }
 
         btn.setOnClickListener{
             btn.isEnabled = false
             progBar.visibility = View.VISIBLE
-            viewModel.getJoke()
+            viewModelWork.getJoke()
         }
 
-        viewModel.initViewModel(object : DataCallback{
+        viewModelWork.initViewModel(object : DataCallback{
             override fun provideText(text: String) = runOnUiThread {
                 btn.isEnabled  = true
                 progBar.visibility= View.INVISIBLE
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        viewModel.clear()
+        viewModelWork.clear()
         super.onDestroy()
     }
 }
