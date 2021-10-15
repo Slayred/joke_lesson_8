@@ -82,8 +82,8 @@ class BaseModel(
         jokeCallback = null
     }
 
-    override fun chooseDataSource(cached: Boolean) {
-        getJokeFromCache = cached
+    override fun chooseDataSource(favorites: Boolean) {
+        getJokeFromCache = favorites
     }
 
 
