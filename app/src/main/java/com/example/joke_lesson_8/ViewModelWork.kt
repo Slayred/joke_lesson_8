@@ -1,8 +1,10 @@
 package com.example.joke_lesson_8
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.joke_lesson_8.interfaces.DataCallback
 import com.example.joke_lesson_8.interfaces.JokeCallback
+import kotlinx.coroutines.launch
 
 
 class ViewModelWork(private val model: Model) : ViewModel() {
@@ -21,9 +23,14 @@ class ViewModelWork(private val model: Model) : ViewModel() {
         model.initModel(jokeCallback)
     }
 
-    suspend fun getJoke(){
-        model.getJoke()
+    fun getJoke() = viewModelScope.launch {
+        val uiModel = model.getJoke()
+        dataCallback?.let {
+            uiModel.map(it)
+        }
     }
+
+
 
     fun clear(){
         dataCallback = null
@@ -36,7 +43,13 @@ class ViewModelWork(private val model: Model) : ViewModel() {
     }
 
     fun changeJokeStatus() {
-        model.changeJokeStatus(jokeCallback)
+        //model.changeJokeStatus(jokeCallback)
+        viewModelScope.launch {
+            val uiModel = model.changeJokeStatus()
+            dataCallback?.let {
+                uiModel?.map(it)
+            }
+        }
     }
 
 }

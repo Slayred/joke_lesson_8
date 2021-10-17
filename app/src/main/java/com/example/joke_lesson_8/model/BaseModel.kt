@@ -72,8 +72,14 @@ class BaseModel(
     override suspend fun getJoke(): JokeUIModel {
         if(getJokeFromCache) {
            return when (val result = cacheDataSource.getJoke()){
-                is Result.Success<Joke> -> result.data.toFavoriteJoke()
-                is Result.Error<Unit> -> FailedJokeUIModel(noCachedJoke.getMessage())
+                is Result.Success<Joke> -> result.data.let{
+                    cachedJoke = it
+                    it.toFavoriteJoke()
+                }
+                is Result.Error<Unit> -> {
+                    cachedJoke = null
+                    FailedJokeUIModel(noCachedJoke.getMessage())
+                }
             }
 
         } else {
@@ -100,13 +106,14 @@ class BaseModel(
         this.jokeCallback = callback
     }
 
-    override fun changeJokeStatus(jokeCallback: JokeCallback) {
+    override suspend fun changeJokeStatus(): JokeUIModel? {
 //        cachedJoke?.change(cacheDataSource)?.let {
 //            jokeCallback.provide(it)
 //        }
-        cachedJoke?.let {
-            jokeCallback.provide(it.change(cacheDataSource))
-        }
+//        cachedJoke?.let {
+//            jokeCallback.provide(it.change(cacheDataSource))
+//        }
+        return cachedJoke?.change(cacheDataSource)
     }
 
 

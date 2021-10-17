@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModelWork.initViewModel(object : DataCallback{
-            override fun provideText(text: String) = runOnUiThread {
+            override fun provideText(text: String){
                 btn.isEnabled  = true
                 progBar.visibility= View.INVISIBLE
                 tView.text = text

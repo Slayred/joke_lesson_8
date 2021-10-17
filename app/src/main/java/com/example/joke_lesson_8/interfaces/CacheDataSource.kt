@@ -7,8 +7,8 @@ import com.example.joke_lesson_8.model.JokeServerModel
 
 interface CacheDataSource {
 
-    fun addOrRemove(id: Int, joke: Joke): JokeUIModel
+    suspend fun addOrRemove(id: Int, joke: Joke): JokeUIModel
 
     //fun getJoke(jokeCachedCallback: JokeCachedCallback)
-    fun getJoke(): Result<Joke, Unit>
+    suspend fun getJoke(): Result<Joke, Unit>
 }

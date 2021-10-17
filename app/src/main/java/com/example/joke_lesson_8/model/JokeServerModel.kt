@@ -17,20 +17,21 @@ class JokeServerModel (
 
     )
 {
-    fun toBaseJoke() = BaseJokeUiModel(setup,punchline)
-
-    fun toFavoriteJoke() = FavoriteJokeUIModel(setup,punchline)
-
-    fun toJokeRealm() : JokeRealm {
-        return JokeRealm().also {
-            it.id = id
-            it.type = type
-            it.text = setup
-            it.punchline = punchline
-        }
-    }
-
     fun toJoke() = Joke(id,type,setup,punchline)
 
-    //fun change(cacheDataSource: CacheDataSource) = cacheDataSource.addOrRemove(id, this)
+
+//    fun toBaseJoke() = BaseJokeUiModel(setup,punchline)
+//
+//    fun toFavoriteJoke() = FavoriteJokeUIModel(setup,punchline)
+//
+//    fun toJokeRealm() : JokeRealm {
+//        return JokeRealm().also {
+//            it.id = id
+//            it.type = type
+//            it.text = setup
+//            it.punchline = punchline
+//        }
+//    }
+//
+//fun change(cacheDataSource: CacheDataSource) = cacheDataSource.addOrRemove(id, this)
 }

@@ -17,24 +17,24 @@ import javax.net.ssl.SSLHandshakeException
     private val serviceUnavailible by lazy { ServiceUnavailible(resourceManager) }
     private val SSLerror_exc by lazy { SSLFailure_exception(resourceManager) }
     override fun getJoke() {
-        service.getJoke().enqueue(object : retrofit2.Callback<JokeServerModel>{
-            override fun onResponse(call: Call<JokeServerModel>, response: Response<JokeServerModel>) {
-                if(response.isSuccessful){
-                    callbackOld?.provideSuccess(response.body()!!.toBaseJoke())
-                }
-                else callbackOld?.provideError(serviceUnavailible)
-            }
-
-            override fun onFailure(call: Call<JokeServerModel>, t: Throwable) {
-                if(t is UnknownHostException)
-                    callbackOld?.provideError(noConnection)
-                if (t is SSLHandshakeException)
-                    callbackOld?.provideError(SSLerror_exc)
-                else
-                    callbackOld?.provideError(serviceUnavailible)
-            }
-
-        })
+//        service.getJoke().enqueue(object : retrofit2.Callback<JokeServerModel>{
+//            override fun onResponse(call: Call<JokeServerModel>, response: Response<JokeServerModel>) {
+//                if(response.isSuccessful){
+//                    callbackOld?.provideSuccess(response.body()!!.toBaseJoke())
+//                }
+//                else callbackOld?.provideError(serviceUnavailible)
+//            }
+//
+//            override fun onFailure(call: Call<JokeServerModel>, t: Throwable) {
+//                if(t is UnknownHostException)
+//                    callbackOld?.provideError(noConnection)
+//                if (t is SSLHandshakeException)
+//                    callbackOld?.provideError(SSLerror_exc)
+//                else
+//                    callbackOld?.provideError(serviceUnavailible)
+//            }
+//
+//        })
     }
 
     override fun initModel(callback: ResultCallBack) {

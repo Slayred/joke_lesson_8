@@ -17,7 +17,7 @@ interface Model{
 
     fun initModel(callback: JokeCallback)
 
-    fun changeJokeStatus(jokeCallback: JokeCallback)
+    suspend fun changeJokeStatus() : JokeUIModel?
 
     fun clear()
 
