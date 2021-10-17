@@ -2,6 +2,7 @@ package com.example.joke_lesson_8
 
 import androidx.annotation.DrawableRes
 import com.example.joke_lesson_8.interfaces.DataCallback
+import com.example.joke_lesson_8.model.BaseResourceManager
 
 class BaseJokeUiModel(private var text: String, private val punchline: String) : JokeUIModel(text,punchline) {
 //    fun getJokeUiOld() = "$text\n$punchline"
@@ -44,27 +45,27 @@ interface JokeFailure{
     fun getMessage(): String
 }
 
-class NoCachedJoke(private val resourceManager: ResourceManager):JokeFailure{
+class NoCachedJoke(private val baseResourceManager: BaseResourceManager):JokeFailure{
     override fun getMessage(): String {
-        return resourceManager.getString(R.string.no_cached_joke)
+        return baseResourceManager.getString(R.string.no_cached_joke)
     }
 }
 
-class NoConnection(private val resourceManager: ResourceManager): JokeFailure{
+class NoConnection(private val baseResourceManager: BaseResourceManager): JokeFailure{
     override fun getMessage(): String {
-        return resourceManager.getString(R.string.no_connection)
+        return baseResourceManager.getString(R.string.no_connection)
     }
 }
 
-class ServiceUnavailible(private val resourceManager: ResourceManager): JokeFailure {
+class ServiceUnavailible(private val baseResourceManager: BaseResourceManager): JokeFailure {
     override fun getMessage(): String {
-        return resourceManager.getString(R.string.service_unavailable)
+        return baseResourceManager.getString(R.string.service_unavailable)
     }
 }
 
-class SSLFailure_exception(private val resourceManager: ResourceManager): JokeFailure{
+class SSLFailure_exception(private val baseResourceManager: BaseResourceManager): JokeFailure{
     override fun getMessage(): String {
-        return resourceManager.getString(R.string.ssl_error)
+        return baseResourceManager.getString(R.string.ssl_error)
     }
 
 }

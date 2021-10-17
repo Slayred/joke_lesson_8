@@ -1,7 +1,9 @@
-package com.example.joke_lesson_8
+package com.example.joke_lesson_8.model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.joke_lesson_8.JokeUIModel
+import com.example.joke_lesson_8.interfaces.Model
 import com.example.joke_lesson_8.interfaces.DataCallback
 import com.example.joke_lesson_8.interfaces.JokeCallback
 import kotlinx.coroutines.launch

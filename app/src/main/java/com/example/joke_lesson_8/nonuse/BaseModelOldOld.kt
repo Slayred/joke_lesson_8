@@ -1,21 +1,19 @@
-package com.example.joke_lesson_8.model
+package com.example.joke_lesson_8.nonuse
 
 import com.example.joke_lesson_8.*
+import com.example.joke_lesson_8.interfaces.ResultCallBack
+import com.example.joke_lesson_8.model.BaseResourceManager
 import com.example.joke_lesson_8.service.JokeService
-import retrofit2.Call
-import retrofit2.Response
-import java.net.UnknownHostException
-import javax.net.ssl.SSLHandshakeException
 
- class BaseModelOldOld(
+class BaseModelOldOld(
      private val service: JokeService,
-     private val resourceManager: ResourceManager
+     private val baseResourceManager: BaseResourceManager
  ): ModelOld {
 
     private var callbackOld: ResultCallbackOld? = null
-    private val noConnection by lazy { NoConnection(resourceManager) }
-    private val serviceUnavailible by lazy { ServiceUnavailible(resourceManager) }
-    private val SSLerror_exc by lazy { SSLFailure_exception(resourceManager) }
+    private val noConnection by lazy { NoConnection(baseResourceManager) }
+    private val serviceUnavailible by lazy { ServiceUnavailible(baseResourceManager) }
+    private val SSLerror_exc by lazy { SSLFailure_exception(baseResourceManager) }
     override fun getJoke() {
 //        service.getJoke().enqueue(object : retrofit2.Callback<JokeServerModel>{
 //            override fun onResponse(call: Call<JokeServerModel>, response: Response<JokeServerModel>) {

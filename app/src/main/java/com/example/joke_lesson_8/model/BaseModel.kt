@@ -4,17 +4,16 @@ import com.example.joke_lesson_8.*
 import com.example.joke_lesson_8.data.Result
 import com.example.joke_lesson_8.interfaces.*
 import com.example.joke_lesson_8.service.ErrorType
-import java.lang.Exception
 
 class BaseModel(
     private val cacheDataSource: CacheDataSource,
     private val cloudDataSource: CloudDataSource,
-    private val resourceManager: ResourceManager
+    private val baseResourceManager: BaseResourceManager
 ): Model {
 
-    private val noConnection by lazy { NoConnection(resourceManager) }
-    private val serviceUnavailable by  lazy { ServiceUnavailible(resourceManager) }
-    private val noCachedJoke by  lazy { NoCachedJoke(resourceManager) }
+    private val noConnection by lazy { NoConnection(baseResourceManager) }
+    private val serviceUnavailable by  lazy { ServiceUnavailible(baseResourceManager) }
+    private val noCachedJoke by  lazy { NoCachedJoke(baseResourceManager) }
     private var jokeCallback: JokeCallback? = null
 
     private var cachedJoke: Joke? = null

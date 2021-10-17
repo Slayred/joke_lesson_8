@@ -4,6 +4,8 @@ import android.app.Application
 import com.example.joke_lesson_8.factory.BaseRealmProvider
 import com.example.joke_lesson_8.factory.RetrofitFactory
 import com.example.joke_lesson_8.model.BaseModel
+import com.example.joke_lesson_8.model.BaseResourceManager
+import com.example.joke_lesson_8.model.ViewModelWork
 import com.example.joke_lesson_8.source.BaseCloudDataSource
 import com.example.joke_lesson_8.source.BaseCachedDataSource
 import io.realm.Realm
@@ -18,6 +20,7 @@ class JokeApp: Application() {
         Realm.init(this)
         viewModelWork = ViewModelWork(BaseModel(BaseCachedDataSource(BaseRealmProvider())
             ,BaseCloudDataSource(RetrofitFactory.getService(BASE_URL))
-            ,ResourceManager(this)))
+            , BaseResourceManager(this)
+        ))
     }
 }
