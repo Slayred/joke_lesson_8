@@ -1,6 +1,7 @@
 package com.example.joke_lesson_8.interfaces
 
-import com.example.joke_lesson_8.JokeUIModel
+import com.example.joke_lesson_8.data.Result
+import com.example.joke_lesson_8.model.JokeUIModel
 
 interface Model{
 
@@ -13,4 +14,16 @@ interface Model{
     fun clear()
 
     fun chooseDataSource(favorites: Boolean)
+
+
+
 }
+private interface ResultHandler<S,E>{
+    fun handleResult(result: Result<S, E>) : JokeUIModel
+
+
+}
+
+
+
+
