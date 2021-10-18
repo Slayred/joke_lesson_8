@@ -2,7 +2,7 @@ package com.example.joke_lesson_8.model
 
 import com.example.joke_lesson_8.BaseJokeUiModel
 import com.example.joke_lesson_8.FavoriteJokeUIModel
-import com.example.joke_lesson_8.interfaces.CacheDataSource
+import com.example.joke_lesson_8.interfaces.ChangeJokeStatus
 
 class Joke(
     private val id: Int,
@@ -10,7 +10,7 @@ class Joke(
     private val text: String,
     private val punchline: String
 ) {
-    suspend fun change(cachedDataSource: CacheDataSource) = cachedDataSource.addOrRemove(id,this)
+    suspend fun change(cachedDataSource: ChangeJokeStatus) = cachedDataSource.addOrRemove(id,this)
 
     fun toBaseJoke() = BaseJokeUiModel(text,punchline)
 

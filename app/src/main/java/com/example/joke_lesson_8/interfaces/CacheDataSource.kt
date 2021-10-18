@@ -5,10 +5,8 @@ import com.example.joke_lesson_8.data.Result
 import com.example.joke_lesson_8.model.Joke
 import com.example.joke_lesson_8.model.JokeServerModel
 
-interface CacheDataSource {
+interface CacheDataSource : JokeDataFetcher<Joke,Unit>, ChangeJokeStatus {
 
-    suspend fun addOrRemove(id: Int, joke: Joke): JokeUIModel
+    //suspend fun getJoke(): Result<Joke, Unit>
 
-    //fun getJoke(jokeCachedCallback: JokeCachedCallback)
-    suspend fun getJoke(): Result<Joke, Unit>
 }
