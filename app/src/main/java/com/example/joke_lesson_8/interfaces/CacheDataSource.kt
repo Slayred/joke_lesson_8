@@ -4,6 +4,5 @@ import com.example.joke_lesson_8.model.Joke
 
 interface CacheDataSource : JokeDataFetcher<Joke,Unit>, ChangeJokeStatus {
 
-    //suspend fun getJoke(): Result<Joke, Unit>
 
 }

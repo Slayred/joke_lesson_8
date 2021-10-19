@@ -6,5 +6,4 @@ import com.example.joke_lesson_8.data.ErrorType
 
 interface CloudDataSource: JokeDataFetcher<JokeServerModel, ErrorType> {
 
-    //suspend fun getJoke() : Result<JokeServerModel, ErrorType>
 }
