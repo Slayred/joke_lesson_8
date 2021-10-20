@@ -10,7 +10,7 @@ import io.realm.Realm
 
 class JokeApp: Application() {
 
-    lateinit var viewModelWork: ViewModelWork
+    lateinit var mainViewModel: MainViewModel
     private val BASE_URL = "http://92.63.192.103:3005"
     val cachedJoke = BaseCachedJoke()
     val cachedDataSource = BaseCachedDataSource(BaseRealmProvider())
@@ -20,7 +20,7 @@ class JokeApp: Application() {
     override fun onCreate() {
         super.onCreate()
         Realm.init(this)
-        viewModelWork = ViewModelWork(BaseModel(cachedDataSource,
+        mainViewModel = MainViewModel(BaseModel(cachedDataSource,
         CloudResultHandler(cloudDataSource,cachedJoke,NoConnection(resourceManager),ServiceUnavailible(resourceManager),SSLFailure_exception(resourceManager)),
             CacheResultHandler(cachedDataSource,cachedJoke,NoCachedJoke(resourceManager)),
             cachedJoke))

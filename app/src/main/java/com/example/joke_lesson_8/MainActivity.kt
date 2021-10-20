@@ -5,18 +5,18 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import com.example.joke_lesson_8.interfaces.DataCallback
-import com.example.joke_lesson_8.model.ViewModelWork
+import com.example.joke_lesson_8.model.MainViewModel
 
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewModelWork: ViewModelWork
+    private lateinit var mainViewModel: MainViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        viewModelWork = (application as JokeApp).viewModelWork
+        mainViewModel = (application as JokeApp).mainViewModel
         var btn = findViewById<Button>(R.id.btnJoke)
         var tView = findViewById<TextView>(R.id.tvJoke)
         var progBar = findViewById<ProgressBar>(R.id.progressBar)
@@ -25,20 +25,20 @@ class MainActivity : AppCompatActivity() {
         val iconImage = findViewById<ImageButton>(R.id.changeBtn)
 
         checkBox.setOnCheckedChangeListener{_, isChecked ->
-            viewModelWork.chooseFavorites(isChecked)
+            mainViewModel.chooseFavorites(isChecked)
 
         }
         iconImage.setOnClickListener {
-            viewModelWork.changeJokeStatus()
+            mainViewModel.changeJokeStatus()
         }
 
         btn.setOnClickListener{
             btn.isEnabled = false
             progBar.visibility = View.VISIBLE
-            viewModelWork.getJoke()
+            mainViewModel.getJoke()
         }
 
-        viewModelWork.initViewModel(object : DataCallback{
+        mainViewModel.initViewModel(object : DataCallback{
             override fun provideText(text: String){
                 btn.isEnabled  = true
                 progBar.visibility= View.INVISIBLE
@@ -51,8 +51,8 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    override fun onDestroy() {
-        viewModelWork.clear()
-        super.onDestroy()
-    }
+//    override fun onDestroy() {
+//        mainViewModel.clear()
+//        super.onDestroy()
+//    }
 }
