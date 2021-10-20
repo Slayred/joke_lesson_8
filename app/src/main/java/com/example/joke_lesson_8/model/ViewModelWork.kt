@@ -21,7 +21,7 @@ class ViewModelWork(private val model: Model) : ViewModel() {
 
     fun initViewModel(callback: DataCallback){
         this.dataCallback = callback
-        model.initModel(jokeCallback)
+        //model.initModel(jokeCallback)
     }
 
     fun getJoke() = viewModelScope.launch {
@@ -35,7 +35,7 @@ class ViewModelWork(private val model: Model) : ViewModel() {
 
     fun clear(){
         dataCallback = null
-        model.clear()
+        //model.clear()
     }
 
     fun chooseFavorites(favorites: Boolean) {

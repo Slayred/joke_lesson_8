@@ -6,11 +6,11 @@ interface Model{
 
     suspend fun getJoke(): JokeUIModel
 
-    fun initModel(callback: JokeCallback)
+    //fun initModel(callback: JokeCallback)
 
     suspend fun changeJokeStatus() : JokeUIModel?
 
-    fun clear()
+    //fun clear()
 
     fun chooseDataSource(favorites: Boolean)
 
