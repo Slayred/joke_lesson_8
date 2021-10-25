@@ -23,6 +23,6 @@ class JokeApp: Application() {
         mainViewModel = MainViewModel(BaseModel(cachedDataSource,
         CloudResultHandler(cloudDataSource,cachedJoke,NoConnection(resourceManager),ServiceUnavailible(resourceManager),SSLFailure_exception(resourceManager)),
             CacheResultHandler(cachedDataSource,cachedJoke,NoCachedJoke(resourceManager)),
-            cachedJoke))
+            cachedJoke),BaseCommunication())
     }
 }

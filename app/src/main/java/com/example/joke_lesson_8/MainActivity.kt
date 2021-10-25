@@ -38,17 +38,25 @@ class MainActivity : AppCompatActivity() {
             mainViewModel.getJoke()
         }
 
-        mainViewModel.initViewModel(object : DataCallback{
-            override fun provideText(text: String){
-                btn.isEnabled  = true
-                progBar.visibility= View.INVISIBLE
-                tView.text = text
-            }
-
-            override fun provideIconRes(id: Int)  =  runOnUiThread{
-                iconImage.setImageResource(id)
-            }
+        mainViewModel.liveData.observe(this,{
+            (text, drawableResId) ->
+            btn.isEnabled = true
+            progBar.visibility = View.INVISIBLE
+            tView.text = text
+            iconImage.setImageResource(drawableResId)
         })
+
+//        mainViewModel.initViewModel(object : DataCallback{
+//            override fun provideText(text: String){
+//                btn.isEnabled  = true
+//                progBar.visibility= View.INVISIBLE
+//                tView.text = text
+//            }
+//
+//            override fun provideIconRes(id: Int)  =  runOnUiThread{
+//                iconImage.setImageResource(id)
+//            }
+//        })
     }
 
 //    override fun onDestroy() {

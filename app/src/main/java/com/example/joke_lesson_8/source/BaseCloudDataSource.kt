@@ -12,7 +12,7 @@ class BaseCloudDataSource(private val service: JokeService): CloudDataSource {
     override suspend fun getJoke() : Result<JokeServerModel, ErrorType> {
         return try {
             val result = service.getJoke()
-            Result.Success(result)
+                Result.Success(result)
                 } catch (e: Exception) {
             val errorType =  if (e is UnknownHostException) {
                 ErrorType.NO_CONNECTION

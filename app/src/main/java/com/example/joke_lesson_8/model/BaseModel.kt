@@ -27,16 +27,6 @@ class BaseModel(
         return cachedJoke?.change(cacheDataSource)
     }
 
-//    override fun initModel(callback: JokeCallback) {
-//        this.jokeCallback = callback
-//    }
-
-
-
-
-//    override fun clear() {
-//        jokeCallback = null
-//    }
 
 
 
