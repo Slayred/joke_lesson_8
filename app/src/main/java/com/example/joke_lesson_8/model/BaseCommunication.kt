@@ -7,15 +7,19 @@ import com.example.joke_lesson_8.interfaces.Communication
 
 class BaseCommunication: Communication {
 
-    private val liveData = MutableLiveData<Pair<String, Int>>()
+    private val liveData = MutableLiveData<MainViewModel.State>()
 
 
 
-    override fun showData(data: Pair<String, Int>) {
-        liveData.value = data
+//    override fun showData(data: Pair<String, Int>) {
+//        liveData.value = data
+//    }
+
+    override fun showState(state: MainViewModel.State) {
+        liveData.value = state
     }
 
-    override fun observe(owner: LifecycleOwner, observer: Observer<Pair<String, Int>>) {
+    override fun observe(owner: LifecycleOwner, observer: Observer<MainViewModel.State>) {
         liveData.observe(owner, observer)
     }
 }

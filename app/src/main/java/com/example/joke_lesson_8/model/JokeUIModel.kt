@@ -1,8 +1,7 @@
 package com.example.joke_lesson_8.model
 
 import androidx.annotation.DrawableRes
-import com.example.joke_lesson_8.data.Result
-import com.example.joke_lesson_8.interfaces.DataCallback
+import com.example.joke_lesson_8.interfaces.Communication
 
 abstract class JokeUIModel(private val text: String, private val punchline: String){
     fun text() = "$text\n$punchline"
@@ -15,7 +14,10 @@ abstract class JokeUIModel(private val text: String, private val punchline: Stri
 //        provideIconRes(getIconResId())
 //    }
 
-    fun getData() = Pair(text(),getIconResId())
+//    fun getData() = Pair(text(),getIconResId())
+
+   // fun show(communication: Communication) = communication.showData(Pair(text(), getIconResId()))
+    fun show (communication: Communication) = communication.showState(MainViewModel.State.Initial(text(),getIconResId()))
 
 }
 

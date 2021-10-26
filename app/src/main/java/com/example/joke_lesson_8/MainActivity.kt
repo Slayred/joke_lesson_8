@@ -38,12 +38,15 @@ class MainActivity : AppCompatActivity() {
             mainViewModel.getJoke()
         }
 
-        mainViewModel.liveData.observe(this,{
+
+
+        mainViewModel.observe(this, {
             (text, drawableResId) ->
             btn.isEnabled = true
             progBar.visibility = View.INVISIBLE
             tView.text = text
             iconImage.setImageResource(drawableResId)
+
         })
 
 //        mainViewModel.initViewModel(object : DataCallback{
@@ -63,4 +66,11 @@ class MainActivity : AppCompatActivity() {
 //        mainViewModel.clear()
 //        super.onDestroy()
 //    }
+//        mainViewModel.liveData.observe(this,{
+//            (text, drawableResId) ->
+//            btn.isEnabled = true
+//            progBar.visibility = View.INVISIBLE
+//            tView.text = text
+//            iconImage.setImageResource(drawableResId)
+//        })
 }

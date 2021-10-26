@@ -1,5 +1,6 @@
 package com.example.joke_lesson_8.model
 
+import androidx.annotation.DrawableRes
 import androidx.lifecycle.*
 import com.example.joke_lesson_8.interfaces.Communication
 import com.example.joke_lesson_8.interfaces.Model
@@ -12,7 +13,7 @@ class MainViewModel(private val model: Model,
 private val communication: Communication) : ViewModel() {
 
     //private var dataCallback: DataCallback? = null
-    val liveData = MutableLiveData<Pair<String, Int>>()
+    //val liveData = MutableLiveData<Pair<String, Int>>()
 
 //    fun initViewModel(callback: DataCallback){
 //        this.dataCallback = callback
@@ -24,7 +25,8 @@ private val communication: Communication) : ViewModel() {
 //        dataCallback?.let {
 //            uiModel.map(it)
 //        }
-        communication.showData(model.getJoke().getData())
+        communication.showState(State.Progress)
+        model.getJoke().show(communication)
     }
 
 
@@ -39,7 +41,7 @@ private val communication: Communication) : ViewModel() {
 
     }
 
-    fun observe(owner: LifecycleOwner, observer: Observer<Pair<String, Int>>) = communication.observe(owner, observer)
+    fun observe(owner: LifecycleOwner, observer: MainViewModel.State) = communication.observe(owner, Observer<MainViewModel.State>)
 
     fun changeJokeStatus() {
         //model.changeJokeStatus(jokeCallback)
@@ -50,10 +52,12 @@ private val communication: Communication) : ViewModel() {
 //            }
 //        }
         viewModelScope.launch {
-            model.changeJokeStatus()?.let {
-                communication.showData(it.getData())
-            }
+            model.getJoke().show(communication)
         }
+    }
+    sealed class State {
+        object Progress: State()
+        data class Initial(val text: String, @DrawableRes val id: Int) : State()
     }
 
 }
