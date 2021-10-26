@@ -6,11 +6,14 @@ import com.example.joke_lesson_8.interfaces.Communication
 import com.example.joke_lesson_8.interfaces.Model
 import com.example.joke_lesson_8.interfaces.DataCallback
 import com.example.joke_lesson_8.interfaces.JokeCallback
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
 class MainViewModel(private val model: Model,
-private val communication: Communication) : ViewModel() {
+private val communication: Communication,
+private val dispatcher: CoroutineDispatcher = Dispatchers.Main) : ViewModel() {
 
     //private var dataCallback: DataCallback? = null
     //val liveData = MutableLiveData<Pair<String, Int>>()
@@ -20,7 +23,7 @@ private val communication: Communication) : ViewModel() {
 //        //model.initModel(jokeCallback)
 //    }
 
-    fun getJoke() = viewModelScope.launch {
+    fun getJoke() = viewModelScope.launch(dispatcher) {
 //        val uiModel = model.getJoke()
 //        dataCallback?.let {
 //            uiModel.map(it)
@@ -41,7 +44,7 @@ private val communication: Communication) : ViewModel() {
 
     }
 
-    fun observe(owner: LifecycleOwner, observer: MainViewModel.State) = communication.observe(owner, Observer<MainViewModel.State>)
+    fun observe(owner: LifecycleOwner, observer: Observer<MainViewModel.State>) = communication.observe(owner, observer)
 
     fun changeJokeStatus() {
         //model.changeJokeStatus(jokeCallback)
@@ -51,7 +54,7 @@ private val communication: Communication) : ViewModel() {
 //                uiModel?.map(it)
 //            }
 //        }
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
             model.getJoke().show(communication)
         }
     }

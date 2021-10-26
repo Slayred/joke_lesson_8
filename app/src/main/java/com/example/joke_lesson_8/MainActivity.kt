@@ -33,21 +33,37 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn.setOnClickListener{
-            btn.isEnabled = false
-            progBar.visibility = View.VISIBLE
             mainViewModel.getJoke()
+//            btn.isEnabled = false
+//            progBar.visibility = View.VISIBLE
+//            mainViewModel.getJoke()
         }
 
-
-
-        mainViewModel.observe(this, {
-            (text, drawableResId) ->
-            btn.isEnabled = true
-            progBar.visibility = View.INVISIBLE
-            tView.text = text
-            iconImage.setImageResource(drawableResId)
+        mainViewModel.observe(this,{ state ->
+            when(state){
+                MainViewModel.State.Progress -> {
+                    btn.isEnabled = false
+                    progBar.visibility = View.INVISIBLE
+                }
+                is MainViewModel.State.Initial -> {
+                    btn.isEnabled = true
+                    progBar.visibility = View.VISIBLE
+                    tView.text = state.text
+                    iconImage.setImageResource(state.id)
+                }
+            }
 
         })
+
+//
+//        mainViewModel.observe(this, {
+//            (mainViewModel.State) ->
+//            btn.isEnabled = true
+//            progBar.visibility = View.INVISIBLE
+//            tView.text = text
+//            iconImage.setImageResource(drawableResId)
+//
+//        })
 
 //        mainViewModel.initViewModel(object : DataCallback{
 //            override fun provideText(text: String){
