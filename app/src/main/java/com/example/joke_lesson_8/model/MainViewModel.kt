@@ -55,7 +55,7 @@ private val dispatcher: CoroutineDispatcher = Dispatchers.Main) : ViewModel() {
 //            }
 //        }
         viewModelScope.launch(dispatcher) {
-            model.getJoke().show(communication)
+            model.changeJokeStatus()?.show(communication)
         }
     }
     sealed class State {
