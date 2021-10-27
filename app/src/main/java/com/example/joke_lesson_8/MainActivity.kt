@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.*
 import com.example.joke_lesson_8.interfaces.DataCallback
 import com.example.joke_lesson_8.model.MainViewModel
+import com.example.joke_lesson_8.view.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         mainViewModel = (application as JokeApp).mainViewModel
         var btn = findViewById<Button>(R.id.btnJoke)
-        var tView = findViewById<TextView>(R.id.tvJoke)
+        var tView = findViewById<CorrectTextView>(R.id.tvJoke)
         var progBar = findViewById<ProgressBar>(R.id.progressBar)
         progBar.visibility = View.INVISIBLE
         val checkBox = findViewById<CheckBox>(R.id.checkBox)
@@ -40,18 +41,38 @@ class MainActivity : AppCompatActivity() {
         }
 
         mainViewModel.observe(this,{ state ->
-            when(state){
-                MainViewModel.State.Progress -> {
-                    btn.isEnabled = false
-                    progBar.visibility = View.INVISIBLE
+            state.show(
+                object: ShowView{
+                    override fun show(show: Boolean) {
+                        progBar.visibility = if (show) View.VISIBLE else View.INVISIBLE
+                    }
+                },
+                object: EnableView{
+                        override fun enable(enable: Boolean) {
+                            btn.isEnabled = enable
+                        }
+                    },
+                tView,
+                object: ShowImage{
+                    override fun show(id: Int) {
+                        iconImage.setImageResource(id)
+                    }
+
                 }
-                is MainViewModel.State.Initial -> {
-                    btn.isEnabled = true
-                    progBar.visibility = View.VISIBLE
-                    tView.text = state.text
-                    iconImage.setImageResource(state.id)
-                }
-            }
+            )
+//            state.show(progBar, btn, tView, iconImage)
+//            when(state){
+//                MainViewModel.State.Progress -> {
+//                    btn.isEnabled = false
+//                    progBar.visibility = View.INVISIBLE
+//                }
+//                is MainViewModel.State.Initial -> {
+//                    btn.isEnabled = true
+//                    progBar.visibility = View.VISIBLE
+//                    tView.text = state.text
+//                    iconImage.setImageResource(state.id)
+//                }
+//            }
 
         })
 

@@ -20,7 +20,7 @@
         android:orientation="horizontal"
         android:padding="@dimen/padding">
 
-        <TextView
+        <com.example.joke_lesson_8.view.CorrectTextView
             android:id="@+id/tvJoke"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,7 +34,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.05"
             android:background="?selectableItemBackground"
-            app:srcCompat="@android:drawable/ic_input_add" />
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            app:srcCompat="@android:drawable/ic_input_add"
+            tools:ignore="SpeakableTextPresentCheck" />
 
 
     </LinearLayout>

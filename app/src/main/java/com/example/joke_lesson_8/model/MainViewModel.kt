@@ -1,11 +1,19 @@
 package com.example.joke_lesson_8.model
 
+import android.view.View
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.lifecycle.*
 import com.example.joke_lesson_8.interfaces.Communication
 import com.example.joke_lesson_8.interfaces.Model
 import com.example.joke_lesson_8.interfaces.DataCallback
 import com.example.joke_lesson_8.interfaces.JokeCallback
+import com.example.joke_lesson_8.view.EnableView
+import com.example.joke_lesson_8.view.ShowImage
+import com.example.joke_lesson_8.view.ShowText
+import com.example.joke_lesson_8.view.ShowView
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -47,7 +55,7 @@ private val dispatcher: CoroutineDispatcher = Dispatchers.Main) : ViewModel() {
     fun observe(owner: LifecycleOwner, observer: Observer<MainViewModel.State>) = communication.observe(owner, observer)
 
     fun changeJokeStatus() {
-        //model.changeJokeStatus(jokeCallback)
+//        model.changeJokeStatus(jokeCallback)
 //        viewModelScope.launch {
 //            val uiModel = model.changeJokeStatus()
 //            dataCallback?.let {
@@ -59,8 +67,40 @@ private val dispatcher: CoroutineDispatcher = Dispatchers.Main) : ViewModel() {
         }
     }
     sealed class State {
-        object Progress: State()
-        data class Initial(val text: String, @DrawableRes val id: Int) : State()
+
+        abstract fun show(
+            progres: ShowView,
+            button: EnableView,
+            textView: ShowText,
+            imageButton: ShowImage
+
+        )
+
+        object Progress: State() {
+            override fun show(
+                progres: ShowView,
+                button: EnableView,
+                textView: ShowText,
+                imageButton: ShowImage
+            ) {
+                progres.show(true)
+                button.enable(false)
+            }
+        }
+
+        data class Initial(val text: String, @DrawableRes val id: Int) : State() {
+            override fun show(
+                progres: ShowView,
+                button: EnableView,
+                textView: ShowText,
+                imageButton: ShowImage
+            ) {
+                progres.show(false)
+                button.enable(true)
+                textView.show(text)
+                imageButton.show(id)
+            }
+        }
     }
 
 }
