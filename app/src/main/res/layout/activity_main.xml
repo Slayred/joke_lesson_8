@@ -28,7 +28,7 @@
             android:layout_weight="1"
             android:padding="@dimen/padding"/>
 
-        <ImageButton
+        <com.example.joke_lesson_8.view.CorrectImageButton
             android:id="@+id/changeBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,16 +42,17 @@
 
     </LinearLayout>
 
-    <ProgressBar
+    <com.example.joke_lesson_8.view.CorrectProgressBar
         android:id="@+id/progressBar"
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         style="?android:attr/progressBarStyleHorizontal"/>
 
-    <Button
+    <com.example.joke_lesson_8.view.CorrectButton
         android:id="@+id/btnJoke"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:text="@string/get_joke" />
 </LinearLayout>

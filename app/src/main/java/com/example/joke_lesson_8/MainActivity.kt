@@ -18,12 +18,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mainViewModel = (application as JokeApp).mainViewModel
-        var btn = findViewById<Button>(R.id.btnJoke)
+        var btn = findViewById<CorrectButton>(R.id.btnJoke)
         var tView = findViewById<CorrectTextView>(R.id.tvJoke)
-        var progBar = findViewById<ProgressBar>(R.id.progressBar)
+        var progBar = findViewById<CorrectProgressBar>(R.id.progressBar)
         progBar.visibility = View.INVISIBLE
         val checkBox = findViewById<CheckBox>(R.id.checkBox)
-        val iconImage = findViewById<ImageButton>(R.id.changeBtn)
+        val iconImage = findViewById<CorrectImageButton>(R.id.changeBtn)
 
         checkBox.setOnCheckedChangeListener{_, isChecked ->
             mainViewModel.chooseFavorites(isChecked)
@@ -41,25 +41,26 @@ class MainActivity : AppCompatActivity() {
         }
 
         mainViewModel.observe(this,{ state ->
-            state.show(
-                object: ShowView{
-                    override fun show(show: Boolean) {
-                        progBar.visibility = if (show) View.VISIBLE else View.INVISIBLE
-                    }
-                },
-                object: EnableView{
-                        override fun enable(enable: Boolean) {
-                            btn.isEnabled = enable
-                        }
-                    },
-                tView,
-                object: ShowImage{
-                    override fun show(id: Int) {
-                        iconImage.setImageResource(id)
-                    }
-
-                }
-            )
+            state.show(progBar, btn,tView,iconImage)
+//            state.show(
+//                object: ShowView{
+//                    override fun show(show: Boolean) {
+//                        progBar.visibility = if (show) View.VISIBLE else View.INVISIBLE
+//                    }
+//                },
+//                object: EnableView{
+//                        override fun enable(enable: Boolean) {
+//                            btn.isEnabled = enable
+//                        }
+//                    },
+//                tView,
+//                object: ShowImage{
+//                    override fun show(id: Int) {
+//                        iconImage.setImageResource(id)
+//                    }
+//
+//                }
+//            )
 //            state.show(progBar, btn, tView, iconImage)
 //            when(state){
 //                MainViewModel.State.Progress -> {
