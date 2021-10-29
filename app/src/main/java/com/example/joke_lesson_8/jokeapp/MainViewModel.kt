@@ -1,21 +1,21 @@
-package com.example.joke_lesson_8.model
+package com.example.joke_lesson_8.jokeapp
 
 import androidx.annotation.DrawableRes
 import androidx.lifecycle.*
 import com.example.joke_lesson_8.interfaces.Communication
-import com.example.joke_lesson_8.interfaces.Model
-import com.example.joke_lesson_8.view.EnableView
-import com.example.joke_lesson_8.view.ShowImage
-import com.example.joke_lesson_8.view.ShowText
-import com.example.joke_lesson_8.view.ShowView
+import com.example.joke_lesson_8.data.JokeRepository
+import com.example.joke_lesson_8.jokeapp.view.EnableView
+import com.example.joke_lesson_8.jokeapp.view.ShowImage
+import com.example.joke_lesson_8.jokeapp.view.ShowText
+import com.example.joke_lesson_8.jokeapp.view.ShowView
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class MainViewModel(private val model: Model,
-private val communication: Communication,
-private val dispatcher: CoroutineDispatcher = Dispatchers.Main) : ViewModel() {
+class MainViewModel(private val jokeRepository: JokeRepository,
+                    private val communication: Communication,
+                    private val dispatcher: CoroutineDispatcher = Dispatchers.Main) : ViewModel() {
 
     //private var dataCallback: DataCallback? = null
     //val liveData = MutableLiveData<Pair<String, Int>>()
@@ -31,7 +31,7 @@ private val dispatcher: CoroutineDispatcher = Dispatchers.Main) : ViewModel() {
 //            uiModel.map(it)
 //        }
         communication.showState(State.Progress)
-        model.getJoke().show(communication)
+        jokeRepository.getJoke().show(communication)
     }
 
 
@@ -42,11 +42,11 @@ private val dispatcher: CoroutineDispatcher = Dispatchers.Main) : ViewModel() {
 //    }
 
     fun chooseFavorites(favorites: Boolean) {
-        model.chooseDataSource(favorites)
+        jokeRepository.chooseDataSource(favorites)
 
     }
 
-    fun observe(owner: LifecycleOwner, observer: Observer<MainViewModel.State>) = communication.observe(owner, observer)
+    fun observe(owner: LifecycleOwner, observer: Observer<State>) = communication.observe(owner, observer)
 
     fun changeJokeStatus() {
 //        model.changeJokeStatus(jokeCallback)
@@ -57,7 +57,7 @@ private val dispatcher: CoroutineDispatcher = Dispatchers.Main) : ViewModel() {
 //            }
 //        }
         viewModelScope.launch(dispatcher) {
-            model.changeJokeStatus()?.show(communication)
+            jokeRepository.changeJokeStatus()?.show(communication)
         }
     }
     sealed class State {

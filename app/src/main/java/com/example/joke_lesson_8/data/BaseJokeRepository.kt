@@ -1,16 +1,20 @@
-package com.example.joke_lesson_8.model
+package com.example.joke_lesson_8.data
 
 import com.example.joke_lesson_8.*
+import com.example.joke_lesson_8.data.interfaces.CacheDataSource
 import com.example.joke_lesson_8.interfaces.*
+import com.example.joke_lesson_8.model.CacheResultHandler
+import com.example.joke_lesson_8.model.CloudResultHandler
+import com.example.joke_lesson_8.jokeapp.JokeUIModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class BaseModel(
+class BaseJokeRepository(
     private val cacheDataSource: CacheDataSource,
     private val cloudResultHandler: CloudResultHandler,
     private val cacheResultHandler: CacheResultHandler,
     private val cachedJoke: CachedJoke
-): Model {
+): JokeRepository {
 
     private var currentResultHandler: BaseResultHandler<*, *> = cloudResultHandler
 

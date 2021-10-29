@@ -1,4 +1,4 @@
-package com.example.joke_lesson_8.view
+package com.example.joke_lesson_8.jokeapp.view
 
 import android.content.Context
 import android.util.AttributeSet

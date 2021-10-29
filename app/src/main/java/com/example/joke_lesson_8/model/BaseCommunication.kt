@@ -4,6 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.joke_lesson_8.interfaces.Communication
+import com.example.joke_lesson_8.jokeapp.MainViewModel
 
 class BaseCommunication: Communication {
 

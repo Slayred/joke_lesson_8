@@ -1,6 +1,6 @@
 package com.example.joke_lesson_8
 
-import com.example.joke_lesson_8.model.JokeServerModel
+import com.example.joke_lesson_8.data.JokeServerModel
 import com.example.joke_lesson_8.data.ErrorType
 import com.example.joke_lesson_8.nonuse.ServiceCallback
 import com.google.gson.Gson

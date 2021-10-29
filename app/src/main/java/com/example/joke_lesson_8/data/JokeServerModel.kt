@@ -1,8 +1,7 @@
-package com.example.joke_lesson_8.model
+package com.example.joke_lesson_8.data
 
-import com.example.joke_lesson_8.BaseJokeUiModel
-import com.example.joke_lesson_8.FavoriteJokeUIModel
-import com.example.joke_lesson_8.interfaces.CacheDataSource
+import com.example.joke_lesson_8.core.Mapper
+import com.example.joke_lesson_8.jokeapp.Joke
 import com.google.gson.annotations.SerializedName
 
 class JokeServerModel (
@@ -15,9 +14,10 @@ class JokeServerModel (
     @SerializedName("punchline")
     private val punchline: String
 
-    )
+    ) : Mapper<JokeDataModel>
 {
-    fun toJoke() = Joke(id,type,setup,punchline)
+    override fun to() = JokeDataModel(id,type,setup,punchline)
+    //override fun to() = JokeDataModel(id,type,setup,punchline)
 
 
 //    fun toBaseJoke() = BaseJokeUiModel(setup,punchline)

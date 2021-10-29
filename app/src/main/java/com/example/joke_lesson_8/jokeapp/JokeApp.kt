@@ -1,11 +1,12 @@
-package com.example.joke_lesson_8
+package com.example.joke_lesson_8.jokeapp
 
 import android.app.Application
 import com.example.joke_lesson_8.factory.BaseRealmProvider
 import com.example.joke_lesson_8.factory.RetrofitFactory
 import com.example.joke_lesson_8.model.*
-import com.example.joke_lesson_8.source.BaseCloudDataSource
-import com.example.joke_lesson_8.source.BaseCachedDataSource
+import com.example.joke_lesson_8.data.BaseCloudDataSource
+import com.example.joke_lesson_8.data.BaseCachedDataSource
+import com.example.joke_lesson_8.data.BaseJokeRepository
 import io.realm.Realm
 
 class JokeApp: Application() {
@@ -20,9 +21,14 @@ class JokeApp: Application() {
     override fun onCreate() {
         super.onCreate()
         Realm.init(this)
-        mainViewModel = MainViewModel(BaseModel(cachedDataSource,
-        CloudResultHandler(cloudDataSource,cachedJoke,NoConnection(resourceManager),ServiceUnavailible(resourceManager),SSLFailure_exception(resourceManager)),
-            CacheResultHandler(cachedDataSource,cachedJoke,NoCachedJoke(resourceManager)),
+        mainViewModel = MainViewModel(
+            BaseJokeRepository(cachedDataSource,
+        CloudResultHandler(cloudDataSource,cachedJoke,
+            NoConnection(resourceManager),
+            ServiceUnavailible(resourceManager),
+            SSLFailure_exception(resourceManager)
+        ),
+            CacheResultHandler(cachedDataSource,cachedJoke, NoCachedJoke(resourceManager)),
             cachedJoke),BaseCommunication())
     }
 }

@@ -1,8 +1,7 @@
-package com.example.joke_lesson_8.view
+package com.example.joke_lesson_8.jokeapp.view
 
 import android.content.Context
 import android.util.AttributeSet
-import java.util.jar.Attributes
 
 class CorrectTextView: androidx.appcompat.widget.AppCompatTextView, ShowText {
     constructor(context: Context): super(context)

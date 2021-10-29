@@ -1,7 +1,7 @@
 package com.example.joke_lesson_8.nonuse
 
-import com.example.joke_lesson_8.*
 import com.example.joke_lesson_8.interfaces.ResultCallBack
+import com.example.joke_lesson_8.jokeapp.*
 import com.example.joke_lesson_8.model.BaseResourceManager
 
 class TestModelOld(baseResourceManager: BaseResourceManager): ModelOld {

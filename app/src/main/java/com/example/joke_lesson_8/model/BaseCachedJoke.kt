@@ -2,6 +2,8 @@ package com.example.joke_lesson_8.model
 
 import com.example.joke_lesson_8.interfaces.CachedJoke
 import com.example.joke_lesson_8.interfaces.ChangeJokeStatus
+import com.example.joke_lesson_8.jokeapp.Joke
+import com.example.joke_lesson_8.jokeapp.JokeUIModel
 
 class BaseCachedJoke: CachedJoke {
     private var cachedJoke: Joke? = null

@@ -1,12 +1,11 @@
-package com.example.joke_lesson_8
+package com.example.joke_lesson_8.jokeapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import com.example.joke_lesson_8.interfaces.DataCallback
-import com.example.joke_lesson_8.model.MainViewModel
-import com.example.joke_lesson_8.view.*
+import com.example.joke_lesson_8.R
+import com.example.joke_lesson_8.jokeapp.view.*
 
 
 class MainActivity : AppCompatActivity() {

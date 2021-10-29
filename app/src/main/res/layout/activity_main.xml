@@ -20,7 +20,7 @@
         android:orientation="horizontal"
         android:padding="@dimen/padding">
 
-        <com.example.joke_lesson_8.view.CorrectTextView
+        <com.example.joke_lesson_8.jokeapp.view.CorrectTextView
             android:id="@+id/tvJoke"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             android:layout_weight="1"
             android:padding="@dimen/padding"/>
 
-        <com.example.joke_lesson_8.view.CorrectImageButton
+        <com.example.joke_lesson_8.jokeapp.view.CorrectImageButton
             android:id="@+id/changeBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,14 +42,14 @@
 
     </LinearLayout>
 
-    <com.example.joke_lesson_8.view.CorrectProgressBar
+    <com.example.joke_lesson_8.jokeapp.view.CorrectProgressBar
         android:id="@+id/progressBar"
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         style="?android:attr/progressBarStyleHorizontal"/>
 
-    <com.example.joke_lesson_8.view.CorrectButton
+    <com.example.joke_lesson_8.jokeapp.view.CorrectButton
         android:id="@+id/btnJoke"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

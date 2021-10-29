@@ -1,12 +1,13 @@
 package com.example.joke_lesson_8.model
 
-import com.example.joke_lesson_8.FailedJokeUIModel
-import com.example.joke_lesson_8.NoCachedJoke
+import com.example.joke_lesson_8.jokeapp.FailedJokeUIModel
 import com.example.joke_lesson_8.data.Result
 import com.example.joke_lesson_8.interfaces.BaseResultHandler
 import com.example.joke_lesson_8.interfaces.CachedJoke
-import com.example.joke_lesson_8.interfaces.JokeDataFetcher
+import com.example.joke_lesson_8.data.interfaces.JokeDataFetcher
 import com.example.joke_lesson_8.interfaces.JokeFailure
+import com.example.joke_lesson_8.jokeapp.Joke
+import com.example.joke_lesson_8.jokeapp.JokeUIModel
 
 class CacheResultHandler(
     jokeDataFetcher: JokeDataFetcher<Joke, Unit>,

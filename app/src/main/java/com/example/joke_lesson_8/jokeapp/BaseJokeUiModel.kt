@@ -1,8 +1,8 @@
-package com.example.joke_lesson_8
+package com.example.joke_lesson_8.jokeapp
 
+import com.example.joke_lesson_8.R
 import com.example.joke_lesson_8.interfaces.JokeFailure
 import com.example.joke_lesson_8.model.BaseResourceManager
-import com.example.joke_lesson_8.model.JokeUIModel
 
 class BaseJokeUiModel(private var text: String, private val punchline: String) : JokeUIModel(text,punchline) {
 //    fun getJokeUiOld() = "$text\n$punchline"

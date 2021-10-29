@@ -2,7 +2,7 @@ package com.example.joke_lesson_8.interfaces
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import com.example.joke_lesson_8.model.MainViewModel
+import com.example.joke_lesson_8.jokeapp.MainViewModel
 
 interface Communication {
 

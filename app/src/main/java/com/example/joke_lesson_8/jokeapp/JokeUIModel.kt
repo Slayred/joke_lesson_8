@@ -1,4 +1,4 @@
-package com.example.joke_lesson_8.model
+package com.example.joke_lesson_8.jokeapp
 
 import androidx.annotation.DrawableRes
 import com.example.joke_lesson_8.interfaces.Communication
@@ -17,7 +17,12 @@ abstract class JokeUIModel(private val text: String, private val punchline: Stri
 //    fun getData() = Pair(text(),getIconResId())
 
    // fun show(communication: Communication) = communication.showData(Pair(text(), getIconResId()))
-    fun show (communication: Communication) = communication.showState(MainViewModel.State.Initial(text(),getIconResId()))
+    fun show (communication: Communication) = communication.showState(
+       MainViewModel.State.Initial(
+           text(),
+           getIconResId()
+       )
+   )
 
 }
 
