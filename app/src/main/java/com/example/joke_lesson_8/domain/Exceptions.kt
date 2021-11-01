@@ -5,3 +5,4 @@ import java.io.IOException
 class NoConnectionException: IOException()
 class ServiceUnavailableExcxeption: IOException()
 class SSLHandlerException: IOException()
+class NoCachedJokesException: IOException()

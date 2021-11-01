@@ -6,7 +6,7 @@ import com.example.joke_lesson_8.interfaces.BaseResultHandler
 import com.example.joke_lesson_8.interfaces.CachedJoke
 import com.example.joke_lesson_8.data.interfaces.JokeDataFetcher
 import com.example.joke_lesson_8.interfaces.JokeFailure
-import com.example.joke_lesson_8.jokeapp.Joke
+import com.example.joke_lesson_8.domain.Joke
 import com.example.joke_lesson_8.jokeapp.JokeUIModel
 
 class CacheResultHandler(

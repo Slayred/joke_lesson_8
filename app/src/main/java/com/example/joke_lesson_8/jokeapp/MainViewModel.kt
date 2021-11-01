@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.lifecycle.*
 import com.example.joke_lesson_8.interfaces.Communication
 import com.example.joke_lesson_8.data.JokeRepository
+import com.example.joke_lesson_8.data.interfaces.JokeInteractor
 import com.example.joke_lesson_8.jokeapp.view.EnableView
 import com.example.joke_lesson_8.jokeapp.view.ShowImage
 import com.example.joke_lesson_8.jokeapp.view.ShowText
@@ -13,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class MainViewModel(private val jokeRepository: JokeRepository,
+class MainViewModel(private val intercator: JokeInteractor,
                     private val communication: Communication,
                     private val dispatcher: CoroutineDispatcher = Dispatchers.Main) : ViewModel() {
 
@@ -26,12 +27,14 @@ class MainViewModel(private val jokeRepository: JokeRepository,
 //    }
 
     fun getJoke() = viewModelScope.launch(dispatcher) {
+        communication.showState(State.Progress)
+        intercator.getJoke().to().show(communication)
 //        val uiModel = model.getJoke()
 //        dataCallback?.let {
 //            uiModel.map(it)
 //        }
-        communication.showState(State.Progress)
-        jokeRepository.getJoke().show(communication)
+//        communication.showState(State.Progress)
+//        jokeRepository.getJoke().show(communication)
     }
 
 

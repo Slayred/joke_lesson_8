@@ -5,15 +5,14 @@ import com.example.joke_lesson_8.data.interfaces.JokeService
 import com.example.joke_lesson_8.domain.NoConnectionException
 import com.example.joke_lesson_8.domain.SSLHandlerException
 import com.example.joke_lesson_8.domain.ServiceUnavailableExcxeption
-import com.example.joke_lesson_8.jokeapp.NoConnection
 import java.lang.Exception
 import java.net.UnknownHostException
-import javax.net.ssl.SSLHandshakeException
 
 class BaseCloudDataSource(private val service: JokeService): CloudDataSource {
     override suspend fun getJoke(): JokeDataModel {
         return try {
-            return service.getJoke().to()
+            //TODO Fix service
+            return service.getJokeFromAPI().to()
 
         } catch (e: Exception) {
             when(e){

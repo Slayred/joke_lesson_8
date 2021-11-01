@@ -1,7 +1,6 @@
 package com.example.joke_lesson_8.data
 
 import com.example.joke_lesson_8.core.Mapper
-import com.example.joke_lesson_8.jokeapp.Joke
 import com.google.gson.annotations.SerializedName
 
 class JokeServerModel (

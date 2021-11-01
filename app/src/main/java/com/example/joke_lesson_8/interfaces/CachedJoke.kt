@@ -1,8 +1,8 @@
 package com.example.joke_lesson_8.interfaces
 
-import com.example.joke_lesson_8.jokeapp.Joke
+import com.example.joke_lesson_8.data.JokeDataModel
 
 interface CachedJoke : ChangeJoke {
-    fun saveJoke(joke: Joke)
+    fun saveJoke(joke: JokeDataModel)
     fun clear()
 }

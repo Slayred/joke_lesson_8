@@ -6,4 +6,5 @@
     <string name="ssl_error">SSL ERROR</string>
     <string name="show_favorite_joke">Show Favorite Joke</string>
     <string name="no_cached_joke">No favorites joke! Add one by heart icon</string>
+    <string name="generic_fail_messages">FAILEEEE</string>
 </resources>

@@ -3,7 +3,7 @@ package com.example.joke_lesson_8.nonuse
 import com.example.joke_lesson_8.jokeapp.JokeUIModel
 import com.example.joke_lesson_8.data.Result
 import com.example.joke_lesson_8.data.interfaces.CacheDataSource
-import com.example.joke_lesson_8.jokeapp.Joke
+import com.example.joke_lesson_8.domain.Joke
 
 class BaseCacheDataSourceOld : CacheDataSource {
 

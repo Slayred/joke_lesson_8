@@ -2,8 +2,9 @@ package com.example.joke_lesson_8.data
 
 import com.example.joke_lesson_8.data.interfaces.CacheDataSource
 import com.example.joke_lesson_8.data.interfaces.RealmProvider
+import com.example.joke_lesson_8.domain.NoCachedJokesException
 import com.example.joke_lesson_8.jokeapp.JokeUIModel
-import com.example.joke_lesson_8.jokeapp.Joke
+import com.example.joke_lesson_8.domain.Joke
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -11,7 +12,12 @@ import kotlinx.coroutines.withContext
 class BaseCachedDataSource(private val realmProvider: RealmProvider): CacheDataSource {
 
     override suspend fun getJoke(): JokeDataModel {
-        TODO("Not yet implemented")
+        realmProvider.provide().use{
+            val jokes = it.where(JokeRealmModel::class.java).findAll()
+            if(jokes.isEmpty()){
+                throw NoCachedJokesException()
+            } else return  jokes.random().to()
+        }
     }
 
 
