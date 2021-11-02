@@ -11,4 +11,6 @@ interface Communication {
     fun showState(state: MainViewModel.State)
 
     fun observe(owner: LifecycleOwner, observer: Observer<MainViewModel.State>)
+
+    fun isState(type: Int): Boolean
 }

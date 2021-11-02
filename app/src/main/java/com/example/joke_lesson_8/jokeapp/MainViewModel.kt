@@ -44,8 +44,9 @@ class MainViewModel(private val intercator: JokeInteractor,
 //        //model.clear()
 //    }
 
-    fun chooseFavorites(favorites: Boolean) {
-        jokeRepository.chooseDataSource(favorites)
+    suspend fun chooseFavorites(favorites: Boolean) {
+        intercator.getFavoriteJokes(favorites)
+//        jokeRepository.chooseDataSource(favorites)
 
     }
 
@@ -60,10 +61,22 @@ class MainViewModel(private val intercator: JokeInteractor,
 //            }
 //        }
         viewModelScope.launch(dispatcher) {
-            jokeRepository.changeJokeStatus()?.show(communication)
+//            jokeRepository.changeJokeStatus()?.show(communication)
+//        }
+            if (communication.isState(State.INITIAL))
+                intercator.changeFavourites().to().show(communication)
         }
     }
     sealed class State {
+
+        protected abstract val type: Int
+        companion object {
+            const val INITIAL = 0
+            const val PROGRESS = 1
+            const val FAILED = 2
+        }
+
+        fun isType(type: Int): Boolean = this.type == type
 
         fun show(
             progress: ShowView,
@@ -78,7 +91,9 @@ class MainViewModel(private val intercator: JokeInteractor,
         protected open fun show(progress: ShowView, button: EnableView){}
         protected open fun show(textView: ShowText, imageButton: ShowImage) {}
 
-        object Progress: State() {
+        object Progress : State() {
+            override val type = PROGRESS
+
             override fun show(
                 progress: ShowView,
                 button: EnableView
@@ -88,11 +103,9 @@ class MainViewModel(private val intercator: JokeInteractor,
             }
         }
 
-        data class Initial(val text: String, @DrawableRes val id: Int) : State() {
-            override fun show(
-                progress: ShowView,
-                button: EnableView,
-            ) {
+
+        abstract class Info(private val text: String, @DrawableRes private val id: Int): State(){
+            override fun show(progress: ShowView, button: EnableView) {
                 progress.show(false)
                 button.enable(true)
             }
@@ -101,7 +114,32 @@ class MainViewModel(private val intercator: JokeInteractor,
                 textView.show(text)
                 imageButton.show(id)
             }
+
         }
+
+
+        class Initial(val text: String, @DrawableRes private val id: Int): Info(text, id) {
+            override val type = INITIAL
+        }
+
+        class Failed(text: String, @DrawableRes private val id: Int): Info(text, id){
+            override val type = FAILED
+        }
+
+//         class Initial(val text: String, @DrawableRes val id: Int) : State() {
+//            override fun show(
+//                progress: ShowView,
+//                button: EnableView,
+//            ) {
+//                progress.show(false)
+//                button.enable(true)
+//            }
+//
+//            override fun show(textView: ShowText, imageButton: ShowImage) {
+//                textView.show(text)
+//                imageButton.show(id)
+//            }
+//        }
     }
 
 }

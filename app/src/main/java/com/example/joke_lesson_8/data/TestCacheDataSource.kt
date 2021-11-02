@@ -8,7 +8,7 @@ class TestCacheDataSource: CacheDataSource {
 
     private val  map = HashMap<Int, Joke>()
 
-    override suspend fun addOrRemove(id: Int, joke: Joke): JokeUIModel {
+    override suspend fun addOrRemove(id: Int, joke: JokeDataModel): JokeUIModel {
         return if (map.containsKey(id)){
             val  jokeFind = map[id]!!.toBaseJoke()
             map.remove(id)

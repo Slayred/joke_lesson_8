@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import com.example.joke_lesson_8.interfaces.Communication
 
 abstract class JokeUIModel(private val text: String, private val punchline: String){
-    fun text() = "$text\n$punchline"
+    protected open fun text() = "$text\n$punchline"
 
     @DrawableRes
     abstract fun getIconResId():Int
@@ -17,7 +17,7 @@ abstract class JokeUIModel(private val text: String, private val punchline: Stri
 //    fun getData() = Pair(text(),getIconResId())
 
    // fun show(communication: Communication) = communication.showData(Pair(text(), getIconResId()))
-    fun show (communication: Communication) = communication.showState(
+    open fun show (communication: Communication) = communication.showState(
        MainViewModel.State.Initial(
            text(),
            getIconResId()

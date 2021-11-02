@@ -1,6 +1,7 @@
 package com.example.joke_lesson_8.jokeapp
 
 import com.example.joke_lesson_8.R
+import com.example.joke_lesson_8.interfaces.Communication
 import com.example.joke_lesson_8.interfaces.JokeFailure
 import com.example.joke_lesson_8.interfaces.ResourceManager
 import com.example.joke_lesson_8.model.BaseResourceManager
@@ -19,10 +20,12 @@ class FavoriteJokeUIModel(text: String, punchline: String): JokeUIModel(text,pun
 
 }
 
-class FailedJokeUIModel(text: String): JokeUIModel(text,""){
-    override fun getIconResId(): Int {
-        return 0
-    }
+class FailedJokeUIModel(private val text: String): JokeUIModel(text,""){
+    override fun getIconResId() = 0
+    override fun text() = text
+    override fun show(communication: Communication) = communication.showState(
+        MainViewModel.State.Failed(text(),getIconResId())
+    )
 
 }
 

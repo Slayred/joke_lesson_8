@@ -4,7 +4,6 @@ import com.example.joke_lesson_8.data.interfaces.CacheDataSource
 import com.example.joke_lesson_8.data.interfaces.RealmProvider
 import com.example.joke_lesson_8.domain.NoCachedJokesException
 import com.example.joke_lesson_8.jokeapp.JokeUIModel
-import com.example.joke_lesson_8.domain.Joke
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -21,7 +20,7 @@ class BaseCachedDataSource(private val realmProvider: RealmProvider): CacheDataS
     }
 
 
-    override suspend fun addOrRemove(id: Int, joke: Joke): JokeUIModel =
+    override suspend fun addOrRemove(id: Int, joke: JokeDataModel): JokeUIModel =
         withContext(Dispatchers.IO){
             realmProvider.provide().use {
                 val jokeRealm = it.where(JokeRealmModel::class.java).equalTo("id",id).findFirst()

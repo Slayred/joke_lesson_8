@@ -13,20 +13,22 @@ import java.lang.Exception
 
 class BaseJokeInteractor (
     private val  repository: JokeRepository,
-    private val resourceManager: ResourceManager
+//    private val resourceManager: ResourceManager
+    private val jokeFailureHandler: JokeFailureHandler
 ): JokeInteractor {
     override suspend fun getJoke(): Joke {
         return try {
             Joke.Success(repository.getJoke().text, repository.getJoke().punchlinle, false)
         } catch (e: Exception){
-            val message = when(e){
-                is NoCachedJokesException -> NoCachedJoke(resourceManager).getMessage()
-                is NoConnectionException -> NoConnection(resourceManager).getMessage()
-                is ServiceUnavailableExcxeption -> ServiceUnavailible(resourceManager).getMessage()
-                is SSLHandlerException -> SSLFailure_exception(resourceManager).getMessage()
-                else -> resourceManager.getString(R.string.generic_fail_messages)
-            }
-            Joke.Failed(message)
+//            val message = when(e){
+//                is NoCachedJokesException -> NoCachedJoke(resourceManager).getMessage()
+//                is NoConnectionException -> NoConnection(resourceManager).getMessage()
+//                is ServiceUnavailableExcxeption -> ServiceUnavailible(resourceManager).getMessage()
+//                is SSLHandlerException -> SSLFailure_exception(resourceManager).getMessage()
+//                else -> resourceManager.getString(R.string.generic_fail_messages)
+//            }
+//            Joke.Failed(message)
+            Joke.Failed(jokeFailureHandler.handle(e))
         }
     }
 
@@ -35,6 +37,6 @@ class BaseJokeInteractor (
     }
 
     override suspend fun getFavoriteJokes(favorites: Boolean) {
-        TODO("Not yet implemented")
+        repository.chooseDataSource(favorites)
     }
 }

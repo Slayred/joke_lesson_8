@@ -1,5 +1,6 @@
 package com.example.joke_lesson_8.nonuse
 
+import com.example.joke_lesson_8.data.JokeDataModel
 import com.example.joke_lesson_8.jokeapp.JokeUIModel
 import com.example.joke_lesson_8.data.Result
 import com.example.joke_lesson_8.data.interfaces.CacheDataSource
@@ -10,7 +11,7 @@ class BaseCacheDataSourceOld : CacheDataSource {
     private val list = ArrayList<Pair<Int, Joke>>()
 
 
-    override suspend fun addOrRemove(id: Int, joke: Joke): JokeUIModel {
+    override suspend fun addOrRemove(id: Int, joke: JokeDataModel): JokeUIModel {
         val found = list.find {
             it.first == id
         }

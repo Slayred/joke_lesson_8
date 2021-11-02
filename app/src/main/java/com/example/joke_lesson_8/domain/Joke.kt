@@ -1,6 +1,7 @@
 package com.example.joke_lesson_8.domain
 
 import com.example.joke_lesson_8.core.Mapper
+import com.example.joke_lesson_8.interfaces.JokeFailure
 import com.example.joke_lesson_8.jokeapp.BaseJokeUiModel
 import com.example.joke_lesson_8.jokeapp.FailedJokeUIModel
 import com.example.joke_lesson_8.jokeapp.FavoriteJokeUIModel
@@ -22,10 +23,14 @@ sealed class Joke : Mapper<JokeUIModel>{
 
     }
 
-    class Failed(private val text: String): Joke(){
+    class Failed(private val failure: JokeFailure): Joke(){
         override fun to(): JokeUIModel {
-            return FailedJokeUIModel(text)
+            return FailedJokeUIModel(failure.getMessage())
         }
+//        override fun to(): JokeUIModel {
+//            return FailedJokeUIModel(text)
+//        }
+
 
     }
 }

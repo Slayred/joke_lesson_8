@@ -23,4 +23,8 @@ class BaseCommunication: Communication {
     override fun observe(owner: LifecycleOwner, observer: Observer<MainViewModel.State>) {
         liveData.observe(owner, observer)
     }
+
+    override fun isState(type: Int): Boolean {
+        return liveData.value?.isType(type) ?: false
+    }
 }
