@@ -9,8 +9,8 @@ open class JokeRealmModel: RealmObject(), Mapper<JokeDataModel> {
     var id: Int = -1
     var text: String = ""
     var punchline: String = ""
-    var type: String = ""
+    //var type: String = ""
 
     //fun toJokeDataModel() = JokeDataModel(id,type, text, punchline)
-    override fun to() = JokeDataModel(id, type, text, punchline)
+    override fun to() = JokeDataModel(id, text, punchline, true)
 }

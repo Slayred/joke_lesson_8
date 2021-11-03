@@ -15,7 +15,7 @@ class JokeServerModel (
 
     ) : Mapper<JokeDataModel>
 {
-    override fun to() = JokeDataModel(id,type,setup,punchline)
+    override fun to() = JokeDataModel(id,setup,punchline)
     //override fun to() = JokeDataModel(id,type,setup,punchline)
 
 

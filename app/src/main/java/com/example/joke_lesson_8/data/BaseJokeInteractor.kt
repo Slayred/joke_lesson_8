@@ -33,7 +33,9 @@ class BaseJokeInteractor (
     }
 
     override suspend fun changeFavourites(): Joke {
-        TODO("Not yet implemented")
+        //TODO NEED TO FIX
+        return Joke.Success(repository.getJoke().text, repository.getJoke().punchlinle, true)
+
     }
 
     override suspend fun getFavoriteJokes(favorites: Boolean) {

@@ -7,21 +7,25 @@ import com.example.joke_lesson_8.domain.Joke
 class TestCacheDataSource: CacheDataSource {
 
     private val  map = HashMap<Int, Joke>()
-
-    override suspend fun addOrRemove(id: Int, joke: JokeDataModel): JokeUIModel {
-        return if (map.containsKey(id)){
-            val  jokeFind = map[id]!!.toBaseJoke()
-            map.remove(id)
-            jokeFind
-        } else{
-            map[id] = joke
-            joke.toFavoriteJoke()
-        }
-    }
-
-    override suspend fun getJoke(): Result<Joke, Unit> {
+    override suspend fun getJoke(): JokeDataModel {
         TODO("Not yet implemented")
     }
+
+    override suspend fun addOrRemove(id: Int, joke: JokeDataModel): JokeDataModel {
+        TODO("Not yet implemented")
+    }
+
+//    override suspend fun addOrRemove(id: Int, joke: JokeDataModel): JokeUIModel {
+//        return if (map.containsKey(id)){
+//            val  jokeFind = map[id]!!.toBaseJoke()
+//            map.remove(id)
+//            jokeFind
+//        } else{
+//            map[id] = joke
+//            joke.toFavoriteJoke()
+//        }
+//    }
+//
 
 
 //    override fun getJoke(jokeCachedCallback: JokeCachedCallback) {

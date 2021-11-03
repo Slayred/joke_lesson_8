@@ -20,22 +20,23 @@ class BaseCachedDataSource(private val realmProvider: RealmProvider): CacheDataS
     }
 
 
-    override suspend fun addOrRemove(id: Int, joke: JokeDataModel): JokeUIModel =
+    override suspend fun addOrRemove(id: Int, joke: JokeDataModel): JokeDataModel =
         withContext(Dispatchers.IO){
             realmProvider.provide().use {
                 val jokeRealm = it.where(JokeRealmModel::class.java).equalTo("id",id).findFirst()
                 return@withContext if (jokeRealm == null){
                     it.executeTransaction{
                         transaction ->
-                        val newJoke = joke.toJokeRealm()
+                        //val newJoke = joke.toJokeRealm()
+                        val newJoke = joke.toRealm()
                         transaction.insert(newJoke)
                     }
-                    joke.toFavoriteJoke()
+                    joke.changeCached(true)
                 } else{
                     it.executeTransaction{
                         jokeRealm.deleteFromRealm()
                     }
-                    joke.toBaseJoke()
+                    joke.changeCached(false)
                 }
             }
         }

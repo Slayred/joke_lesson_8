@@ -1,22 +1,23 @@
 package com.example.joke_lesson_8.model
 
+import com.example.joke_lesson_8.data.JokeDataModel
 import com.example.joke_lesson_8.interfaces.CachedJoke
 import com.example.joke_lesson_8.interfaces.ChangeJokeStatus
-import com.example.joke_lesson_8.domain.Joke
-import com.example.joke_lesson_8.jokeapp.JokeUIModel
+import com.example.joke_lesson_8.interfaces.ChangeJoke
 
 class BaseCachedJoke: CachedJoke {
-    private var cachedJoke: Joke? = null
+    private var cached: ChangeJoke = ChangeJoke.Empty()
 
-    override fun saveJoke(joke: Joke) {
-        cachedJoke = joke
+
+    override fun saveJoke(joke: JokeDataModel) {
+        cached = joke
     }
 
     override fun clear() {
-        cachedJoke = null
+        cached = ChangeJoke.Empty()
     }
 
-    override suspend fun change(changeJokeStatus: ChangeJokeStatus): JokeUIModel? {
-        return cachedJoke?.change(changeJokeStatus)
+    override suspend fun change(changeJokeStatus: ChangeJokeStatus): JokeDataModel? {
+        return cached.change(changeJokeStatus)
     }
 }

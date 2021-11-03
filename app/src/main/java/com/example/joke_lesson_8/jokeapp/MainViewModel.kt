@@ -44,7 +44,7 @@ class MainViewModel(private val intercator: JokeInteractor,
 //        //model.clear()
 //    }
 
-    suspend fun chooseFavorites(favorites: Boolean) {
+    fun chooseFavorites(favorites: Boolean) = viewModelScope.launch  {
         intercator.getFavoriteJokes(favorites)
 //        jokeRepository.chooseDataSource(favorites)
 
