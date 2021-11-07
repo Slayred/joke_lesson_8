@@ -28,7 +28,6 @@ private val mapper: JokerDataModelMapper<JokeRealmModel>): CacheDataSource {
                 return@withContext if (jokeRealm == null){
                     it.executeTransaction{
                         transaction ->
-                        //val newJoke = joke.toJokeRealm()
                         val newJoke = joke.map(mapper)
                         transaction.insert(newJoke)
                     }
