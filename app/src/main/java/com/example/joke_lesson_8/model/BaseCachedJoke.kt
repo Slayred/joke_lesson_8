@@ -17,7 +17,7 @@ class BaseCachedJoke: CachedJoke {
         cached = ChangeJoke.Empty()
     }
 
-    override suspend fun change(changeJokeStatus: ChangeJokeStatus): JokeDataModel? {
+    override suspend fun change(changeJokeStatus: ChangeJokeStatus): JokeDataModel {
         return cached.change(changeJokeStatus)
     }
 }

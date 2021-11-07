@@ -1,24 +1,27 @@
 package com.example.joke_lesson_8.data
 
+import android.util.Log
 import com.example.joke_lesson_8.data.interfaces.CloudDataSource
 import com.example.joke_lesson_8.data.interfaces.JokeService
 import com.example.joke_lesson_8.domain.NoConnectionException
 import com.example.joke_lesson_8.domain.SSLHandlerException
-import com.example.joke_lesson_8.domain.ServiceUnavailableExcxeption
+import com.example.joke_lesson_8.domain.ServiceUnavailableException
 import java.lang.Exception
 import java.net.UnknownHostException
 
 class BaseCloudDataSource(private val service: JokeService): CloudDataSource {
     override suspend fun getJoke(): JokeDataModel {
         return try {
+            Log.d("TAG", "BaseCloudDataSource getJoke()")
             //TODO Fix service
             return service.getJokeFromAPI().to()
 
         } catch (e: Exception) {
+            Log.d("TAG", e.message.toString())
             when(e){
                 is UnknownHostException -> throw NoConnectionException()
                 is SSLHandlerException -> throw SSLHandlerException()
-                else -> throw ServiceUnavailableExcxeption()
+                else -> throw ServiceUnavailableException()
 
             }
         }

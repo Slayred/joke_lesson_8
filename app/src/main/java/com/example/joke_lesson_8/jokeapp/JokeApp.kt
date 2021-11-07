@@ -10,13 +10,16 @@ import io.realm.Realm
 class JokeApp: Application() {
 
     lateinit var mainViewModel: MainViewModel
-    private val BASE_URL = "http://92.63.192.103:3005"
+    //private val BASE_URL = "http://92.63.192.103:3005"
+    private val BASE_URL = "https://karljoke.herokuapp.com"
     //val cachedJoke = BaseCachedJoke()
-    val cachedDataSource = BaseCachedDataSource(BaseRealmProvider())
+    val cachedDataSource = BaseCachedDataSource(BaseRealmProvider(),
+        JokeSuccessMapper.JokeRealmMapper()
+    )
     val resourceManager = BaseResourceManager(this)
     val cloudDataSource = BaseCloudDataSource(RetrofitFactory.getService(BASE_URL))
     val repository = BaseJokeRepository(cachedDataSource, cloudDataSource,BaseCachedJoke())
-    val interactor = BaseJokeInteractor(repository, JokeFailureHandlerFactory(resourceManager))
+    val interactor = BaseJokeInteractor(repository, JokeFailureHandlerFactory(resourceManager), JokeSuccessMapper())
 
 
     override fun onCreate() {

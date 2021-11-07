@@ -6,7 +6,7 @@ interface JokeRepository{
 
     suspend fun getJoke(): JokeDataModel
 
-    suspend fun changeJokeStatus() : JokeDataModel?
+    suspend fun changeJokeStatus() : JokeDataModel
 
     fun chooseDataSource(favorites: Boolean)
 

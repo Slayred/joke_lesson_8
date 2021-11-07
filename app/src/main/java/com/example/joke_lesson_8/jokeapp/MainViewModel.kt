@@ -18,51 +18,23 @@ class MainViewModel(private val intercator: JokeInteractor,
                     private val communication: Communication,
                     private val dispatcher: CoroutineDispatcher = Dispatchers.Main) : ViewModel() {
 
-    //private var dataCallback: DataCallback? = null
-    //val liveData = MutableLiveData<Pair<String, Int>>()
-
-//    fun initViewModel(callback: DataCallback){
-//        this.dataCallback = callback
-//        //model.initModel(jokeCallback)
-//    }
 
     fun getJoke() = viewModelScope.launch(dispatcher) {
         communication.showState(State.Progress)
         intercator.getJoke().to().show(communication)
-//        val uiModel = model.getJoke()
-//        dataCallback?.let {
-//            uiModel.map(it)
-//        }
-//        communication.showState(State.Progress)
-//        jokeRepository.getJoke().show(communication)
     }
 
 
 
-//    fun clear(){
-//        dataCallback = null
-//        //model.clear()
-//    }
 
     fun chooseFavorites(favorites: Boolean) = viewModelScope.launch  {
         intercator.getFavoriteJokes(favorites)
-//        jokeRepository.chooseDataSource(favorites)
-
     }
 
     fun observe(owner: LifecycleOwner, observer: Observer<State>) = communication.observe(owner, observer)
 
     fun changeJokeStatus() {
-//        model.changeJokeStatus(jokeCallback)
-//        viewModelScope.launch {
-//            val uiModel = model.changeJokeStatus()
-//            dataCallback?.let {
-//                uiModel?.map(it)
-//            }
-//        }
         viewModelScope.launch(dispatcher) {
-//            jokeRepository.changeJokeStatus()?.show(communication)
-//        }
             if (communication.isState(State.INITIAL))
                 intercator.changeFavourites().to().show(communication)
         }

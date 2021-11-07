@@ -21,7 +21,7 @@ class JokeFailureHandlerFactory(private val resourceManager: ResourceManager): J
         return when(e){
             is NoCachedJokesException -> NoCachedJoke(resourceManager)
             is NoConnectionException -> NoConnection(resourceManager)
-            is ServiceUnavailableExcxeption -> ServiceUnavailible(resourceManager)
+            is ServiceUnavailableException -> ServiceUnavailible(resourceManager)
             is SSLHandlerException -> SSLFailure_exception(resourceManager)
             else -> GenericError(resourceManager)
         }

@@ -1,7 +1,7 @@
-package com.example.joke_lesson_8.data
+package com.example.joke_lesson_8.nonuse
 
+import com.example.joke_lesson_8.data.JokeDataModel
 import com.example.joke_lesson_8.data.interfaces.CacheDataSource
-import com.example.joke_lesson_8.jokeapp.JokeUIModel
 import com.example.joke_lesson_8.domain.Joke
 
 class TestCacheDataSource: CacheDataSource {

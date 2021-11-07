@@ -8,7 +8,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 
-class BaseCachedDataSource(private val realmProvider: RealmProvider): CacheDataSource {
+class BaseCachedDataSource(private val realmProvider: RealmProvider,
+private val mapper: JokerDataModelMapper<JokeRealmModel>): CacheDataSource {
 
     override suspend fun getJoke(): JokeDataModel {
         realmProvider.provide().use{
@@ -28,7 +29,7 @@ class BaseCachedDataSource(private val realmProvider: RealmProvider): CacheDataS
                     it.executeTransaction{
                         transaction ->
                         //val newJoke = joke.toJokeRealm()
-                        val newJoke = joke.toRealm()
+                        val newJoke = joke.map(mapper)
                         transaction.insert(newJoke)
                     }
                     joke.changeCached(true)

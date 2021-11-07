@@ -1,23 +1,19 @@
-package com.example.joke_lesson_8.model
+package com.example.joke_lesson_8.nonuse
 
-import com.example.joke_lesson_8.jokeapp.FailedJokeUIModel
 import com.example.joke_lesson_8.jokeapp.SSLFailure_exception
 import com.example.joke_lesson_8.data.ErrorType
 import com.example.joke_lesson_8.data.JokeDataModel
 import com.example.joke_lesson_8.data.JokeServerModel
-import com.example.joke_lesson_8.data.Result
-import com.example.joke_lesson_8.interfaces.BaseResultHandler
 import com.example.joke_lesson_8.interfaces.CachedJoke
 import com.example.joke_lesson_8.data.interfaces.JokeDataFetcher
 import com.example.joke_lesson_8.interfaces.JokeFailure
-import com.example.joke_lesson_8.jokeapp.JokeUIModel
 
 class CloudResultHandler(jokeDataFetcher: JokeDataFetcher,
                          private val cachedJoke: CachedJoke, private val noConnection: JokeFailure,
                          private val serviceUnavailable: JokeFailure,
                          private val sslFailureException: SSLFailure_exception
 ) :
-    BaseResultHandler<JokeServerModel, ErrorType>(jokeDataFetcher) {
+    BaseResultHandlerOld<JokeServerModel, ErrorType>(jokeDataFetcher) {
     override fun handleResult(result: JokeDataModel): JokeDataModel {
         TODO("Not yet implemented")
     }
