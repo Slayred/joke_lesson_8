@@ -14,7 +14,10 @@ class BaseCloudDataSource(private val service: JokeService): CloudDataSource {
         return try {
             Log.d("TAG", "BaseCloudDataSource getJoke()")
             //TODO Fix service
-            return service.getJokeFromAPI().to()
+            var t = service.getJokeFromAPI().to()
+            Log.d("TAG", t.toString())
+            //return service.getJokeFromAPI().to()
+            return t
 
         } catch (e: Exception) {
             Log.d("TAG", e.message.toString())
