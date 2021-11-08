@@ -20,9 +20,9 @@ class  JokeRealmMapper: JokerDataModelMapper<JokeRealmModel>{
             cached: Boolean
         ): JokeRealmModel {
            return JokeRealmModel().also { jokeRealmModel ->
-               jokeRealmModel.id
-               jokeRealmModel.text
-               jokeRealmModel.punchline
+               jokeRealmModel.id = id
+               jokeRealmModel.text = text
+               jokeRealmModel.punchline = punchline
            }
         }
 

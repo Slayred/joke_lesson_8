@@ -6,6 +6,7 @@ import com.example.joke_lesson_8.factory.BaseRealmProvider
 import com.example.joke_lesson_8.factory.RetrofitFactory
 import com.example.joke_lesson_8.model.*
 import io.realm.Realm
+import com.example.joke_lesson_8.data.JokeSuccessMapper.*
 
 class JokeApp: Application() {
 
@@ -14,8 +15,7 @@ class JokeApp: Application() {
     private val BASE_URL = "https://karljoke.herokuapp.com"
     //val cachedJoke = BaseCachedJoke()
     val cachedDataSource = BaseCachedDataSource(BaseRealmProvider(),
-        JokeSuccessMapper.JokeRealmMapper()
-    )
+        JokeRealmMapper())
     val resourceManager = BaseResourceManager(this)
     val cloudDataSource = BaseCloudDataSource(RetrofitFactory.getService(BASE_URL))
     val repository = BaseJokeRepository(cachedDataSource, cloudDataSource,BaseCachedJoke())
@@ -25,16 +25,6 @@ class JokeApp: Application() {
     override fun onCreate() {
         super.onCreate()
         Realm.init(this)
-//        mainViewModel = MainViewModel(
-//            BaseJokeRepository(cachedDataSource,
-//            CloudResultHandler(cloudDataSource,cachedJoke,
-//            NoConnection(resourceManager),
-//            ServiceUnavailible(resourceManager),
-//            SSLFailure_exception(resourceManager)
-//        ),
-//            CacheResultHandler(cachedDataSource,cachedJoke, NoCachedJoke(resourceManager)),
-//            cachedJoke),
-//            BaseCommunication())
         mainViewModel = MainViewModel(interactor,BaseCommunication())
     }
 }

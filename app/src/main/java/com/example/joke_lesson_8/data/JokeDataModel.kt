@@ -10,23 +10,12 @@ class JokeDataModel(
     private val punchlinle: String,
     private val cached: Boolean = false
 ): ChangeJoke {
-    override suspend fun change(changeJokeStatus: ChangeJokeStatus): JokeDataModel {
-        return  changeJokeStatus.addOrRemove(id,this)
-    }
+    override suspend fun change(changeJokeStatus: ChangeJokeStatus): JokeDataModel  =  changeJokeStatus.addOrRemove(id,this)
 
     fun <T> map(mapper: JokerDataModelMapper<T>): T {
         return mapper.map(id,text,punchlinle,cached)
 
     }
-//    fun toJoke() = Joke.Success(text, punchlinle, cached)
-//
-//
-//    fun toRealm() = JokeRealmModel().also {
-//        joke ->
-//        joke.id = id
-//        joke.text = text
-//        joke.punchline = punchlinle
-//    }
 
     fun changeCached(cached: Boolean) : JokeDataModel{
         return JokeDataModel(id, text, punchlinle, cached)

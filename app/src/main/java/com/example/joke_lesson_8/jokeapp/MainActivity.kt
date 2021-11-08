@@ -34,80 +34,16 @@ class MainActivity : AppCompatActivity() {
 
         btn.setOnClickListener{
             mainViewModel.getJoke()
-//            btn.isEnabled = false
-//            progBar.visibility = View.VISIBLE
-//            mainViewModel.getJoke()
+
         }
 
         mainViewModel.observe(this,{ state ->
             state.show(progBar, btn,tView,iconImage)
-//            state.show(
-//                object: ShowView{
-//                    override fun show(show: Boolean) {
-//                        progBar.visibility = if (show) View.VISIBLE else View.INVISIBLE
-//                    }
-//                },
-//                object: EnableView{
-//                        override fun enable(enable: Boolean) {
-//                            btn.isEnabled = enable
-//                        }
-//                    },
-//                tView,
-//                object: ShowImage{
-//                    override fun show(id: Int) {
-//                        iconImage.setImageResource(id)
-//                    }
-//
-//                }
-//            )
-//            state.show(progBar, btn, tView, iconImage)
-//            when(state){
-//                MainViewModel.State.Progress -> {
-//                    btn.isEnabled = false
-//                    progBar.visibility = View.INVISIBLE
-//                }
-//                is MainViewModel.State.Initial -> {
-//                    btn.isEnabled = true
-//                    progBar.visibility = View.VISIBLE
-//                    tView.text = state.text
-//                    iconImage.setImageResource(state.id)
-//                }
-//            }
+
 
         })
 
-//
-//        mainViewModel.observe(this, {
-//            (mainViewModel.State) ->
-//            btn.isEnabled = true
-//            progBar.visibility = View.INVISIBLE
-//            tView.text = text
-//            iconImage.setImageResource(drawableResId)
-//
-//        })
 
-//        mainViewModel.initViewModel(object : DataCallback{
-//            override fun provideText(text: String){
-//                btn.isEnabled  = true
-//                progBar.visibility= View.INVISIBLE
-//                tView.text = text
-//            }
-//
-//            override fun provideIconRes(id: Int)  =  runOnUiThread{
-//                iconImage.setImageResource(id)
-//            }
-//        })
     }
 
-//    override fun onDestroy() {
-//        mainViewModel.clear()
-//        super.onDestroy()
-//    }
-//        mainViewModel.liveData.observe(this,{
-//            (text, drawableResId) ->
-//            btn.isEnabled = true
-//            progBar.visibility = View.INVISIBLE
-//            tView.text = text
-//            iconImage.setImageResource(drawableResId)
-//        })
 }

@@ -1,5 +1,6 @@
 package com.example.joke_lesson_8.data
 
+import android.util.Log
 import com.example.joke_lesson_8.data.interfaces.CacheDataSource
 import com.example.joke_lesson_8.data.interfaces.RealmProvider
 import com.example.joke_lesson_8.domain.NoCachedJokesException
@@ -24,6 +25,7 @@ private val mapper: JokerDataModelMapper<JokeRealmModel>): CacheDataSource {
     override suspend fun addOrRemove(id: Int, joke: JokeDataModel): JokeDataModel =
         withContext(Dispatchers.IO){
             realmProvider.provide().use {
+               Log.d("Tag", "id: $id")
                 val jokeRealm = it.where(JokeRealmModel::class.java).equalTo("id",id).findFirst()
                 return@withContext if (jokeRealm == null){
                     it.executeTransaction{
