@@ -14,12 +14,13 @@ class BaseCloudDataSource(private val service: JokeService): CloudDataSource {
         return try {
             Log.d("TAG", "BaseCloudDataSource getJoke()")
             //TODO Fix service
-            var t = service.getJokeFromAPI().to()
+            var t = service.getJokeFromAPI().execute().body()!!.to()
             Log.d("TAG", t.toString())
             //return service.getJokeFromAPI().to()
             return t
 
         } catch (e: Exception) {
+            Log.d("TAG", "getJoke from cloud Exception")
             Log.d("TAG", e.message.toString())
             when(e){
                 is UnknownHostException -> throw NoConnectionException()
