@@ -27,37 +27,7 @@ sealed class Joke : Mapper<JokeUIModel>{
         override fun to(): JokeUIModel {
             return FailedJokeUIModel(failure.getMessage())
         }
-//        override fun to(): JokeUIModel {
-//            return FailedJokeUIModel(text)
-//        }
-
 
     }
 }
 
-//class Joke(
-//    private val id: Int,
-//    private val type: String,
-//    private val text: String,
-//    private val punchline: String
-//):ChangeJoke {
-//
-//    //override suspend fun change(changeJokeStatus: ChangeJokeStatus) = changeJokeStatus.addOrRemove(id,this)
-//
-//    fun toBaseJoke() = BaseJokeUiModel(text,punchline)
-//
-//    fun toFavoriteJoke() = FavoriteJokeUIModel(text,punchline)
-//
-//    fun toJokeRealm() : JokeRealmModel {
-//        return JokeRealmModel().also {
-//            it.id = id
-//            it.type = type
-//            it.text = text
-//            it.punchline = punchline
-//        }
-//    }
-//
-//    override suspend fun change(changeJokeStatus: ChangeJokeStatus): JokeDataModel? {
-//        TODO("Not yet implemented")
-//    }
-//}

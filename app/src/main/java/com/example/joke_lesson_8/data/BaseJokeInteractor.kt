@@ -26,9 +26,7 @@ class BaseJokeInteractor (
     }
 
     override suspend fun changeFavourites(): Joke {
-        //TODO NEED TO FIX╬
         return try {
-            //TODO NEED TO FIX this call must change status
            repository.changeJokeStatus().map(mapper)
         }catch (e: Exception){
             Log.d("TAG","BaseJokeInteractor changeFavourites() \n" +  e.message.toString())

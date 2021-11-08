@@ -13,7 +13,6 @@ class BaseCloudDataSource(private val service: JokeService): CloudDataSource {
     override suspend fun getJoke(): JokeDataModel {
         return try {
             Log.d("TAG", "BaseCloudDataSource getJoke()")
-            //TODO Fix service
             var t = service.getJokeFromAPI().execute().body()!!.to()
             Log.d("TAG", t.toString())
             //return service.getJokeFromAPI().to()
