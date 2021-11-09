@@ -1,6 +1,7 @@
 package com.example.joke_lesson_8.factory
 
 import com.example.joke_lesson_8.data.interfaces.JokeService
+import com.example.joke_lesson_8.data.interfaces.NewJokeService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -25,7 +26,7 @@ class RetrofitFactory {
               .build()
       }
 
-      fun getService(url: String): JokeService = getRetrofitInstance(url).create(JokeService::class.java)
+      fun getService(url: String): NewJokeService = getRetrofitInstance(url).create(NewJokeService::class.java)
 
   }
 }
