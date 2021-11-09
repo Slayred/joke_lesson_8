@@ -13,28 +13,6 @@ import retrofit2.Call
 import java.lang.Exception
 import java.net.UnknownHostException
 
-class BaseCloudDataSourceOld(private val service: JokeService<*>): CloudDataSource {
-    override suspend fun getJoke(): JokeDataModel {
-        return try {
-            Log.d("TAG", "BaseCloudDataSource getJoke()")
-            var t = service.getJokeFromAPI().execute().body()!!.to()
-            Log.d("TAG", t.toString())
-            return t
-
-        } catch (e: Exception) {
-            Log.d("TAG", "getJoke from cloud Exception")
-            Log.d("TAG", e.message.toString())
-            when(e){
-                is UnknownHostException -> throw NoConnectionException()
-                is SSLHandlerException -> throw SSLHandlerException()
-                else -> throw ServiceUnavailableException()
-
-            }
-        }
-    }
-
-}
-
 abstract class BaseCloudDataSource<T: Mapper<JokeDataModel>>: CloudDataSource {
 
     protected abstract fun getJokeServerModel(): Call<T>

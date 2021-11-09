@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import com.example.joke_lesson_8.R
-import com.example.joke_lesson_8.jokeapp.view.*
+import com.example.joke_lesson_8.presentation.CorrectButton
+import com.example.joke_lesson_8.presentation.CorrectImageButton
+import com.example.joke_lesson_8.presentation.CorrectProgressBar
+import com.example.joke_lesson_8.presentation.CorrectTextView
 
 
 class MainActivity : AppCompatActivity() {

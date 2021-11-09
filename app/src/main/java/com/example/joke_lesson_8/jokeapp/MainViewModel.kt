@@ -3,12 +3,11 @@ package com.example.joke_lesson_8.jokeapp
 import androidx.annotation.DrawableRes
 import androidx.lifecycle.*
 import com.example.joke_lesson_8.interfaces.Communication
-import com.example.joke_lesson_8.data.JokeRepository
 import com.example.joke_lesson_8.data.interfaces.JokeInteractor
-import com.example.joke_lesson_8.jokeapp.view.EnableView
-import com.example.joke_lesson_8.jokeapp.view.ShowImage
-import com.example.joke_lesson_8.jokeapp.view.ShowText
-import com.example.joke_lesson_8.jokeapp.view.ShowView
+import com.example.joke_lesson_8.presentation.EnableView
+import com.example.joke_lesson_8.presentation.ShowImage
+import com.example.joke_lesson_8.presentation.ShowText
+import com.example.joke_lesson_8.presentation.ShowView
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
