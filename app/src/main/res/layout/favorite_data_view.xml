@@ -53,6 +53,6 @@
         android:id="@+id/btnJoke"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        style="@style/Theme.Joke_lesson_8"
         android:text="@string/get_joke" />
 </LinearLayout>
