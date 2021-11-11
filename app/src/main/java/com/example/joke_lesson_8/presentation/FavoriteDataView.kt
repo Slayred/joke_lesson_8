@@ -8,6 +8,7 @@ import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import com.example.joke_lesson_8.R
+import com.example.joke_lesson_8.jokeapp.MainViewModel
 
 class FavoriteDataView: LinearLayout {
 
@@ -37,8 +38,23 @@ class FavoriteDataView: LinearLayout {
 //        progressBar = linear.findViewById(R.id.progressBar)
 //        actionButton = linear.findViewById(R.id.btnJoke)
         progressBar = getChildAt(2) as CorrectProgressBar
+        progressBar.visibility = INVISIBLE
         actionButton = getChildAt(3) as CorrectButton
 
     }
+
+    fun listenChanges(block: (checked: Boolean) -> Unit) =
+        checkBox.setOnCheckedChangeListener{_, isChecked->
+            block.invoke(isChecked)
+        }
+
+    fun handleChangeButton(block: () -> Unit) = changeButton.setOnClickListener {
+        block.invoke()
+    }
+    fun handleActionButton(block: () -> Unit) = actionButton.setOnClickListener {
+        block.invoke()
+    }
+
+    fun show(state: MainViewModel.State) = state.show(progressBar,actionButton,textView,changeButton)
 
 }

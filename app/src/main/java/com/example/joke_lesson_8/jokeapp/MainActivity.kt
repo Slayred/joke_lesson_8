@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import com.example.joke_lesson_8.R
-import com.example.joke_lesson_8.presentation.CorrectButton
-import com.example.joke_lesson_8.presentation.CorrectImageButton
-import com.example.joke_lesson_8.presentation.CorrectProgressBar
-import com.example.joke_lesson_8.presentation.CorrectTextView
+import com.example.joke_lesson_8.presentation.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,31 +17,43 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mainViewModel = (application as JokeApp).mainViewModel
-        var btn = findViewById<CorrectButton>(R.id.btnJoke)
-        var tView = findViewById<CorrectTextView>(R.id.tvJoke)
-        var progBar = findViewById<CorrectProgressBar>(R.id.progressBar)
-        progBar.visibility = View.INVISIBLE
-        val checkBox = findViewById<CheckBox>(R.id.checkBox)
-        val iconImage = findViewById<CorrectImageButton>(R.id.changeBtn)
+//        var btn = findViewById<CorrectButton>(R.id.btnJoke)
+//        var tView = findViewById<CorrectTextView>(R.id.tvJoke)
+////        var progBar = findViewById<CorrectProgressBar>(R.id.progressBar)
+//        progBar.visibility = View.INVISIBLE
+//        val checkBox = findViewById<CheckBox>(R.id.checkBox)
+//        val iconImage = findViewById<CorrectImageButton>(R.id.changeBtn)
 
-        checkBox.setOnCheckedChangeListener{_, isChecked ->
-            mainViewModel.chooseFavorites(isChecked)
+        val favoriteDataView = findViewById<FavoriteDataView>(R.id.favoriteDataView)
 
-        }
-        iconImage.setOnClickListener {
-            mainViewModel.changeJokeStatus()
-        }
+        favoriteDataView.listenChanges { isChecked -> mainViewModel.chooseFavorites(isChecked) }
 
-        btn.setOnClickListener{
-            mainViewModel.getJoke()
+        favoriteDataView.handleActionButton { mainViewModel.changeJokeStatus() }
 
-        }
+        favoriteDataView.handleChangeButton { mainViewModel.getJoke() }
 
-        mainViewModel.observe(this,{ state ->
-            state.show(progBar, btn,tView,iconImage)
-
-
+        mainViewModel.observe(this, {state ->
+            favoriteDataView.show(state)
         })
+
+//        checkBox.setOnCheckedChangeListener{_, isChecked ->
+//            mainViewModel.chooseFavorites(isChecked)
+//
+//        }
+//        iconImage.setOnClickListener {
+//            mainViewModel.changeJokeStatus()
+//        }
+
+//        btn.setOnClickListener{
+//            mainViewModel.getJoke()
+//
+//        }
+
+//        mainViewModel.observe(this,{ state ->
+//            state.show(progBar, btn,tView,iconImage)
+//
+//
+//        })
 
 
     }
