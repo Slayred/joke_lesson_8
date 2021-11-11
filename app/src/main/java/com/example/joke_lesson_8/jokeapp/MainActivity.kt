@@ -28,9 +28,9 @@ class MainActivity : AppCompatActivity() {
 
         favoriteDataView.listenChanges { isChecked -> mainViewModel.chooseFavorites(isChecked) }
 
-        favoriteDataView.handleActionButton { mainViewModel.changeJokeStatus() }
+        favoriteDataView.handleActionButton { mainViewModel.getJoke() }
 
-        favoriteDataView.handleChangeButton { mainViewModel.getJoke() }
+        favoriteDataView.handleChangeButton { mainViewModel.changeJokeStatus() }
 
         mainViewModel.observe(this, {state ->
             favoriteDataView.show(state)
