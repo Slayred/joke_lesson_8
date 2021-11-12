@@ -4,7 +4,6 @@ import android.util.Log
 import com.example.joke_lesson_8.data.interfaces.CacheDataSource
 import com.example.joke_lesson_8.data.interfaces.RealmProvider
 import com.example.joke_lesson_8.domain.NoCachedJokesException
-import com.example.joke_lesson_8.jokeapp.JokeUIModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

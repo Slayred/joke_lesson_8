@@ -16,14 +16,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mainViewModel = (application as JokeApp).mainViewModel
-//        var btn = findViewById<CorrectButton>(R.id.btnJoke)
-//        var tView = findViewById<CorrectTextView>(R.id.tvJoke)
-////        var progBar = findViewById<CorrectProgressBar>(R.id.progressBar)
-//        progBar.visibility = View.INVISIBLE
-//        val checkBox = findViewById<CheckBox>(R.id.checkBox)
-//        val iconImage = findViewById<CorrectImageButton>(R.id.changeBtn)
 
         val favoriteDataView = findViewById<FavoriteDataView>(R.id.showJoke)
+
 
         favoriteDataView.listenChanges { isChecked -> mainViewModel.chooseFavorites(isChecked) }
 
@@ -35,24 +30,6 @@ class MainActivity : AppCompatActivity() {
             favoriteDataView.show(state)
         })
 
-//        checkBox.setOnCheckedChangeListener{_, isChecked ->
-//            mainViewModel.chooseFavorites(isChecked)
-//
-//        }
-//        iconImage.setOnClickListener {
-//            mainViewModel.changeJokeStatus()
-//        }
-
-//        btn.setOnClickListener{
-//            mainViewModel.getJoke()
-//
-//        }
-
-//        mainViewModel.observe(this,{ state ->
-//            state.show(progBar, btn,tView,iconImage)
-//
-//
-//        })
 
 
     }
