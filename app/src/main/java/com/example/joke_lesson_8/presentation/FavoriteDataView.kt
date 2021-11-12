@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import com.example.joke_lesson_8.R
 import com.example.joke_lesson_8.jokeapp.MainViewModel
+import io.realm.Realm.init
 
 class FavoriteDataView: LinearLayout {
 
@@ -19,8 +20,12 @@ class FavoriteDataView: LinearLayout {
     private val progressBar: CorrectProgressBar
 
     constructor(context: Context): super(context)
-    constructor(context: Context, attrs: AttributeSet): super(context, attrs)
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int): super(context, attrs, defStyleAttr)
+    constructor(context: Context, attrs: AttributeSet): super(context, attrs) {
+        init(attrs)
+    }
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int): super(context, attrs, defStyleAttr){
+        init(attrs)
+    }
 
     init {
         orientation = VERTICAL
@@ -43,6 +48,7 @@ class FavoriteDataView: LinearLayout {
 
     }
 
+
     fun listenChanges(block: (checked: Boolean) -> Unit) =
         checkBox.setOnCheckedChangeListener{_, isChecked->
             block.invoke(isChecked)
@@ -57,4 +63,16 @@ class FavoriteDataView: LinearLayout {
 
     fun show(state: MainViewModel.State) = state.show(progressBar,actionButton,textView,changeButton)
 
+  private fun init(attrs: AttributeSet){
+        context.theme.obtainStyledAttributes(attrs,R.styleable.FavoriteDataView, 0, 0).apply {
+            try {
+                val actionButtontext = getString(R.styleable.FavoriteDataView_actionButtonText)
+                val checkBoxText =  getString(R.styleable.FavoriteDataView_checkBoxText)
+                actionButton.text = actionButtontext
+                checkBox.text = checkBoxText
+            } finally {
+                recycle()
+            }
+        }
+    }
 }

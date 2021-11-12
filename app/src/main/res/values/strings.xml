@@ -7,4 +7,6 @@
     <string name="show_favorite_joke">Show Favorite Joke</string>
     <string name="no_cached_joke">No favorites joke! Add one by heart icon</string>
     <string name="generic_fail_messages">FAILEEEE</string>
+    <string name="get_quote">GET QUOTE</string>
+    <string name="show_favorite_quote"></string>
 </resources>

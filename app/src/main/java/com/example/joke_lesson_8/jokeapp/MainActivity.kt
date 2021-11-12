@@ -2,7 +2,6 @@ package com.example.joke_lesson_8.jokeapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.*
 import com.example.joke_lesson_8.R
 import com.example.joke_lesson_8.presentation.*
@@ -24,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 //        val checkBox = findViewById<CheckBox>(R.id.checkBox)
 //        val iconImage = findViewById<CorrectImageButton>(R.id.changeBtn)
 
-        val favoriteDataView = findViewById<FavoriteDataView>(R.id.favoriteDataView)
+        val favoriteDataView = findViewById<FavoriteDataView>(R.id.showJoke)
 
         favoriteDataView.listenChanges { isChecked -> mainViewModel.chooseFavorites(isChecked) }
 

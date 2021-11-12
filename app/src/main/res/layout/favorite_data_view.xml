@@ -13,7 +13,7 @@
         android:id="@+id/checkBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/show_favorite_joke" />
+        tools:text="@string/show_favorite_joke" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -55,5 +55,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Theme.Joke_lesson_8"
-        android:text="@string/get_joke" />
+        tools:text="@string/get_joke" />
 </merge>
