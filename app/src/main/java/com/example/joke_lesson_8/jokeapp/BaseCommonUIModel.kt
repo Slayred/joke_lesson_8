@@ -4,6 +4,7 @@ import com.example.joke_lesson_8.R
 import com.example.joke_lesson_8.interfaces.Communication
 import com.example.joke_lesson_8.interfaces.JokeFailure
 import com.example.joke_lesson_8.interfaces.ResourceManager
+import com.example.joke_lesson_8.presentation.State
 
 class BaseCommonUIModel(private var text: String, private val punchline: String) : CommonUIModel(text,punchline) {
 //    fun getJokeUiOld() = "$text\n$punchline"
@@ -23,7 +24,7 @@ class FailedCommonUIModel(private val text: String): CommonUIModel(text,""){
     override fun getIconResId() = 0
     override fun text() = text
     override fun show(communication: Communication) = communication.showState(
-        MainViewModel.State.Failed(text(),getIconResId())
+        State.Failed(text(),getIconResId())
     )
 
 }

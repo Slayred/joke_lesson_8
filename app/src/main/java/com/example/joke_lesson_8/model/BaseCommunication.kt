@@ -4,11 +4,11 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.joke_lesson_8.interfaces.Communication
-import com.example.joke_lesson_8.jokeapp.MainViewModel
+import com.example.joke_lesson_8.presentation.State
 
 class BaseCommunication: Communication {
 
-    private val liveData = MutableLiveData<MainViewModel.State>()
+    private val liveData = MutableLiveData<State>()
 
 
 
@@ -16,11 +16,11 @@ class BaseCommunication: Communication {
 //        liveData.value = data
 //    }
 
-    override fun showState(state: MainViewModel.State) {
+    override fun showState(state: State) {
         liveData.value = state
     }
 
-    override fun observe(owner: LifecycleOwner, observer: Observer<MainViewModel.State>) {
+    override fun observe(owner: LifecycleOwner, observer: Observer<State>) {
         liveData.observe(owner, observer)
     }
 

@@ -2,31 +2,42 @@ package com.example.joke_lesson_8.jokeapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.*
 import com.example.joke_lesson_8.R
 import com.example.joke_lesson_8.presentation.*
 
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mainViewModel: MainViewModel
+    private lateinit var baseViewModel: BaseViewModel
+    private lateinit var quoteViewModel: QuoteViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainViewModel = (application as JokeApp).mainViewModel
+        baseViewModel = (application as JokeApp).baseViewModel
+        quoteViewModel = (application as JokeApp).quoteViewModel
 
         val favoriteDataView = findViewById<FavoriteDataView>(R.id.showJoke)
+        val quoteFavoriteDataView = findViewById<FavoriteDataView>(R.id.showQuote)
 
+        quoteFavoriteDataView.linkWith(quoteViewModel)
+        quoteViewModel.observe(this, {
+            state ->
+            quoteFavoriteDataView.show(state)
+        })
 
-        favoriteDataView.listenChanges { isChecked -> mainViewModel.chooseFavorites(isChecked) }
+        favoriteDataView.linkWith(baseViewModel)
 
-        favoriteDataView.handleActionButton { mainViewModel.getJoke() }
+//region oldListinerForFavoriteDataView
+//        favoriteDataView.listenChanges { isChecked -> mainViewModel.chooseFavorites(isChecked) }
+//
+//        favoriteDataView.handleActionButton { mainViewModel.getJoke() }
+//
+//        favoriteDataView.handleChangeButton { mainViewModel.changeJokeStatus() }
+//endregion
 
-        favoriteDataView.handleChangeButton { mainViewModel.changeJokeStatus() }
-
-        mainViewModel.observe(this, {state ->
+        baseViewModel.observe(this, { state ->
             favoriteDataView.show(state)
         })
 
