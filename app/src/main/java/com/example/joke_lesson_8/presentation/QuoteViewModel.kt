@@ -16,7 +16,7 @@ class QuoteViewModel(
         TODO("Not yet implemented")
     }
 
-    override suspend fun chooseFavorites(favorites: Boolean) {
+    override fun chooseFavorites(favorites: Boolean) {
         TODO("Not yet implemented")
     }
 

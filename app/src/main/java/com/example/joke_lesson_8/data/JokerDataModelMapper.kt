@@ -1,14 +1,14 @@
 package com.example.joke_lesson_8.data
 
-import com.example.joke_lesson_8.domain.Joke
+import com.example.joke_lesson_8.domain.CommonItem
 
 interface JokerDataModelMapper<T> {
     fun map(id: Int, text: String, punchline: String, cached: Boolean): T
 }
 
-class JokeSuccessMapper: JokerDataModelMapper<Joke.Success> {
-    override fun map(id: Int, text: String, punchline: String, cached: Boolean): Joke.Success {
-        return Joke.Success(text, punchline, cached)
+class JokeSuccessMapper: JokerDataModelMapper<CommonItem.Success> {
+    override fun map(id: Int, text: String, punchline: String, cached: Boolean): CommonItem.Success {
+        return CommonItem.Success(text, punchline, cached)
     }
 
 

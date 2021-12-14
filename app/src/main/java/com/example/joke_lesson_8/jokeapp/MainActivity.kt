@@ -27,7 +27,11 @@ class MainActivity : AppCompatActivity() {
             quoteFavoriteDataView.show(state)
         })
 
+
         favoriteDataView.linkWith(baseViewModel)
+        baseViewModel.observe(this, { state ->
+            favoriteDataView.show(state)
+        })
 
 //region oldListinerForFavoriteDataView
 //        favoriteDataView.listenChanges { isChecked -> mainViewModel.chooseFavorites(isChecked) }
@@ -37,9 +41,7 @@ class MainActivity : AppCompatActivity() {
 //        favoriteDataView.handleChangeButton { mainViewModel.changeJokeStatus() }
 //endregion
 
-        baseViewModel.observe(this, { state ->
-            favoriteDataView.show(state)
-        })
+
 
 
 

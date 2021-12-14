@@ -7,6 +7,6 @@ interface CommonViewModel {
 
     fun getItem()
     fun changeStatus()
-    suspend fun  chooseFavorites(favorites: Boolean)
+    fun  chooseFavorites(favorites: Boolean)
     fun observe(owner: LifecycleOwner, observer: Observer<State>)
 }

@@ -30,14 +30,9 @@ class FavoriteDataView: LinearLayout {
         .inflate(R.layout.favorite_data_view,this,true)
 
         val linear = getChildAt(1) as LinearLayout
-        //checkBox = linear.findViewById(R.id.checkBox)
         checkBox = getChildAt(0) as CheckBox
-        //textView = linear.findViewById(R.id.tvJoke)
-        //changeButton = linear.findViewById(R.id.changeBtn)
         textView = linear.findViewById(R.id.tvJoke)
         changeButton = linear.findViewById(R.id.changeBtn)
-//        progressBar = linear.findViewById(R.id.progressBar)
-//        actionButton = linear.findViewById(R.id.btnJoke)
         progressBar = getChildAt(2) as CorrectProgressBar
         progressBar.visibility = INVISIBLE
         actionButton = getChildAt(3) as CorrectButton

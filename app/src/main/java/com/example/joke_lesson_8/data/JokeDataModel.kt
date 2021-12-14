@@ -1,6 +1,5 @@
 package com.example.joke_lesson_8.data
 
-import com.example.joke_lesson_8.domain.Joke
 import com.example.joke_lesson_8.interfaces.ChangeJoke
 import com.example.joke_lesson_8.interfaces.ChangeJokeStatus
 

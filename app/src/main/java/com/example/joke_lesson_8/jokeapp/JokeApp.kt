@@ -16,14 +16,13 @@ class JokeApp: Application() {
     lateinit var quoteViewModel: QuoteViewModel
     //private val BASE_URL = "http://92.63.192.103:3005"
     private val BASE_URL = "https://karljoke.herokuapp.com"
-    //val cachedJoke = BaseCachedJoke()
     val cachedDataSource = BaseCachedDataSource(BaseRealmProvider(),
         JokeRealmMapper())
     val resourceManager = BaseResourceManager(this)
     //val cloudDataSource = BaseCloudDataSourceOld(RetrofitFactory.getService(BASE_URL))
     val cloudDataSource = NewJokeCloudDataSource(RetrofitFactory.getService(BASE_URL))
     val repository = BaseJokeRepository(cachedDataSource, cloudDataSource,BaseCachedJoke())
-    val interactor = BaseJokeInteractor(repository, JokeFailureHandlerFactory(resourceManager), JokeSuccessMapper())
+    val interactor = BaseCommonIntercator(repository, JokeFailureHandlerFactory(resourceManager), JokeSuccessMapper())
 //endregion
 
 
