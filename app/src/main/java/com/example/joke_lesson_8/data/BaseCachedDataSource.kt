@@ -9,9 +9,9 @@ import kotlinx.coroutines.withContext
 
 
 class BaseCachedDataSource(private val realmProvider: RealmProvider,
-private val mapper: JokerDataModelMapper<JokeRealmModel>): CacheDataSource {
+private val mapper: CommonDataModelMapper<JokeRealmModel>): CacheDataSource {
 
-    override suspend fun getJoke(): JokeDataModel {
+    override suspend fun getJoke(): CommonDataModel {
         realmProvider.provide().use{
             val jokes = it.where(JokeRealmModel::class.java).findAll()
             if(jokes.isEmpty()){
@@ -21,7 +21,7 @@ private val mapper: JokerDataModelMapper<JokeRealmModel>): CacheDataSource {
     }
 
 
-    override suspend fun addOrRemove(id: Int, joke: JokeDataModel): JokeDataModel =
+    override suspend fun addOrRemove(id: Int, common: CommonDataModel): CommonDataModel =
         withContext(Dispatchers.IO){
             realmProvider.provide().use {
                Log.d("Tag", "id: $id")
@@ -29,15 +29,15 @@ private val mapper: JokerDataModelMapper<JokeRealmModel>): CacheDataSource {
                 return@withContext if (jokeRealm == null){
                     it.executeTransaction{
                         transaction ->
-                        val newJoke = joke.map(mapper)
+                        val newJoke = common.map(mapper)
                         transaction.insert(newJoke)
                     }
-                    joke.changeCached(true)
+                    common.changeCached(true)
                 } else{
                     it.executeTransaction{
                         jokeRealm.deleteFromRealm()
                     }
-                    joke.changeCached(false)
+                    common.changeCached(false)
                 }
             }
         }

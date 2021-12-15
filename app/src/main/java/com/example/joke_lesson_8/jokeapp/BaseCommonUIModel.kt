@@ -2,7 +2,7 @@ package com.example.joke_lesson_8.jokeapp
 
 import com.example.joke_lesson_8.R
 import com.example.joke_lesson_8.interfaces.Communication
-import com.example.joke_lesson_8.interfaces.JokeFailure
+import com.example.joke_lesson_8.interfaces.Failure
 import com.example.joke_lesson_8.interfaces.ResourceManager
 import com.example.joke_lesson_8.presentation.State
 
@@ -30,25 +30,25 @@ class FailedCommonUIModel(private val text: String): CommonUIModel(text,""){
 }
 
 
-class NoCachedJoke(private val baseResourceManager: ResourceManager): JokeFailure {
+class NoCached(private val baseResourceManager: ResourceManager): Failure {
     override fun getMessage(): String {
         return baseResourceManager.getString(R.string.no_cached_joke)
     }
 }
 
-class NoConnection(private val baseResourceManager: ResourceManager): JokeFailure {
+class NoConnection(private val baseResourceManager: ResourceManager): Failure {
     override fun getMessage(): String {
         return baseResourceManager.getString(R.string.no_connection)
     }
 }
 
-class ServiceUnavailible(private val baseResourceManager: ResourceManager): JokeFailure {
+class ServiceUnavailible(private val baseResourceManager: ResourceManager): Failure {
     override fun getMessage(): String {
         return baseResourceManager.getString(R.string.service_unavailable)
     }
 }
 
-class SSLFailure_exception(private val baseResourceManager: ResourceManager): JokeFailure {
+class SSLFailure_exception(private val baseResourceManager: ResourceManager): Failure {
     override fun getMessage(): String {
         return baseResourceManager.getString(R.string.ssl_error)
     }

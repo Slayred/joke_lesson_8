@@ -1,7 +1,7 @@
 package com.example.joke_lesson_8.data.interfaces
 
-import com.example.joke_lesson_8.data.JokeDataModel
+import com.example.joke_lesson_8.data.CommonDataModel
 
 interface JokeDataFetcher{
-    suspend fun getJoke(): JokeDataModel
+    suspend fun getJoke(): CommonDataModel
 }

@@ -5,25 +5,25 @@ import com.example.joke_lesson_8.data.interfaces.CommonIntercator
 import com.example.joke_lesson_8.domain.*
 import java.lang.Exception
 
-class BaseCommonIntercator (
-    private val  repository: JokeRepository,
-    private val jokeFailureHandler: JokeFailureHandler,
-    private val mapper: JokerDataModelMapper<CommonItem.Success>
+class BaseIntercator (
+    private val  repository: CommonRepository,
+    private val failureHandler: FailureHandler,
+    private val mapper: CommonDataModelMapper<CommonItem.Success>
 ): CommonIntercator {
     override suspend fun getItem(): CommonItem {
         return try {
-                repository.getJoke().map(mapper)
+                repository.getCommonItem().map(mapper)
         } catch (e: Exception){
-            CommonItem.Failed(jokeFailureHandler.handle(e))
+            CommonItem.Failed(failureHandler.handle(e))
         }
     }
 
     override suspend fun changeFavourites(): CommonItem {
         return try {
-           repository.changeJokeStatus().map(mapper)
+           repository.changeStatus().map(mapper)
         }catch (e: Exception){
             Log.d("TAG","BaseJokeInteractor changeFavourites() \n" +  e.message.toString())
-            CommonItem.Failed(jokeFailureHandler.handle(e))
+            CommonItem.Failed(failureHandler.handle(e))
         }
 
     }

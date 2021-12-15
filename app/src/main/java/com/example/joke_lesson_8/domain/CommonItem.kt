@@ -1,7 +1,7 @@
 package com.example.joke_lesson_8.domain
 
 import com.example.joke_lesson_8.core.Mapper
-import com.example.joke_lesson_8.interfaces.JokeFailure
+import com.example.joke_lesson_8.interfaces.Failure
 import com.example.joke_lesson_8.jokeapp.BaseCommonUIModel
 import com.example.joke_lesson_8.jokeapp.FailedCommonUIModel
 import com.example.joke_lesson_8.jokeapp.FavoriteCommonUIModel
@@ -23,7 +23,7 @@ sealed class CommonItem : Mapper<CommonUIModel>{
 
     }
 
-    class Failed(private val failure: JokeFailure): CommonItem(){
+    class Failed(private val failure: Failure): CommonItem(){
         override fun to(): CommonUIModel {
             return FailedCommonUIModel(failure.getMessage())
         }

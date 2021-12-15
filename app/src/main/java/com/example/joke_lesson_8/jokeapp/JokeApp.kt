@@ -6,7 +6,9 @@ import com.example.joke_lesson_8.factory.BaseRealmProvider
 import com.example.joke_lesson_8.factory.RetrofitFactory
 import com.example.joke_lesson_8.model.*
 import io.realm.Realm
-import com.example.joke_lesson_8.data.JokeSuccessMapper.*
+import com.example.joke_lesson_8.data.CommonSuccessMapper.*
+import com.example.joke_lesson_8.data.interfaces.CommonIntercator
+import com.example.joke_lesson_8.domain.CommonItem
 import com.example.joke_lesson_8.presentation.QuoteViewModel
 
 class JokeApp: Application() {
@@ -21,8 +23,8 @@ class JokeApp: Application() {
     val resourceManager = BaseResourceManager(this)
     //val cloudDataSource = BaseCloudDataSourceOld(RetrofitFactory.getService(BASE_URL))
     val cloudDataSource = NewJokeCloudDataSource(RetrofitFactory.getService(BASE_URL))
-    val repository = BaseJokeRepository(cachedDataSource, cloudDataSource,BaseCachedJoke())
-    val interactor = BaseCommonIntercator(repository, JokeFailureHandlerFactory(resourceManager), JokeSuccessMapper())
+    val repository = BaseCommonRepository(cachedDataSource, cloudDataSource,BaseCachedCommonItem())
+    val interactor = BaseIntercator(repository, FailureHandlerFactory(resourceManager), CommonSuccessMapper())
 //endregion
 
 
@@ -30,7 +32,21 @@ class JokeApp: Application() {
         super.onCreate()
         Realm.init(this)
         baseViewModel = BaseViewModel(interactor,BaseCommunication())
-        quoteViewModel = QuoteViewModel(BaseCommunication())
+        //quoteViewModel = QuoteViewModel(BaseCommunication())
+        quoteViewModel = BaseViewModel(BaseIntercator(object: CommonRepository{
+            override suspend fun getCommonItem(): CommonDataModel {
+                TODO("Not yet implemented")
+            }
+
+            override suspend fun changeStatus(): CommonDataModel {
+                TODO("Not yet implemented")
+            }
+
+            override fun chooseDataSource(favorites: Boolean) {
+                TODO("Not yet implemented")
+            }
+
+        }, FailureHandlerFactory(resourceManager), CommonSuccessMapper() ), BaseCommunication())
 
     }
 }

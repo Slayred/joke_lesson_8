@@ -9,18 +9,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Exception
 
-class BaseJokeRepository(
+class BaseCommonRepository(
     private val cacheDataSource: CacheDataSource,
     //private val cloudResultHandler: CloudResultHandler,
     //private val cacheResultHandler: CacheResultHandler,
     private val cloudDataSource: CloudDataSource,
-    private val cachedJoke: CachedJoke
-): JokeRepository {
+    private val cachedJoke: CachedCommonItem
+): CommonRepository {
 
     //private var currentResultHandler: BaseResultHandler<*, *> = cloudResultHandler
     private var currentDataSource: JokeDataFetcher = cloudDataSource
 
-    override suspend fun getJoke(): JokeDataModel = withContext(Dispatchers.IO) {
+    override suspend fun getCommonItem(): CommonDataModel = withContext(Dispatchers.IO) {
         try {
             val joke = currentDataSource.getJoke()
             cachedJoke.saveJoke(joke)
@@ -34,7 +34,7 @@ class BaseJokeRepository(
         currentDataSource = if (favorites) cacheDataSource else cloudDataSource
     }
 
-    override suspend fun changeJokeStatus(): JokeDataModel {
+    override suspend fun changeStatus(): CommonDataModel {
         return cachedJoke.change(cacheDataSource)
     }
 

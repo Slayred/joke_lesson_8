@@ -1,5 +1,5 @@
 package com.example.joke_lesson_8.interfaces
 
-interface JokeFailure{
+interface Failure{
     fun getMessage(): String
 }

@@ -4,7 +4,6 @@ import android.util.Log
 import com.example.joke_lesson_8.core.Mapper
 import com.example.joke_lesson_8.data.interfaces.BaseJokeService
 import com.example.joke_lesson_8.data.interfaces.CloudDataSource
-import com.example.joke_lesson_8.data.interfaces.JokeService
 import com.example.joke_lesson_8.data.interfaces.NewJokeService
 import com.example.joke_lesson_8.domain.NoConnectionException
 import com.example.joke_lesson_8.domain.SSLHandlerException
@@ -13,11 +12,11 @@ import retrofit2.Call
 import java.lang.Exception
 import java.net.UnknownHostException
 
-abstract class BaseCloudDataSource<T: Mapper<JokeDataModel>>: CloudDataSource {
+abstract class BaseCloudDataSource<T: Mapper<CommonDataModel>>: CloudDataSource {
 
     protected abstract fun getJokeServerModel(): Call<T>
 
-    override suspend fun getJoke(): JokeDataModel {
+    override suspend fun getJoke(): CommonDataModel {
         try {
             return getJokeServerModel().execute().body()!!.to()
         } catch (e: Exception) {
