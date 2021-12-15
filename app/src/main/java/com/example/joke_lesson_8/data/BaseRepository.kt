@@ -3,30 +3,27 @@ package com.example.joke_lesson_8.data
 import com.example.joke_lesson_8.*
 import com.example.joke_lesson_8.data.interfaces.CacheDataSource
 import com.example.joke_lesson_8.data.interfaces.CloudDataSource
-import com.example.joke_lesson_8.data.interfaces.JokeDataFetcher
+import com.example.joke_lesson_8.data.interfaces.DataFetcher
 import com.example.joke_lesson_8.interfaces.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Exception
 
-class BaseCommonRepository(
+class BaseRepository(
     private val cacheDataSource: CacheDataSource,
-    //private val cloudResultHandler: CloudResultHandler,
-    //private val cacheResultHandler: CacheResultHandler,
     private val cloudDataSource: CloudDataSource,
-    private val cachedJoke: CachedCommonItem
+    private val cached: CachedData
 ): CommonRepository {
 
-    //private var currentResultHandler: BaseResultHandler<*, *> = cloudResultHandler
-    private var currentDataSource: JokeDataFetcher = cloudDataSource
+    private var currentDataSource: DataFetcher = cloudDataSource
 
     override suspend fun getCommonItem(): CommonDataModel = withContext(Dispatchers.IO) {
         try {
-            val joke = currentDataSource.getJoke()
-            cachedJoke.saveJoke(joke)
-            return@withContext joke
+            val data = currentDataSource.getData()
+            cached.save(data)
+            return@withContext data
         } catch (e: Exception){
-            cachedJoke.clear()
+            cached.clear()
             throw e
         }
     }
@@ -35,7 +32,7 @@ class BaseCommonRepository(
     }
 
     override suspend fun changeStatus(): CommonDataModel {
-        return cachedJoke.change(cacheDataSource)
+        return cached.change(cacheDataSource)
     }
 
 

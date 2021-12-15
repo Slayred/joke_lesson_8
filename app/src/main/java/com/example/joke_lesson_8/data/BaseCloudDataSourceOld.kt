@@ -12,11 +12,12 @@ import retrofit2.Call
 import java.lang.Exception
 import java.net.UnknownHostException
 
-abstract class BaseCloudDataSource<T: Mapper<CommonDataModel>>: CloudDataSource {
+abstract class BaseCloudDataSource<T: Mapper<CommonDataModel>>:
+    CloudDataSource {
 
     protected abstract fun getJokeServerModel(): Call<T>
 
-    override suspend fun getJoke(): CommonDataModel {
+    override suspend fun getData(): CommonDataModel {
         try {
             return getJokeServerModel().execute().body()!!.to()
         } catch (e: Exception) {
@@ -33,7 +34,7 @@ abstract class BaseCloudDataSource<T: Mapper<CommonDataModel>>: CloudDataSource 
 
 }
 
-class NewJokeCloudDataSource(private val service: NewJokeService):
+class NewCloudDataSource(private val service: NewJokeService):
     BaseCloudDataSource<NewJokeServerModel>(){
 
     override fun getJokeServerModel(): Call<NewJokeServerModel> {
@@ -42,7 +43,7 @@ class NewJokeCloudDataSource(private val service: NewJokeService):
 
 }
 
-class JokeCloudDataSource(private val service: BaseJokeService):
+class CloudDataSource(private val service: BaseJokeService):
         BaseCloudDataSource<JokeServerModel>(){
     override fun getJokeServerModel(): Call<JokeServerModel> {
         return service.getJokeFromAPI()

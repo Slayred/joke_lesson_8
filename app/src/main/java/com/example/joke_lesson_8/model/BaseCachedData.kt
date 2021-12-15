@@ -1,15 +1,15 @@
 package com.example.joke_lesson_8.model
 
 import com.example.joke_lesson_8.data.CommonDataModel
-import com.example.joke_lesson_8.interfaces.CachedCommonItem
+import com.example.joke_lesson_8.interfaces.CachedData
 import com.example.joke_lesson_8.interfaces.ChangeStatus
 import com.example.joke_lesson_8.interfaces.ChangeCommonItem
 
-class BaseCachedCommonItem: CachedCommonItem {
+class BaseCachedData: CachedData {
     private var cached: ChangeCommonItem = ChangeCommonItem.Empty()
 
 
-    override fun saveJoke(common: CommonDataModel) {
+    override fun save(common: CommonDataModel) {
         cached = common
     }
 
