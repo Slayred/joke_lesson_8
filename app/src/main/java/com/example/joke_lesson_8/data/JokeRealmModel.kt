@@ -9,8 +9,7 @@ open class JokeRealmModel: RealmObject(), Mapper<CommonDataModel> {
     var id: Int = -1
     var text: String = ""
     var punchline: String = ""
-    //var type: String = ""
 
-    //fun toJokeDataModel() = JokeDataModel(id,type, text, punchline)
+
     override fun to() = CommonDataModel(id, text, punchline, true)
 }

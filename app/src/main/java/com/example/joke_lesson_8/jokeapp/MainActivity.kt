@@ -9,7 +9,7 @@ import com.example.joke_lesson_8.presentation.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var baseViewModel: BaseViewModel
-    private lateinit var quoteViewModel: QuoteViewModel
+    private lateinit var quoteViewModel: BaseViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

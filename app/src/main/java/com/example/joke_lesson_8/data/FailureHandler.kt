@@ -19,7 +19,7 @@ class FailureHandlerFactory(private val resourceManager: ResourceManager): Failu
 
     override fun handle(e: Exception): Failure {
         return when(e){
-            is NoCachedJokesException -> NoCached(resourceManager)
+            is NoCachedDataException -> NoCached(resourceManager)
             is NoConnectionException -> NoConnection(resourceManager)
             is ServiceUnavailableException -> ServiceUnavailible(resourceManager)
             is SSLHandlerException -> SSLFailure_exception(resourceManager)

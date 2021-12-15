@@ -9,19 +9,27 @@ import io.realm.Realm
 import com.example.joke_lesson_8.data.CommonSuccessMapper.*
 import com.example.joke_lesson_8.data.interfaces.CacheDataSource
 import com.example.joke_lesson_8.data.interfaces.CloudDataSource
+import com.example.joke_lesson_8.data.interfaces.NewJokeService
+import com.example.joke_lesson_8.data.interfaces.QuoteService
 
 class JokeApp: Application() {
 
 //region existCode
     lateinit var baseViewModel: BaseViewModel
     lateinit var quoteViewModel: BaseViewModel
-    //private val BASE_URL = "http://92.63.192.103:3005"
-    private val BASE_URL = "https://karljoke.herokuapp.com"
+    //private val BASE_OLD_JOKE_URL = "http://92.63.192.103:3005"
+    private val BASE_Joke_URL = "https://karljoke.herokuapp.com"
+    private val BASE_QUOTE_JOKE = "https://api.quotable.io/random"
     val cachedDataSource = BaseCachedDataSource(BaseRealmProvider(),
         JokeRealmMapper())
     val resourceManager = BaseResourceManager(this)
-    //val cloudDataSource = BaseCloudDataSourceOld(RetrofitFactory.getService(BASE_URL))
-    val cloudDataSource = NewCloudDataSource(RetrofitFactory.getService(BASE_URL))
+    //val cloudDataSource = BaseCloudDataSourceOld(RetrofitFactory.getService(BASE_OLD_JOKE_URL))
+    val cloudDataSource = NewJokeCloudDataSource(RetrofitFactory
+        .getRetrofitInstance(BASE_Joke_URL)
+        .create(NewJokeService::class.java))
+    val quoteCloudDataSource = QuoteCloudDataSource(RetrofitFactory
+        .getRetrofitInstance(BASE_QUOTE_JOKE)
+        .create(QuoteService::class.java))
     val failureHandle = FailureHandlerFactory(resourceManager)
     val successMapper = CommonSuccessMapper()
     val repository = BaseRepository(cachedDataSource, cloudDataSource,BaseCachedData())
@@ -43,12 +51,7 @@ class JokeApp: Application() {
                 TODO("Not yet implemented")
             }
 
-        }, object : CloudDataSource{
-            override suspend fun getData(): CommonDataModel {
-                TODO("Not yet implemented")
-            }
-
-        }, BaseCachedData()), failureHandle, successMapper ), BaseCommunication())
+        }, quoteCloudDataSource , BaseCachedData()), failureHandle, successMapper ), BaseCommunication())
 
     }
 }
