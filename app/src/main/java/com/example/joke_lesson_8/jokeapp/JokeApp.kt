@@ -8,7 +8,6 @@ import com.example.joke_lesson_8.model.*
 import io.realm.Realm
 import com.example.joke_lesson_8.data.CommonSuccessMapper.*
 import com.example.joke_lesson_8.data.interfaces.CacheDataSource
-import com.example.joke_lesson_8.data.interfaces.CloudDataSource
 import com.example.joke_lesson_8.data.interfaces.NewJokeService
 import com.example.joke_lesson_8.data.interfaces.QuoteService
 
@@ -20,7 +19,7 @@ class JokeApp: Application() {
     //private val BASE_OLD_JOKE_URL = "http://92.63.192.103:3005"
     private val BASE_Joke_URL = "https://karljoke.herokuapp.com"
     private val BASE_QUOTE_JOKE = "https://api.quotable.io/random"
-    val cachedDataSource = BaseCachedDataSource(BaseRealmProvider(),
+    val jokeCachedDataSource = JokeCachedDataSource(BaseRealmProvider(),
         JokeRealmMapper())
     val resourceManager = BaseResourceManager(this)
     //val cloudDataSource = BaseCloudDataSourceOld(RetrofitFactory.getService(BASE_OLD_JOKE_URL))
@@ -32,8 +31,9 @@ class JokeApp: Application() {
         .create(QuoteService::class.java))
     val failureHandle = FailureHandlerFactory(resourceManager)
     val successMapper = CommonSuccessMapper()
-    val repository = BaseRepository(cachedDataSource, cloudDataSource,BaseCachedData())
-    val interactor = BaseIntercator(repository, failureHandle, successMapper)
+    val jokeRepository = BaseRepository(jokeCachedDataSource, cloudDataSource,BaseCachedData())
+    val interactor = BaseIntercator(jokeRepository, failureHandle, successMapper)
+    val quoteRepository = BaseRepository(QuoteCachedDataSource(BaseRealmProvider(), QuoteRealmMapper()),quoteCloudDataSource,BaseCachedData())
 //endregion
 
 
@@ -42,16 +42,7 @@ class JokeApp: Application() {
         Realm.init(this)
         baseViewModel = BaseViewModel(interactor,BaseCommunication())
         //quoteViewModel = QuoteViewModel(BaseCommunication())
-        quoteViewModel = BaseViewModel(BaseIntercator(BaseRepository(object: CacheDataSource{
-            override suspend fun getData(): CommonDataModel {
-                TODO("Not yet implemented")
-            }
-
-            override suspend fun addOrRemove(id: Int, common: CommonDataModel): CommonDataModel {
-                TODO("Not yet implemented")
-            }
-
-        }, quoteCloudDataSource , BaseCachedData()), failureHandle, successMapper ), BaseCommunication())
+        quoteViewModel = BaseViewModel(BaseIntercator(quoteRepository, failureHandle, successMapper ), BaseCommunication())
 
     }
 }

@@ -4,7 +4,7 @@ import com.example.joke_lesson_8.core.Mapper
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 
-open class JokeRealmModel: RealmObject(), Mapper<CommonDataModel> {
+open class JokeRealmModel: DataBaseModel() {
     @PrimaryKey
     var id: Int = -1
     var text: String = ""
