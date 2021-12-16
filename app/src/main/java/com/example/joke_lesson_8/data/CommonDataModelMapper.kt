@@ -1,5 +1,6 @@
 package com.example.joke_lesson_8.data
 
+import android.util.Log
 import com.example.joke_lesson_8.domain.CommonItem
 
 interface CommonDataModelMapper<T> {
@@ -8,6 +9,7 @@ interface CommonDataModelMapper<T> {
 
 class CommonSuccessMapper: CommonDataModelMapper<CommonItem.Success> {
     override fun map(id: Int, first: String, second: String, cached: Boolean): CommonItem.Success {
+        Log.d("TAG", "Call CommonSuccesMapper")
         return CommonItem.Success(first, second, cached)
     }
 

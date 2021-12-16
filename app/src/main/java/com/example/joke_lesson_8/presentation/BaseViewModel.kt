@@ -1,4 +1,4 @@
-package com.example.joke_lesson_8.jokeapp
+package com.example.joke_lesson_8.presentation
 
 import androidx.lifecycle.*
 import com.example.joke_lesson_8.interfaces.Communication

@@ -1,8 +1,10 @@
-package com.example.joke_lesson_8.data
+package com.example.joke_lesson_8.domain
 
 import android.util.Log
+import com.example.joke_lesson_8.data.CommonDataModelMapper
+import com.example.joke_lesson_8.data.CommonRepository
+import com.example.joke_lesson_8.data.FailureHandler
 import com.example.joke_lesson_8.data.interfaces.CommonIntercator
-import com.example.joke_lesson_8.domain.*
 import java.lang.Exception
 
 class BaseIntercator (
@@ -14,6 +16,7 @@ class BaseIntercator (
         return try {
                 repository.getCommonItem().map(mapper)
         } catch (e: Exception){
+            Log.d("TAG", "Fail in BaseIntercator \n" + e.message)
             CommonItem.Failed(failureHandler.handle(e))
         }
     }

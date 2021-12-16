@@ -1,4 +1,4 @@
-package com.example.joke_lesson_8.jokeapp
+package com.example.joke_lesson_8.presentation
 
 import android.app.Application
 import com.example.joke_lesson_8.data.*
@@ -7,9 +7,9 @@ import com.example.joke_lesson_8.factory.RetrofitFactory
 import com.example.joke_lesson_8.model.*
 import io.realm.Realm
 import com.example.joke_lesson_8.data.CommonSuccessMapper.*
-import com.example.joke_lesson_8.data.interfaces.CacheDataSource
 import com.example.joke_lesson_8.data.interfaces.NewJokeService
 import com.example.joke_lesson_8.data.interfaces.QuoteService
+import com.example.joke_lesson_8.domain.BaseIntercator
 
 class JokeApp: Application() {
 
@@ -18,12 +18,14 @@ class JokeApp: Application() {
     lateinit var quoteViewModel: BaseViewModel
     //private val BASE_OLD_JOKE_URL = "http://92.63.192.103:3005"
     private val BASE_Joke_URL = "https://karljoke.herokuapp.com"
-    private val BASE_QUOTE_JOKE = "https://api.quotable.io/random"
+    private val BASE_QUOTE_JOKE = "https://api.quotable.io/random/"
     val jokeCachedDataSource = JokeCachedDataSource(BaseRealmProvider(),
-        JokeRealmMapper())
+        JokeRealmMapper(), JokeRealmToCommonMapper()
+    )
+    val quoteCachedDataSource = QuoteCachedDataSource(BaseRealmProvider(),QuoteRealmMapper(), QuoteRealmToCommonMapper())
     val resourceManager = BaseResourceManager(this)
     //val cloudDataSource = BaseCloudDataSourceOld(RetrofitFactory.getService(BASE_OLD_JOKE_URL))
-    val cloudDataSource = NewJokeCloudDataSource(RetrofitFactory
+    val newJokeCloudDataSource = NewJokeCloudDataSource(RetrofitFactory
         .getRetrofitInstance(BASE_Joke_URL)
         .create(NewJokeService::class.java))
     val quoteCloudDataSource = QuoteCloudDataSource(RetrofitFactory
@@ -31,9 +33,10 @@ class JokeApp: Application() {
         .create(QuoteService::class.java))
     val failureHandle = FailureHandlerFactory(resourceManager)
     val successMapper = CommonSuccessMapper()
-    val jokeRepository = BaseRepository(jokeCachedDataSource, cloudDataSource,BaseCachedData())
+    val jokeRepository = BaseRepository(jokeCachedDataSource, newJokeCloudDataSource,BaseCachedData())
+    val quoteRepository = BaseRepository(quoteCachedDataSource,quoteCloudDataSource,BaseCachedData())
+
     val interactor = BaseIntercator(jokeRepository, failureHandle, successMapper)
-    val quoteRepository = BaseRepository(QuoteCachedDataSource(BaseRealmProvider(), QuoteRealmMapper()),quoteCloudDataSource,BaseCachedData())
 //endregion
 
 

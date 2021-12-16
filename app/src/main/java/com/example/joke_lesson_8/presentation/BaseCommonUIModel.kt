@@ -4,6 +4,7 @@ import com.example.joke_lesson_8.R
 import com.example.joke_lesson_8.interfaces.Communication
 import com.example.joke_lesson_8.interfaces.Failure
 import com.example.joke_lesson_8.interfaces.ResourceManager
+import com.example.joke_lesson_8.presentation.CommonUIModel
 import com.example.joke_lesson_8.presentation.State
 
 class BaseCommonUIModel(private var text: String, private val punchline: String) : CommonUIModel(text,punchline) {

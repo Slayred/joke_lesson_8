@@ -1,16 +1,19 @@
 package com.example.joke_lesson_8.data
 
+import com.example.joke_lesson_8.core.Mapper
 import com.example.joke_lesson_8.data.interfaces.CacheDataSource
 import com.example.joke_lesson_8.data.interfaces.RealmProvider
 import com.example.joke_lesson_8.domain.NoCachedDataException
+import io.realm.RealmObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 
 
-abstract class BaseCachedDataSource<T: DataBaseModel>(
+abstract class BaseCachedDataSource<T: RealmObject>(
     private val realmProvider: RealmProvider,
-    private val mapper: CommonDataModelMapper<T>
+    private val mapper: CommonDataModelMapper<T>,
+    private val realmToCommonMapper: RealmToCommonDataMapper<T>
     ): CacheDataSource {
 
     protected abstract val dbClass: Class<T>
@@ -20,7 +23,7 @@ abstract class BaseCachedDataSource<T: DataBaseModel>(
             val list = it.where(dbClass).findAll()
             if(list.isEmpty()){
                 throw NoCachedDataException()
-            } else return  list.random().to()
+            } else return realmToCommonMapper.map(list.random())
         }
     }
 

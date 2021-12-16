@@ -1,9 +1,8 @@
-package com.example.joke_lesson_8.jokeapp
+package com.example.joke_lesson_8.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.joke_lesson_8.R
-import com.example.joke_lesson_8.presentation.*
 
 
 class MainActivity : AppCompatActivity() {

@@ -5,7 +5,7 @@ import com.example.joke_lesson_8.interfaces.Failure
 import com.example.joke_lesson_8.jokeapp.BaseCommonUIModel
 import com.example.joke_lesson_8.jokeapp.FailedCommonUIModel
 import com.example.joke_lesson_8.jokeapp.FavoriteCommonUIModel
-import com.example.joke_lesson_8.jokeapp.CommonUIModel
+import com.example.joke_lesson_8.presentation.CommonUIModel
 
 sealed class CommonItem : Mapper<CommonUIModel>{
     class Success(

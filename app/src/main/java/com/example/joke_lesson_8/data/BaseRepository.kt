@@ -1,5 +1,6 @@
 package com.example.joke_lesson_8.data
 
+import android.util.Log
 import com.example.joke_lesson_8.*
 import com.example.joke_lesson_8.data.interfaces.CacheDataSource
 import com.example.joke_lesson_8.data.interfaces.CloudDataSource
@@ -24,6 +25,7 @@ class BaseRepository(
             return@withContext data
         } catch (e: Exception){
             cached.clear()
+            Log.d("TAG","Error from BaseRepository \n" + e.message.toString())
             throw e
         }
     }
