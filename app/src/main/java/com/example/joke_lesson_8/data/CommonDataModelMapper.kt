@@ -3,18 +3,18 @@ package com.example.joke_lesson_8.data
 import android.util.Log
 import com.example.joke_lesson_8.domain.CommonItem
 
-interface CommonDataModelMapper<T> {
-    fun map(id: Int, first: String, second: String, cached: Boolean): T
+interface CommonDataModelMapper<T, E> {
+    fun map(id: E, first: String, second: String, cached: Boolean): T
 }
 
-class CommonSuccessMapper: CommonDataModelMapper<CommonItem.Success> {
-    override fun map(id: Int, first: String, second: String, cached: Boolean): CommonItem.Success {
+class CommonSuccessMapper<E>: CommonDataModelMapper<CommonItem.Success, E> {
+    override fun map(id: E, first: String, second: String, cached: Boolean): CommonItem.Success {
         Log.d("TAG", "Call CommonSuccesMapper")
         return CommonItem.Success(first, second, cached)
     }
 
 
-class  JokeRealmMapper: CommonDataModelMapper<JokeRealmModel>{
+class  JokeRealmMapper: CommonDataModelMapper<JokeRealmModel, Int>{
         override fun map(
             id: Int,
             first: String,
@@ -31,8 +31,8 @@ class  JokeRealmMapper: CommonDataModelMapper<JokeRealmModel>{
     }
 
 
-class QuoteRealmMapper: CommonDataModelMapper<QuoteRealmModel>{
-    override fun map(id: Int, first: String, second: String, cached: Boolean): QuoteRealmModel {
+class QuoteRealmMapper: CommonDataModelMapper<QuoteRealmModel, String>{
+    override fun map(id: String, first: String, second: String, cached: Boolean): QuoteRealmModel {
         return QuoteRealmModel().also {
             quoteRealmModel ->
             quoteRealmModel.id = id

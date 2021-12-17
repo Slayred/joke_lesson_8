@@ -7,10 +7,10 @@ import com.example.joke_lesson_8.data.NewJokeServerModel
 import retrofit2.Call
 import retrofit2.http.GET
 
-interface JokeService<T: Mapper<CommonDataModel>> {
-
-    fun getJokeFromAPI(): Call<T>
-}
+//interface JokeService<T: Mapper<CommonDataModel>> {
+//
+//    fun getJokeFromAPI(): Call<T>
+//}
 
 interface BaseJokeService {
 

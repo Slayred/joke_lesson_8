@@ -7,10 +7,10 @@ import com.example.joke_lesson_8.data.FailureHandler
 import com.example.joke_lesson_8.data.interfaces.CommonIntercator
 import java.lang.Exception
 
-class BaseIntercator (
-    private val  repository: CommonRepository,
+class BaseIntercator<E> (
+    private val  repository: CommonRepository<E>,
     private val failureHandler: FailureHandler,
-    private val mapper: CommonDataModelMapper<CommonItem.Success>
+    private val mapper: CommonDataModelMapper<CommonItem.Success, E>
 ): CommonIntercator {
     override suspend fun getItem(): CommonItem {
         return try {

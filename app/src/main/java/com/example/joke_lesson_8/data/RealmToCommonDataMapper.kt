@@ -2,20 +2,20 @@ package com.example.joke_lesson_8.data
 
 import io.realm.RealmObject
 
-interface RealmToCommonDataMapper<T: RealmObject> {
+interface RealmToCommonDataMapper<T: RealmObject,E> {
 
-    fun map(realmObject: T): CommonDataModel
+    fun map(realmObject: T): CommonDataModel<E>
 
 }
 
-class JokeRealmToCommonMapper: RealmToCommonDataMapper<JokeRealmModel>{
-    override fun map(realmObject: JokeRealmModel): CommonDataModel {
+class JokeRealmToCommonMapper: RealmToCommonDataMapper<JokeRealmModel, Int>{
+    override fun map(realmObject: JokeRealmModel): CommonDataModel<Int> {
      return CommonDataModel(realmObject.id, realmObject.text, realmObject.punchline, true)
     }
 }
 
-class QuoteRealmToCommonMapper: RealmToCommonDataMapper<QuoteRealmModel>{
-    override fun map(realmObject: QuoteRealmModel): CommonDataModel {
+class QuoteRealmToCommonMapper: RealmToCommonDataMapper<QuoteRealmModel, String>{
+    override fun map(realmObject: QuoteRealmModel): CommonDataModel<String> {
         return CommonDataModel(realmObject.id, realmObject.content, realmObject.author, true)
     }
 
