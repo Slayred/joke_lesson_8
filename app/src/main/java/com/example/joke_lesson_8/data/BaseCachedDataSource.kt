@@ -1,65 +1,56 @@
 package com.example.joke_lesson_8.data
 
-import android.util.Log
+import com.example.joke_lesson_8.core.Mapper
 import com.example.joke_lesson_8.data.interfaces.CacheDataSource
 import com.example.joke_lesson_8.data.interfaces.RealmProvider
-import com.example.joke_lesson_8.domain.NoCachedJokesException
-import com.example.joke_lesson_8.jokeapp.JokeUIModel
+import com.example.joke_lesson_8.domain.NoCachedDataException
+import io.realm.Realm
+import io.realm.RealmObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 
-class BaseCachedDataSource(private val realmProvider: RealmProvider,
-private val mapper: JokerDataModelMapper<JokeRealmModel>): CacheDataSource {
 
-    override suspend fun getJoke(): JokeDataModel {
+abstract class BaseCachedDataSource<T: RealmObject,E>(
+    private val realmProvider: RealmProvider,
+    private val mapper: CommonDataModelMapper<T,E>,
+    private val realmToCommonMapper: RealmToCommonDataMapper<T,E>
+    ): CacheDataSource<E> {
+
+    protected abstract val dbClass: Class<T>
+
+    protected abstract fun findRealmObject(realm: Realm, id: E): T?
+
+    override suspend fun getData(): CommonDataModel<E> {
         realmProvider.provide().use{
-            val jokes = it.where(JokeRealmModel::class.java).findAll()
-            if(jokes.isEmpty()){
-                throw NoCachedJokesException()
-            } else return  jokes.random().to()
+            val list = it.where(dbClass).findAll()
+            if(list.isEmpty()){
+                throw NoCachedDataException()
+            } else return realmToCommonMapper.map(list.random())
         }
     }
 
 
-    override suspend fun addOrRemove(id: Int, joke: JokeDataModel): JokeDataModel =
+    override suspend fun addOrRemove(id: E, common: CommonDataModel<E>): CommonDataModel<E> =
         withContext(Dispatchers.IO){
             realmProvider.provide().use {
-               Log.d("Tag", "id: $id")
-                val jokeRealm = it.where(JokeRealmModel::class.java).equalTo("id",id).findFirst()
-                return@withContext if (jokeRealm == null){
+                val itemRealm = findRealmObject(it, id)  //it.where(dbClass).equalTo("id",id).findFirst()
+                return@withContext if (itemRealm == null){
                     it.executeTransaction{
                         transaction ->
-                        val newJoke = joke.map(mapper)
-                        transaction.insert(newJoke)
+                        val newData = common.map(mapper)
+                        transaction.insert(newData)
                     }
-                    joke.changeCached(true)
+                    common.changeCached(true)
                 } else{
                     it.executeTransaction{
-                        jokeRealm.deleteFromRealm()
+                        itemRealm.deleteFromRealm()
                     }
-                    joke.changeCached(false)
+                    common.changeCached(false)
                 }
             }
         }
 
 
-
-//    override suspend fun getJoke(): Result<Joke, Unit> {
-//        realmProvider.provide().let {
-//            val jokes = it.where(JokeRealmModel::class.java).findAll()
-//            if(jokes.isEmpty()){
-//                return Result.Error(Unit)
-//            } else jokes.random().let {
-//                joke ->
-//                return Result.Success(
-//                    Joke(
-//                        joke.id, joke.type, joke.text, joke.punchline
-//                    )
-//                )
-//            }
-//
-//        }
-//    }
 
 }

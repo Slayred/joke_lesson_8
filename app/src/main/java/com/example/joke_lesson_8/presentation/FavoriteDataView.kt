@@ -3,13 +3,9 @@ package com.example.joke_lesson_8.presentation
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.CheckBox
 import android.widget.LinearLayout
-import android.widget.ProgressBar
 import com.example.joke_lesson_8.R
-import com.example.joke_lesson_8.jokeapp.MainViewModel
-import io.realm.Realm.init
 
 class FavoriteDataView: LinearLayout {
 
@@ -34,14 +30,9 @@ class FavoriteDataView: LinearLayout {
         .inflate(R.layout.favorite_data_view,this,true)
 
         val linear = getChildAt(1) as LinearLayout
-        //checkBox = linear.findViewById(R.id.checkBox)
         checkBox = getChildAt(0) as CheckBox
-        //textView = linear.findViewById(R.id.tvJoke)
-        //changeButton = linear.findViewById(R.id.changeBtn)
         textView = linear.findViewById(R.id.tvJoke)
         changeButton = linear.findViewById(R.id.changeBtn)
-//        progressBar = linear.findViewById(R.id.progressBar)
-//        actionButton = linear.findViewById(R.id.btnJoke)
         progressBar = getChildAt(2) as CorrectProgressBar
         progressBar.visibility = INVISIBLE
         actionButton = getChildAt(3) as CorrectButton
@@ -61,7 +52,23 @@ class FavoriteDataView: LinearLayout {
         block.invoke()
     }
 
-    fun show(state: MainViewModel.State) = state.show(progressBar,actionButton,textView,changeButton)
+    fun show(state: State) = state.show(progressBar,actionButton,textView,changeButton)
+
+    fun linkWith(commonViewModel: CommonViewModel) {
+
+        changeButton.setOnClickListener{
+            commonViewModel.changeStatus()
+        }
+        actionButton.setOnClickListener {
+            commonViewModel.getItem()
+        }
+        checkBox.setOnCheckedChangeListener { _, isChecked ->
+            commonViewModel.chooseFavorites(isChecked)
+        }
+
+
+    }
+
 
   private fun init(attrs: AttributeSet){
         context.theme.obtainStyledAttributes(attrs,R.styleable.FavoriteDataView, 0, 0).apply {

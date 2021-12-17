@@ -2,53 +2,54 @@ package com.example.joke_lesson_8.jokeapp
 
 import com.example.joke_lesson_8.R
 import com.example.joke_lesson_8.interfaces.Communication
-import com.example.joke_lesson_8.interfaces.JokeFailure
+import com.example.joke_lesson_8.interfaces.Failure
 import com.example.joke_lesson_8.interfaces.ResourceManager
-import com.example.joke_lesson_8.model.BaseResourceManager
+import com.example.joke_lesson_8.presentation.CommonUIModel
+import com.example.joke_lesson_8.presentation.State
 
-class BaseJokeUiModel(private var text: String, private val punchline: String) : JokeUIModel(text,punchline) {
+class BaseCommonUIModel(private var text: String, private val punchline: String) : CommonUIModel(text,punchline) {
 //    fun getJokeUiOld() = "$text\n$punchline"
     override fun getIconResId(): Int {
          return R.drawable.baseline_favorite_border_24
     }
 }
 
-class FavoriteJokeUIModel(text: String, punchline: String): JokeUIModel(text,punchline){
+class FavoriteCommonUIModel(text: String, punchline: String): CommonUIModel(text,punchline){
     override fun getIconResId(): Int {
         return R.drawable.baseline_favorite_24
     }
 
 }
 
-class FailedJokeUIModel(private val text: String): JokeUIModel(text,""){
+class FailedCommonUIModel(private val text: String): CommonUIModel(text,""){
     override fun getIconResId() = 0
     override fun text() = text
     override fun show(communication: Communication) = communication.showState(
-        MainViewModel.State.Failed(text(),getIconResId())
+        State.Failed(text(),getIconResId())
     )
 
 }
 
 
-class NoCachedJoke(private val baseResourceManager: ResourceManager): JokeFailure {
+class NoCached(private val baseResourceManager: ResourceManager): Failure {
     override fun getMessage(): String {
         return baseResourceManager.getString(R.string.no_cached_joke)
     }
 }
 
-class NoConnection(private val baseResourceManager: ResourceManager): JokeFailure {
+class NoConnection(private val baseResourceManager: ResourceManager): Failure {
     override fun getMessage(): String {
         return baseResourceManager.getString(R.string.no_connection)
     }
 }
 
-class ServiceUnavailible(private val baseResourceManager: ResourceManager): JokeFailure {
+class ServiceUnavailible(private val baseResourceManager: ResourceManager): Failure {
     override fun getMessage(): String {
         return baseResourceManager.getString(R.string.service_unavailable)
     }
 }
 
-class SSLFailure_exception(private val baseResourceManager: ResourceManager): JokeFailure {
+class SSLFailure_exception(private val baseResourceManager: ResourceManager): Failure {
     override fun getMessage(): String {
         return baseResourceManager.getString(R.string.ssl_error)
     }
