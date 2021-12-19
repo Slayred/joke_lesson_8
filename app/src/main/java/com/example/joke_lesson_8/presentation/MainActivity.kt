@@ -2,13 +2,16 @@ package com.example.joke_lesson_8.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.RecyclerView
 import com.example.joke_lesson_8.R
+import com.example.joke_lesson_8.data.CommonDataModel
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var baseViewModel: BaseViewModel
     private lateinit var quoteViewModel: BaseViewModel
+    private lateinit var recycleView: RecyclerView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,9 +19,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         baseViewModel = (application as JokeApp).baseViewModel
         quoteViewModel = (application as JokeApp).quoteViewModel
+        recycleView = findViewById(R.id.recycleView)
+
+        recycleView.adapter = CommonDataRecyclerAdapter<Int>()
+
+
 
         val favoriteDataView = findViewById<FavoriteDataView>(R.id.showJoke)
         val quoteFavoriteDataView = findViewById<FavoriteDataView>(R.id.showQuote)
+
 
         quoteFavoriteDataView.linkWith(quoteViewModel)
         quoteViewModel.observe(this, {

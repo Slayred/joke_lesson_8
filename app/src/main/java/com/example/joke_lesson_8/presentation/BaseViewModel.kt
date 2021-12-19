@@ -21,12 +21,19 @@ class BaseViewModel(private val intercator: CommonIntercator,
         }
     }
 
+    override fun getItemList() {
+        viewModelScope.launch(dispatcher){
+            communication.showDataList(intercator.getItemList().map{it.to()})
+        }
+    }
+
     override fun changeStatus() {
         viewModelScope.launch(dispatcher) {
             if (communication.isState(State.INITIAL))
                 intercator.changeFavourites().to().show(communication)
         }
     }
+
 
 
     override fun chooseFavorites(favorites: Boolean) =  intercator.getFavoriteJokes(favorites)

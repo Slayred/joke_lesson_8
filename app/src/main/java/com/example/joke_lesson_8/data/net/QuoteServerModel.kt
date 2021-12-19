@@ -1,6 +1,7 @@
-package com.example.joke_lesson_8.data
+package com.example.joke_lesson_8.data.net
 
 import com.example.joke_lesson_8.core.Mapper
+import com.example.joke_lesson_8.data.CommonDataModel
 import com.google.gson.annotations.SerializedName
 
 class QuoteServerModel (

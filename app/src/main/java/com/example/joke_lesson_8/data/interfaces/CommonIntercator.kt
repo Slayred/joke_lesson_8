@@ -6,6 +6,8 @@ interface CommonIntercator {
 
     suspend fun getItem(): CommonItem
 
+    suspend fun getItemList(): List<CommonItem>
+
     suspend fun changeFavourites(): CommonItem
 
     fun getFavoriteJokes(favorites: Boolean)

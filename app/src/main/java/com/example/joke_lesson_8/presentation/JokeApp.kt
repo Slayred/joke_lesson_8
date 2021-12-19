@@ -7,8 +7,12 @@ import com.example.joke_lesson_8.factory.RetrofitFactory
 import com.example.joke_lesson_8.model.*
 import io.realm.Realm
 import com.example.joke_lesson_8.data.CommonSuccessMapper.*
+import com.example.joke_lesson_8.data.cache.JokeCachedDataSource
+import com.example.joke_lesson_8.data.cache.QuoteCachedDataSource
 import com.example.joke_lesson_8.data.interfaces.NewJokeService
 import com.example.joke_lesson_8.data.interfaces.QuoteService
+import com.example.joke_lesson_8.data.net.NewJokeCloudDataSource
+import com.example.joke_lesson_8.data.net.QuoteCloudDataSource
 import com.example.joke_lesson_8.domain.BaseIntercator
 
 class JokeApp: Application() {

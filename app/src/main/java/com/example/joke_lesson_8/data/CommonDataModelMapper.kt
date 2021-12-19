@@ -1,6 +1,8 @@
 package com.example.joke_lesson_8.data
 
 import android.util.Log
+import com.example.joke_lesson_8.data.cache.JokeRealmModel
+import com.example.joke_lesson_8.data.cache.QuoteRealmModel
 import com.example.joke_lesson_8.domain.CommonItem
 
 interface CommonDataModelMapper<T, E> {

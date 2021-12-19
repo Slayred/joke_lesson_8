@@ -1,7 +1,7 @@
-package com.example.joke_lesson_8.data
+package com.example.joke_lesson_8.data.net
 
 import com.example.joke_lesson_8.core.Mapper
-import com.example.joke_lesson_8.data.interfaces.BaseJokeService
+import com.example.joke_lesson_8.data.CommonDataModel
 import com.example.joke_lesson_8.data.interfaces.CloudDataSource
 import com.example.joke_lesson_8.data.interfaces.NewJokeService
 import com.example.joke_lesson_8.data.interfaces.QuoteService
