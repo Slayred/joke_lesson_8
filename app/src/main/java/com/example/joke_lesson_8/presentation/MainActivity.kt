@@ -12,6 +12,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var baseViewModel: BaseViewModel
     private lateinit var quoteViewModel: BaseViewModel
     private lateinit var recycleView: RecyclerView
+    private lateinit var viewModel: BaseViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,14 +20,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         baseViewModel = (application as JokeApp).baseViewModel
         quoteViewModel = (application as JokeApp).quoteViewModel
+        viewModel = (application as JokeApp).baseViewModel
+
         recycleView = findViewById(R.id.recycleView)
 
-        recycleView.adapter = CommonDataRecyclerAdapter<Int>()
+        val adapter = CommonDataRecyclerAdapter()
 
+        recycleView.adapter = adapter
+
+        viewModel.observeList(this, {list ->
+            adapter.show(list)
+        })
+        viewModel.getItemList()
 
 
         val favoriteDataView = findViewById<FavoriteDataView>(R.id.showJoke)
         val quoteFavoriteDataView = findViewById<FavoriteDataView>(R.id.showQuote)
+
 
 
         quoteFavoriteDataView.linkWith(quoteViewModel)

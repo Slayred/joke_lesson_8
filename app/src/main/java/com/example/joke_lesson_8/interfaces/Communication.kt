@@ -12,8 +12,10 @@ interface Communication {
     fun showState(state: State)
 
     fun showDataList(list: List<CommonUIModel>)
-
-    fun observe(owner: LifecycleOwner, observer: Observer<State>)
+//  was moved to ListCommunication
+//    fun observe(owner: LifecycleOwner, observer: Observer<State>)
+//
+//    fun observeList(owner: LifecycleOwner, observer: Observer<List<CommonUIModel>>)
 
     fun isState(type: Int): Boolean
 }

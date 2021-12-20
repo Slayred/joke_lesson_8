@@ -3,6 +3,8 @@ package com.example.joke_lesson_8.presentation
 import androidx.lifecycle.*
 import com.example.joke_lesson_8.interfaces.Communication
 import com.example.joke_lesson_8.data.interfaces.CommonIntercator
+import com.example.joke_lesson_8.interfaces.CommonCommunication
+import com.example.joke_lesson_8.interfaces.ListCommunication
 import com.example.joke_lesson_8.presentation.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -10,7 +12,7 @@ import kotlinx.coroutines.launch
 
 
 class BaseViewModel(private val intercator: CommonIntercator,
-                    private val communication: Communication,
+                    private val communication: CommonCommunication,
                     private val dispatcher: CoroutineDispatcher = Dispatchers.Main) : ViewModel(), CommonViewModel {
 
 
@@ -40,6 +42,10 @@ class BaseViewModel(private val intercator: CommonIntercator,
 
 
     override  fun observe(owner: LifecycleOwner, observer: Observer<State>) = communication.observe(owner, observer)
+
+    override fun observeList(owner: LifecycleOwner, observer: Observer<List<CommonUIModel>>) {
+        communication.observeList(owner, observer)
+    }
 
 
 }

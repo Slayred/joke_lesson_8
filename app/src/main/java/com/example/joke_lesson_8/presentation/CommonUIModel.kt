@@ -16,6 +16,7 @@ abstract class CommonUIModel(private val first: String, private val second: Stri
            getIconResId()
        )
    )
+    fun show(showText: ShowText) = showText.show(first)
 
 }
 
