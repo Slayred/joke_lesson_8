@@ -24,13 +24,13 @@
     android:layout_weight="0.5"/>
 
 
-    <com.example.joke_lesson_8.presentation.FavoriteDataView
-        android:id="@+id/showQuote"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        custom:actionButtonText="@string/get_quote"
-        custom:checkBoxText="@string/show_favorite_quote"
-        android:layout_weight="0.5"/>
+<!--    <com.example.joke_lesson_8.presentation.FavoriteDataView-->
+<!--        android:id="@+id/showQuote"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        custom:actionButtonText="@string/get_quote"-->
+<!--        custom:checkBoxText="@string/show_favorite_quote"-->
+<!--        android:layout_weight="0.5"/>-->
 
 
 

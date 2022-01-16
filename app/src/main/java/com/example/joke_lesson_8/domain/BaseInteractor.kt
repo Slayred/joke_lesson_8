@@ -7,7 +7,7 @@ import com.example.joke_lesson_8.data.FailureHandler
 import com.example.joke_lesson_8.data.interfaces.CommonIntercator
 import java.lang.Exception
 
-class BaseIntercator<E> (
+class BaseInteractor<E> (
     private val  repository: CommonRepository<E>,
     private val failureHandler: FailureHandler,
     private val mapper: CommonDataModelMapper<CommonItem.Success, E>

@@ -7,7 +7,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_gravity="center"
-    android:padding="@dimen/padding">
+    android:padding="@dimen/padding"
+    tools:parentTag="android.widget.LinearLayout">
 
     <CheckBox
         android:id="@+id/checkBox"

@@ -9,11 +9,12 @@ import com.example.joke_lesson_8.R
 
 class FavoriteDataView: LinearLayout {
 
-    private val checkBox: CheckBox
-    private val textView: CorrectTextView
-    private val changeButton: CorrectImageButton
-    private val actionButton: CorrectButton
-    private val progressBar: CorrectProgressBar
+    private lateinit var checkBox: CheckBox
+    private lateinit var textView: CorrectTextView
+    private lateinit var changeButton: CorrectImageButton
+    private lateinit var actionButton: CorrectButton
+    private lateinit var progressBar: CorrectProgressBar
+    private lateinit var actionBtn: CorrectButton
 
     constructor(context: Context): super(context)
     constructor(context: Context, attrs: AttributeSet): super(context, attrs) {
@@ -23,11 +24,12 @@ class FavoriteDataView: LinearLayout {
         init(attrs)
     }
 
-    init {
+
+    private fun init(attrs: AttributeSet){
         orientation = VERTICAL
         (context.
-                getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
-        .inflate(R.layout.favorite_data_view,this,true)
+        getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
+            .inflate(R.layout.favorite_data_view,this,true)
 
         val linear = getChildAt(1) as LinearLayout
         checkBox = getChildAt(0) as CheckBox
@@ -36,7 +38,18 @@ class FavoriteDataView: LinearLayout {
         progressBar = getChildAt(2) as CorrectProgressBar
         progressBar.visibility = INVISIBLE
         actionButton = getChildAt(3) as CorrectButton
+        actionBtn = findViewById(R.id.btnJoke)
 
+        context.theme.obtainStyledAttributes(attrs,R.styleable.FavoriteDataView, 0, 0).apply {
+            try {
+                val actionButtontext = getString(R.styleable.FavoriteDataView_actionButtonText)
+                val checkBoxText =  getString(R.styleable.FavoriteDataView_checkBoxText)
+                actionButton.text = actionButtontext
+                checkBox.text = checkBoxText
+            } finally {
+                recycle()
+            }
+        }
     }
 
 
@@ -70,16 +83,4 @@ class FavoriteDataView: LinearLayout {
     }
 
 
-  private fun init(attrs: AttributeSet){
-        context.theme.obtainStyledAttributes(attrs,R.styleable.FavoriteDataView, 0, 0).apply {
-            try {
-                val actionButtontext = getString(R.styleable.FavoriteDataView_actionButtonText)
-                val checkBoxText =  getString(R.styleable.FavoriteDataView_checkBoxText)
-                actionButton.text = actionButtontext
-                checkBox.text = checkBoxText
-            } finally {
-                recycle()
-            }
-        }
-    }
 }

@@ -13,7 +13,7 @@ import com.example.joke_lesson_8.data.interfaces.NewJokeService
 import com.example.joke_lesson_8.data.interfaces.QuoteService
 import com.example.joke_lesson_8.data.net.NewJokeCloudDataSource
 import com.example.joke_lesson_8.data.net.QuoteCloudDataSource
-import com.example.joke_lesson_8.domain.BaseIntercator
+import com.example.joke_lesson_8.domain.BaseInteractor
 
 class JokeApp: Application() {
 
@@ -41,8 +41,8 @@ class JokeApp: Application() {
     private val jokeRepository = BaseRepository(jokeCachedDataSource, newJokeCloudDataSource,BaseCachedData<Int>())
     private val quoteRepository = BaseRepository(quoteCachedDataSource,quoteCloudDataSource,BaseCachedData<String>())
 
-    private val jokeInteractor = BaseIntercator(jokeRepository, failureHandle, jokeSuccesMapper)
-    private val quoteInteractor = BaseIntercator(quoteRepository, failureHandle, quoteSuccesMapper)
+    private val jokeInteractor = BaseInteractor(jokeRepository, failureHandle, jokeSuccesMapper)
+    private val quoteInteractor = BaseInteractor(quoteRepository, failureHandle, quoteSuccesMapper)
 //endregion
 
 
