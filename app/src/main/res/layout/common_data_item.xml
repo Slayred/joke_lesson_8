@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.joke_lesson_8.presentation.CorrectTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools = "http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/commonDataTextView"
+    android:ellipsize="end"
+    android:maxLines="1"
+    android:padding="@dimen/padding"
+    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+    tools:text="some text for testing current width with one lines and after than we need some dots in text">
+
+</com.example.joke_lesson_8.presentation.CorrectTextView>

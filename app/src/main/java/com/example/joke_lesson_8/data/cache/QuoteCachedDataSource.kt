@@ -1,6 +1,9 @@
-package com.example.joke_lesson_8.data
+package com.example.joke_lesson_8.data.cache
 
+import com.example.joke_lesson_8.data.CommonSuccessMapper
+import com.example.joke_lesson_8.data.QuoteRealmToCommonMapper
 import com.example.joke_lesson_8.data.interfaces.RealmProvider
+import com.example.joke_lesson_8.data.net.BaseCachedDataSource
 import io.realm.Realm
 
 class QuoteCachedDataSource(realmProvider: RealmProvider, mapper: CommonSuccessMapper.QuoteRealmMapper,

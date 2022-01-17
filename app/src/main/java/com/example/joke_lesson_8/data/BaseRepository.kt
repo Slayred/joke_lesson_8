@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.joke_lesson_8.*
 import com.example.joke_lesson_8.data.interfaces.CacheDataSource
 import com.example.joke_lesson_8.data.interfaces.CloudDataSource
+import com.example.joke_lesson_8.data.interfaces.CommonRepository
 import com.example.joke_lesson_8.data.interfaces.DataFetcher
 import com.example.joke_lesson_8.interfaces.*
 import kotlinx.coroutines.Dispatchers
@@ -37,7 +38,9 @@ class BaseRepository<E>(
         return cached.change(cacheDataSource)
     }
 
-
+    override suspend fun getCommonItemList(): List<CommonDataModel<E>> = withContext(Dispatchers.IO){
+        cacheDataSource.getDataList()
+    }
 
 
 }

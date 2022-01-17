@@ -3,12 +3,15 @@ package com.example.joke_lesson_8.model
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.example.joke_lesson_8.interfaces.CommonCommunication
 import com.example.joke_lesson_8.interfaces.Communication
+import com.example.joke_lesson_8.presentation.CommonUIModel
 import com.example.joke_lesson_8.presentation.State
 
-class BaseCommunication: Communication {
+class BaseCommunication: CommonCommunication {
 
     private val liveData = MutableLiveData<State>()
+    private val listLiveData = MutableLiveData<List<CommonUIModel>>()
 
 
 
@@ -20,6 +23,14 @@ class BaseCommunication: Communication {
         liveData.value = state
     }
 
+    override fun showDataList(list: List<CommonUIModel>) {
+        listLiveData.value = list
+    }
+
+    override fun observeList(owner: LifecycleOwner, observer: Observer<List<CommonUIModel>>) {
+        listLiveData.observe(owner, observer)
+    }
+
     override fun observe(owner: LifecycleOwner, observer: Observer<State>) {
         liveData.observe(owner, observer)
     }
@@ -27,4 +38,5 @@ class BaseCommunication: Communication {
     override fun isState(type: Int): Boolean {
         return liveData.value?.isType(type) ?: false
     }
+
 }
