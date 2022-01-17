@@ -24,17 +24,33 @@ abstract class BaseCachedDataSource<T: RealmObject,E>(
 
     protected abstract fun findRealmObject(realm: Realm, id: E): T?
 
-    private fun getRealmData(): RealmResults<T>{
+//    private fun getRealmData(): RealmResults<T>{
+//        realmProvider.provide().use {
+//            val list = it.where(dbClass).findAll()
+//            if(list.isEmpty()){
+//                throw NoCachedDataException()
+//            } else return list
+//        }
+//    }
+private fun <R> getRealmData(block: (list:RealmResults<T>) -> R): R{
         realmProvider.provide().use {
             val list = it.where(dbClass).findAll()
             if(list.isEmpty()){
                 throw NoCachedDataException()
-            } else return list
+            } else return block.invoke(list)
         }
     }
 
-    override suspend fun getData() = realmToCommonMapper.map(getRealmData().random())
-    override suspend fun getDataList() = getRealmData().map { realmToCommonMapper.map(it) }
+//    override suspend fun getData() = realmToCommonMapper.map(getRealmData().random())
+//
+//    override suspend fun getDataList() = getRealmData().map { realmToCommonMapper.map(it) }
+    override suspend fun getData() = getRealmData {
+        realmToCommonMapper.map(it.random())
+}
+
+    override suspend fun getDataList() = getRealmData {
+        results -> results.map{realmToCommonMapper.map(it)}
+    }
 
 
     override suspend fun addOrRemove(id: E, common: CommonDataModel<E>): CommonDataModel<E> =

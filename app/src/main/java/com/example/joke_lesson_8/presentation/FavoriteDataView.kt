@@ -3,6 +3,7 @@ package com.example.joke_lesson_8.presentation
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.CheckBox
 import android.widget.LinearLayout
 import com.example.joke_lesson_8.R
@@ -14,7 +15,8 @@ class FavoriteDataView: LinearLayout {
     private lateinit var changeButton: CorrectImageButton
     private lateinit var actionButton: CorrectButton
     private lateinit var progressBar: CorrectProgressBar
-    private lateinit var actionBtn: CorrectButton
+    //private lateinit var actionBtn: CorrectButton
+    //private lateinit var customView: View
 
     constructor(context: Context): super(context)
     constructor(context: Context, attrs: AttributeSet): super(context, attrs) {
@@ -27,10 +29,9 @@ class FavoriteDataView: LinearLayout {
 
     private fun init(attrs: AttributeSet){
         orientation = VERTICAL
-        (context.
+        /*val k =*/ (context.
         getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
             .inflate(R.layout.favorite_data_view,this,true)
-
         val linear = getChildAt(1) as LinearLayout
         checkBox = getChildAt(0) as CheckBox
         textView = linear.findViewById(R.id.tvJoke)
@@ -38,7 +39,7 @@ class FavoriteDataView: LinearLayout {
         progressBar = getChildAt(2) as CorrectProgressBar
         progressBar.visibility = INVISIBLE
         actionButton = getChildAt(3) as CorrectButton
-        actionBtn = findViewById(R.id.btnJoke)
+        //actionBtn = k.findViewById(R.id.btnJoke)
 
         context.theme.obtainStyledAttributes(attrs,R.styleable.FavoriteDataView, 0, 0).apply {
             try {
@@ -46,6 +47,7 @@ class FavoriteDataView: LinearLayout {
                 val checkBoxText =  getString(R.styleable.FavoriteDataView_checkBoxText)
                 actionButton.text = actionButtontext
                 checkBox.text = checkBoxText
+                //actionBtn.text = actionButtontext
             } finally {
                 recycle()
             }
@@ -78,6 +80,9 @@ class FavoriteDataView: LinearLayout {
         checkBox.setOnCheckedChangeListener { _, isChecked ->
             commonViewModel.chooseFavorites(isChecked)
         }
+//        actionBtn.setOnClickListener{
+//            commonViewModel.getItem()
+//        }
 
 
     }

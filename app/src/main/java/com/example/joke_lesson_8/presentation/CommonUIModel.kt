@@ -10,7 +10,7 @@ abstract class CommonUIModel(private val first: String, private val second: Stri
     @DrawableRes
     abstract fun getIconResId():Int
 
-    fun map(showText: ShowText) = showText.show(first)
+    fun map(showText: ShowText) = showText.show(text())
 
     open fun show (communication: Communication) = communication.showState(
        State.Initial(
