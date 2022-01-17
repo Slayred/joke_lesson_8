@@ -1,5 +1,6 @@
 package com.example.joke_lesson_8.presentation
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,8 @@ class CommonDataRecyclerAdapter():
 RecyclerView.Adapter<CommonDataRecyclerAdapter.CommonDataViewHolder>() {
 
     private val list = ArrayList<CommonUIModel>()
+    private var onCreateViewHolderCallsCount = 0
+    private var onBindViewHolderCount = 0
 
     fun show(data: List<CommonUIModel>) {
         list.clear()
@@ -21,10 +24,14 @@ RecyclerView.Adapter<CommonDataRecyclerAdapter.CommonDataViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommonDataViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.common_data_item, parent, false)
+        onCreateViewHolderCallsCount++
+        Log.d("TAG", "onCreateViewHolderCalls: $onCreateViewHolderCallsCount")
         return CommonDataViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: CommonDataViewHolder, position: Int) {
+        onBindViewHolderCount++
+        Log.d("TAG", "onBindVIewHolderCalls: $onBindViewHolderCount")
         holder.bind(list[position])
     }
 
