@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/commonDataTextView"
     android:ellipsize="end"
-    android:maxLines="1"
+    android:maxLines="2"
     android:padding="@dimen/padding"
     android:textAppearance="@style/TextAppearance.AppCompat.Small"
     tools:text="some text for testing current width with one lines and after than we need some dots in text">

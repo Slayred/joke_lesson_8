@@ -13,7 +13,8 @@
         android:layout_weight="1"
         custom:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         android:layout_width="match_parent"
-        android:layout_height="0dp" />
+        android:layout_height="0dp"
+        tools:listitem="@layout/common_data_item"/>
 
     <com.example.joke_lesson_8.presentation.FavoriteDataView
     android:id="@+id/showJoke"
@@ -21,7 +22,7 @@
     custom:checkBoxText="@string/show_favorite_joke"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="0.5"/>
+    android:layout_weight="0.2"/>
 
 
 <!--    <com.example.joke_lesson_8.presentation.FavoriteDataView-->
