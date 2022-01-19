@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.joke_lesson_8.R
 import com.example.joke_lesson_8.data.CommonDataModel
+import com.example.joke_lesson_8.jokeapp.FailedCommonUIModel
 
 class CommonDataRecyclerAdapter():
 RecyclerView.Adapter<CommonDataRecyclerAdapter.CommonDataViewHolder>() {
@@ -21,12 +22,25 @@ RecyclerView.Adapter<CommonDataRecyclerAdapter.CommonDataViewHolder>() {
         notifyDataSetChanged()
     }
 
+    override fun getItemViewType(position: Int): Int {
+       return when(list[position]){
+            is FailedCommonUIModel -> 0
+            else -> 1
+        }
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommonDataViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.common_data_item, parent, false)
+        val emptyList = viewType == 0
+
+        val view = LayoutInflater.from(parent.context).inflate(
+            if(emptyList){
+            R.layout.no_favorite_item
+            } else { R.layout.common_data_item}, parent, false)
+
         onCreateViewHolderCallsCount++
         Log.d("TAG", "onCreateViewHolderCalls: $onCreateViewHolderCallsCount")
-        return CommonDataViewHolder(view)
+        return if (emptyList) EmptyFavoritesViewHolder(view) else CommonDataViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: CommonDataViewHolder, position: Int) {
@@ -41,9 +55,17 @@ RecyclerView.Adapter<CommonDataRecyclerAdapter.CommonDataViewHolder>() {
 
 
 
-    inner class CommonDataViewHolder(view: View): RecyclerView.ViewHolder(view){
+    open inner class CommonDataViewHolder(view: View): RecyclerView.ViewHolder(view){
         private val textVIew = itemView.findViewById<CorrectTextView>(R.id.commonDataTextView)
 
         fun bind(model: CommonUIModel) = model.map(textVIew)
     }
+
+    inner class EmptyFavoritesViewHolder(view: View): CommonDataViewHolder(view) {
+        private val textVIew = itemView.findViewById<CorrectTextView>(R.id.commonDataTextView)
+
+       override fun bind(model: CommonUIModel) = model.map(textVIew)
+    }
+
+
 }
