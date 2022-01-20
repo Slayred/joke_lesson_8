@@ -9,10 +9,10 @@ interface CommonDataModelMapper<T, E> {
     fun map(id: E, first: String, second: String, cached: Boolean): T
 }
 
-class CommonSuccessMapper<E>: CommonDataModelMapper<CommonItem.Success, E> {
-    override fun map(id: E, first: String, second: String, cached: Boolean): CommonItem.Success {
+class CommonSuccessMapper<E>: CommonDataModelMapper<CommonItem.Success<E>, E> {
+    override fun map(id: E, first: String, second: String, cached: Boolean): CommonItem.Success<E> {
         Log.d("TAG", "Call CommonSuccesMapper")
-        return CommonItem.Success(first, second, cached)
+        return CommonItem.Success(id, first, second, cached)
     }
 
 

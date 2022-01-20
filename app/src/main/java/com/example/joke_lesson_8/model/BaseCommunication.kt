@@ -8,7 +8,7 @@ import com.example.joke_lesson_8.interfaces.Communication
 import com.example.joke_lesson_8.presentation.CommonUIModel
 import com.example.joke_lesson_8.presentation.State
 
-class BaseCommunication: CommonCommunication {
+class BaseCommunication<T>: CommonCommunication {
 
     private val liveData = MutableLiveData<State>()
     private val listLiveData = MutableLiveData<List<CommonUIModel>>()

@@ -5,6 +5,8 @@ import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import com.example.joke_lesson_8.R
 import com.example.joke_lesson_8.data.CommonDataModel
+import com.example.joke_lesson_8.domain.interfaces.FavoriteItemClickListener
+import com.google.android.material.snackbar.Snackbar
 
 
 class MainActivity : AppCompatActivity() {
@@ -35,7 +37,17 @@ class MainActivity : AppCompatActivity() {
             favoriteDataView.show(state)
         })
 
-        val adapter = CommonDataRecyclerAdapter()
+        val adapter = CommonDataRecyclerAdapter(object : FavoriteItemClickListener<Int>{
+            override fun changeId(id: Int) {
+                //baseViewModel.changeItemStatus(it)
+                Snackbar.make(
+                    favoriteDataView,  R.string.remove_from_favorites,
+                    Snackbar.LENGTH_SHORT
+                ).setAction(R.string.yes){
+                    baseViewModel.changeItemStatus(id)
+                }.show()
+            }
+        })
         recycleView.adapter = adapter
         baseViewModel.observeList(this, {
             list -> adapter.show(list)

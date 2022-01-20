@@ -7,16 +7,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.joke_lesson_8.R
 import com.example.joke_lesson_8.data.CommonDataModel
+import com.example.joke_lesson_8.domain.interfaces.FavoriteItemClickListener
 import com.example.joke_lesson_8.jokeapp.FailedCommonUIModel
 
-class CommonDataRecyclerAdapter():
-RecyclerView.Adapter<CommonDataRecyclerAdapter.CommonDataViewHolder>() {
+class CommonDataRecyclerAdapter<T>(private val listener: FavoriteItemClickListener<T>):
+RecyclerView.Adapter<CommonDataRecyclerAdapter.CommonDataViewHolder<T>>() {
 
-    private val list = ArrayList<CommonUIModel>()
+    private val list = ArrayList<CommonUIModel<T>>()
     private var onCreateViewHolderCallsCount = 0
     private var onBindViewHolderCount = 0
 
-    fun show(data: List<CommonUIModel>) {
+    fun show(data: List<CommonUIModel<T>>) {
         list.clear()
         list.addAll(data)
         notifyDataSetChanged()
@@ -30,7 +31,7 @@ RecyclerView.Adapter<CommonDataRecyclerAdapter.CommonDataViewHolder>() {
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommonDataViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommonDataViewHolder<T> {
         val emptyList = viewType == 0
 
         val view = LayoutInflater.from(parent.context).inflate(
@@ -40,10 +41,10 @@ RecyclerView.Adapter<CommonDataRecyclerAdapter.CommonDataViewHolder>() {
 
         onCreateViewHolderCallsCount++
         Log.d("TAG", "onCreateViewHolderCalls: $onCreateViewHolderCallsCount")
-        return if (emptyList) EmptyFavoritesViewHolder(view) else CommonDataViewHolder(view)
+        return if (emptyList) EmptyFavoritesViewHolder(view) else CommonDataViewHolder.Base(view, listener)
     }
 
-    override fun onBindViewHolder(holder: CommonDataViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CommonDataViewHolder<T>, position: Int) {
         onBindViewHolderCount++
         Log.d("TAG", "onBindVIewHolderCalls: $onBindViewHolderCount")
         holder.bind(list[position])
@@ -55,17 +56,24 @@ RecyclerView.Adapter<CommonDataRecyclerAdapter.CommonDataViewHolder>() {
 
 
 
-    open inner class CommonDataViewHolder(view: View): RecyclerView.ViewHolder(view){
+    abstract class CommonDataViewHolder<T>(view: View): RecyclerView.ViewHolder(view){
         private val textVIew = itemView.findViewById<CorrectTextView>(R.id.commonDataTextView)
 
-        fun bind(model: CommonUIModel) = model.map(textVIew)
+        open fun bind(model: CommonUIModel<T>) = model.map(textVIew)
+
+        class Base<T>(view: View, private val listener: FavoriteItemClickListener<T>): CommonDataViewHolder<T>(view){
+            private val iconView = itemView.findViewById<CorrectImageButton>(R.id.changeBtn)
+            override fun bind(model: CommonUIModel<T>) {
+                super.bind(model)
+                iconView.setOnClickListener {
+                    model.change(listener)
+                }
+            }
+        }
     }
 
-    inner class EmptyFavoritesViewHolder(view: View): CommonDataViewHolder(view) {
-        private val textVIew = itemView.findViewById<CorrectTextView>(R.id.commonDataTextView)
 
-       override fun bind(model: CommonUIModel) = model.map(textVIew)
-    }
+    inner class EmptyFavoritesViewHolder(view: View): CommonDataViewHolder<T>(view)
 
 
 }

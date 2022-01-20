@@ -7,15 +7,16 @@ import com.example.joke_lesson_8.jokeapp.FailedCommonUIModel
 import com.example.joke_lesson_8.jokeapp.FavoriteCommonUIModel
 import com.example.joke_lesson_8.presentation.CommonUIModel
 
-sealed class CommonItem : Mapper<CommonUIModel>{
-    class Success(
+sealed class CommonItem<E> : Mapper<CommonUIModel<E>>{
+    class Success<E>(
+        private val id: E,
         private val firstText: String,
         private val secondText: String,
         private val favorite: Boolean
-    ): CommonItem(){
-        override fun to(): CommonUIModel {
+    ): CommonItem<E>(){
+        override fun to(): CommonUIModel<E> {
             return  if( favorite) {
-                FavoriteCommonUIModel(firstText,secondText)
+                FavoriteCommonUIModel(id, firstText,secondText)
             } else{
                 BaseCommonUIModel(firstText, secondText)
             }
@@ -23,8 +24,8 @@ sealed class CommonItem : Mapper<CommonUIModel>{
 
     }
 
-    class Failed(private val failure: Failure): CommonItem(){
-        override fun to(): CommonUIModel {
+    class Failed(private val failure: Failure): CommonItem<Unit>(){
+        override fun to(): CommonUIModel<Unit> {
             return FailedCommonUIModel(failure.getMessage())
         }
 
