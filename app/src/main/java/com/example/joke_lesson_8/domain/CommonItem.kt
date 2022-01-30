@@ -24,8 +24,8 @@ sealed class CommonItem<E> : Mapper<CommonUIModel<E>>{
 
     }
 
-    class Failed(private val failure: Failure): CommonItem<Unit>(){
-        override fun to(): CommonUIModel<Unit> {
+    class Failed<E>(private val failure: Failure): CommonItem<E>(){
+        override fun to(): CommonUIModel<E> {
             return FailedCommonUIModel(failure.getMessage())
         }
 

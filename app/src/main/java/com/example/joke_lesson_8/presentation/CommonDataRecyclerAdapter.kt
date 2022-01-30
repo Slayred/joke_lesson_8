@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.joke_lesson_8.R
-import com.example.joke_lesson_8.data.CommonDataModel
 import com.example.joke_lesson_8.domain.interfaces.FavoriteItemClickListener
 import com.example.joke_lesson_8.jokeapp.FailedCommonUIModel
 
@@ -59,7 +58,7 @@ RecyclerView.Adapter<CommonDataRecyclerAdapter.CommonDataViewHolder<T>>() {
     abstract class CommonDataViewHolder<T>(view: View): RecyclerView.ViewHolder(view){
         private val textVIew = itemView.findViewById<CorrectTextView>(R.id.commonDataTextView)
 
-        open fun bind(model: CommonUIModel<T>) = model.map(textVIew)
+        open fun bind(model: CommonUIModel<T>) = model.show(textVIew)
 
         class Base<T>(view: View, private val listener: FavoriteItemClickListener<T>): CommonDataViewHolder<T>(view){
             private val iconView = itemView.findViewById<CorrectImageButton>(R.id.changeBtn)
@@ -73,7 +72,7 @@ RecyclerView.Adapter<CommonDataRecyclerAdapter.CommonDataViewHolder<T>>() {
     }
 
 
-    inner class EmptyFavoritesViewHolder(view: View): CommonDataViewHolder<T>(view)
+    inner class EmptyFavoritesViewHolder<T>(view: View): CommonDataViewHolder<T>(view)
 
 
 }

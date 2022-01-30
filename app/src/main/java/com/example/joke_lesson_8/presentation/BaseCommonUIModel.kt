@@ -16,6 +16,7 @@ class BaseCommonUIModel<E>(private var text: String, private val punchline: Stri
 }
 
 class FavoriteCommonUIModel<E>(private val id: E, text: String, punchline: String): CommonUIModel<E>(text,punchline){
+
     override fun getIconResId(): Int {
         return R.drawable.baseline_favorite_24
     }
@@ -25,7 +26,7 @@ class FavoriteCommonUIModel<E>(private val id: E, text: String, punchline: Strin
     }
 }
 
-class FailedCommonUIModel(private val text: String): CommonUIModel<Unit>(text,""){
+class FailedCommonUIModel<E>(private val text: String): CommonUIModel<E>(text,""){
     override fun getIconResId() = 0
     override fun text() = text
     override fun show(communication: Communication) = communication.showState(

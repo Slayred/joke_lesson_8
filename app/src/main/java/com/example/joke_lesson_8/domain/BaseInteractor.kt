@@ -10,9 +10,9 @@ import java.lang.Exception
 class BaseInteractor<E> (
     private val  repository: CommonRepository<E>,
     private val failureHandler: FailureHandler,
-    private val mapper: CommonDataModelMapper<CommonItem.Success, E>
-): CommonIntercator {
-    override suspend fun getItem(): CommonItem {
+    private val mapper: CommonDataModelMapper<CommonItem.Success<E>, E>
+): CommonIntercator<E> {
+    override suspend fun getItem(): CommonItem<E> {
         return try {
                 repository.getCommonItem().map(mapper)
         } catch (e: Exception){
@@ -21,7 +21,7 @@ class BaseInteractor<E> (
         }
     }
 
-    override suspend fun getItemList(): List<CommonItem> {
+    override suspend fun getItemList(): List<CommonItem<E>> {
         return try {
             repository.getCommonItemList().map {
                 it.map(mapper)
@@ -32,7 +32,7 @@ class BaseInteractor<E> (
         }
     }
 
-    override suspend fun changeFavourites(): CommonItem {
+    override suspend fun changeFavourites(): CommonItem<E> {
         return try {
            repository.changeStatus().map(mapper)
         }catch (e: Exception){

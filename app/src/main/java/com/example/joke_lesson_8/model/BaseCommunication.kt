@@ -8,10 +8,10 @@ import com.example.joke_lesson_8.interfaces.Communication
 import com.example.joke_lesson_8.presentation.CommonUIModel
 import com.example.joke_lesson_8.presentation.State
 
-class BaseCommunication<T>: CommonCommunication {
+class BaseCommunication<T>: CommonCommunication<T> {
 
     private val liveData = MutableLiveData<State>()
-    private val listLiveData = MutableLiveData<List<CommonUIModel>>()
+    private val listLiveData = MutableLiveData<List<CommonUIModel<T>>>()
 
 
 
@@ -23,11 +23,11 @@ class BaseCommunication<T>: CommonCommunication {
         liveData.value = state
     }
 
-    override fun showDataList(list: List<CommonUIModel>) {
+    override fun showDataList(list: List<CommonUIModel<T>>) {
         listLiveData.value = list
     }
 
-    override fun observeList(owner: LifecycleOwner, observer: Observer<List<CommonUIModel>>) {
+    override fun observeList(owner: LifecycleOwner, observer: Observer<List<CommonUIModel<T>>>) {
         listLiveData.observe(owner, observer)
     }
 

@@ -69,10 +69,10 @@ class FavoriteDataView: LinearLayout {
 
     fun show(state: State) = state.show(progressBar,actionButton,textView,changeButton)
 
-    fun linkWith(commonViewModel: CommonViewModel) {
+    fun linkWith(commonViewModel: CommonItemViewModel) {
 
         changeButton.setOnClickListener{
-            commonViewModel.changeStatus()
+            commonViewModel.changeItemStatus()
         }
         actionButton.setOnClickListener {
             commonViewModel.getItem()

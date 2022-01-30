@@ -11,7 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var baseViewModel: BaseViewModel
+    private lateinit var baseViewModel: BaseViewModel<Int>
 //    private lateinit var quoteViewModel: BaseViewModel
     private lateinit var recycleView: RecyclerView
 
@@ -52,6 +52,9 @@ class MainActivity : AppCompatActivity() {
         baseViewModel.observeList(this, {
             list -> adapter.show(list)
         })
+//        baseViewModel.observeList(this, {
+//            list -> adapter.show(list)
+//        })
         baseViewModel.getItemList()
 
 
