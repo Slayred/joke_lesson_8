@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.joke_lesson_8.R
 import com.example.joke_lesson_8.domain.interfaces.FavoriteItemClickListener
+import com.example.joke_lesson_8.interfaces.CommonCommunication
 import com.example.joke_lesson_8.jokeapp.FailedCommonUIModel
 
-class CommonDataRecyclerAdapter<T>(private val listener: FavoriteItemClickListener<T>):
+class CommonDataRecyclerAdapter<T>(private val listener: FavoriteItemClickListener<T>
+, private val communication: CommonCommunication<T>):
 RecyclerView.Adapter<CommonDataRecyclerAdapter.CommonDataViewHolder<T>>() {
 
     private val list = ArrayList<CommonUIModel<T>>()
@@ -22,8 +24,29 @@ RecyclerView.Adapter<CommonDataRecyclerAdapter.CommonDataViewHolder<T>>() {
         notifyDataSetChanged()
     }
 
+    fun removeItem(id: T) {
+        val element = list.find {
+            it.matches(id)
+        }
+        val position = list.indexOf(element)
+        list.remove(element)
+        notifyItemChanged(position)
+    }
+
+    fun update() {
+        notifyDataSetChanged()
+    }
+
+    fun update(pair: Pair<Boolean, Int>) {
+        if(pair.first) {
+            notifyItemInserted(pair.second)
+        } else {
+            notifyItemRemoved(pair.second)
+        }
+    }
+
     override fun getItemViewType(position: Int): Int {
-       return when(list[position]){
+       return when(communication.getList()[position]){
             is FailedCommonUIModel -> 0
             else -> 1
         }
@@ -46,13 +69,12 @@ RecyclerView.Adapter<CommonDataRecyclerAdapter.CommonDataViewHolder<T>>() {
     override fun onBindViewHolder(holder: CommonDataViewHolder<T>, position: Int) {
         onBindViewHolderCount++
         Log.d("TAG", "onBindVIewHolderCalls: $onBindViewHolderCount")
-        holder.bind(list[position])
+        holder.bind(communication.getList()[position])
     }
 
     override fun getItemCount(): Int {
-        return  list.size
+        return  communication.getList().size
     }
-
 
 
     abstract class CommonDataViewHolder<T>(view: View): RecyclerView.ViewHolder(view){

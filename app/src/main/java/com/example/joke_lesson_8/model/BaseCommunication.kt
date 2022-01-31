@@ -11,7 +11,7 @@ import com.example.joke_lesson_8.presentation.State
 class BaseCommunication<T>: CommonCommunication<T> {
 
     private val liveData = MutableLiveData<State>()
-    private val listLiveData = MutableLiveData<List<CommonUIModel<T>>>()
+    private val listLiveData = MutableLiveData<ArrayList<CommonUIModel<T>>>()
 
 
 
@@ -24,7 +24,7 @@ class BaseCommunication<T>: CommonCommunication<T> {
     }
 
     override fun showDataList(list: List<CommonUIModel<T>>) {
-        listLiveData.value = list
+        listLiveData.value = ArrayList(list)
     }
 
     override fun observeList(owner: LifecycleOwner, observer: Observer<List<CommonUIModel<T>>>) {
@@ -42,13 +42,16 @@ class BaseCommunication<T>: CommonCommunication<T> {
     override fun removeItem(id: T
                             , owner: LifecycleOwner
                             , observer: Observer<List<CommonUIModel<T>>>) {
-        val source = listLiveData.value?: emptyList()
-        val list = source.filter {
+        //val source = listLiveData.value?: emptyList()
+       listLiveData.value?.find {
             !it.matches(id)
-        }
-        listLiveData.removeObserver(observer)
-        showDataList(list)
-        observeList(owner, observer)
+        }?.let {
+            listLiveData.value?.remove(it)
+       }
+    }
+
+    override fun getList(): List<CommonUIModel<T>> {
+        return listLiveData.value?: emptyList()
     }
 
 }

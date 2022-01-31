@@ -11,4 +11,6 @@ interface ListCommunication<T> {
     fun observeList(owner: LifecycleOwner, observer: Observer<List<CommonUIModel<T>>>)
 
     fun removeItem(id: T, owner: LifecycleOwner, observer: Observer<List<CommonUIModel<T>>>)
+
+    fun getList(): List<CommonUIModel<T>>
 }
