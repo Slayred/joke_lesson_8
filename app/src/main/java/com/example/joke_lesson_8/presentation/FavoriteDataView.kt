@@ -2,6 +2,7 @@ package com.example.joke_lesson_8.presentation
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.CheckBox
@@ -32,13 +33,18 @@ class FavoriteDataView: LinearLayout {
         /*val k =*/ (context.
         getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
             .inflate(R.layout.favorite_data_view,this,true)
-        val linear = getChildAt(1) as LinearLayout
-        checkBox = getChildAt(0) as CheckBox
+        val linear = findViewById<LinearLayout>(R.id.commonDataLL)
+        //val linear = getChildAt(1) as LinearLayout
+        Log.d("TAG", "ID IS $linear.id")
+        //checkBox = getChildAt(0) as CheckBox
+        checkBox = findViewById(R.id.checkBox)
         textView = linear.findViewById(R.id.commonDataTextView)
         changeButton = linear.findViewById(R.id.changeBtn)
-        progressBar = getChildAt(2) as CorrectProgressBar
+        //progressBar = getChildAt(2) as CorrectProgressBar
+        progressBar = findViewById(R.id.progressBar)
         progressBar.visibility = INVISIBLE
-        actionButton = getChildAt(3) as CorrectButton
+        //actionButton = getChildAt(3) as CorrectButton
+        actionButton =  findViewById(R.id.btnJoke)
         //actionBtn = k.findViewById(R.id.btnJoke)
 
         context.theme.obtainStyledAttributes(attrs,R.styleable.FavoriteDataView, 0, 0).apply {

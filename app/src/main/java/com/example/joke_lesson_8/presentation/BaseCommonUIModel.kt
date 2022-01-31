@@ -24,6 +24,8 @@ class FavoriteCommonUIModel<E>(private val id: E, text: String, punchline: Strin
     override fun change(listener: FavoriteItemClickListener<E>) {
         listener.changeId(id)
     }
+
+    override fun matches(id: E): Boolean  = this.id == id
 }
 
 class FailedCommonUIModel<E>(private val text: String): CommonUIModel<E>(text,""){

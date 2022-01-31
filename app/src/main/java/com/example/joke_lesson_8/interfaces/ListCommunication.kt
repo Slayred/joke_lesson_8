@@ -9,4 +9,6 @@ interface ListCommunication<T> {
     fun showDataList(list: List<CommonUIModel<T>>)
 
     fun observeList(owner: LifecycleOwner, observer: Observer<List<CommonUIModel<T>>>)
+
+    fun removeItem(id: T, owner: LifecycleOwner, observer: Observer<List<CommonUIModel<T>>>)
 }

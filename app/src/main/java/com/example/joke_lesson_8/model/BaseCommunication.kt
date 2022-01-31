@@ -39,4 +39,16 @@ class BaseCommunication<T>: CommonCommunication<T> {
         return liveData.value?.isType(type) ?: false
     }
 
+    override fun removeItem(id: T
+                            , owner: LifecycleOwner
+                            , observer: Observer<List<CommonUIModel<T>>>) {
+        val source = listLiveData.value?: emptyList()
+        val list = source.filter {
+            !it.matches(id)
+        }
+        listLiveData.removeObserver(observer)
+        showDataList(list)
+        observeList(owner, observer)
+    }
+
 }
