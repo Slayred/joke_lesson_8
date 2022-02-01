@@ -39,10 +39,8 @@ class BaseViewModel<T>(private val intercator: CommonIntercator<T>,
         }
     }
 
-    override fun changeItemStatus(id: T
-    ,owner: LifecycleOwner
-    ,observer: Observer<List<CommonUIModel<T>>>): Int {
-        val found = communication.removeItem(id, owner, observer)
+    override fun changeItemStatus(id: T): Int {
+        val found = communication.removeItem(id)
         viewModelScope.launch(dispatcher) {
             intercator.removeItem(id)
         }

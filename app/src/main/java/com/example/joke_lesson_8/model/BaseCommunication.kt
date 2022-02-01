@@ -39,11 +39,9 @@ class BaseCommunication<T>: CommonCommunication<T> {
         return liveData.value?.isType(type) ?: false
     }
 
-    override fun removeItem(id: T
-                            , owner: LifecycleOwner
-                            , observer: Observer<List<CommonUIModel<T>>>): Int {
+    override fun removeItem(id: T): Int {
        val found  = listLiveData.value?.find {
-           !it.matches(id)
+           it.matches(id)
        }
         val position  = listLiveData.value?.indexOf(found)?: -1
         found?.let {
