@@ -50,7 +50,8 @@ class JokeApp: Application() {
     override fun onCreate() {
         super.onCreate()
         Realm.init(this)
-        baseViewModel = BaseViewModel(jokeInteractor,BaseCommunication())
+        jokeCommunication = BaseCommunication()
+        baseViewModel = BaseViewModel(jokeInteractor, jokeCommunication)
         quoteViewModel = BaseViewModel(quoteInteractor, BaseCommunication())
 
     }

@@ -8,7 +8,7 @@ interface CommonViewModel<T>: CommonItemViewModel {
     //fun getItem()
     //fun getItemList()
     //fun changeItemStatus()
-    fun changeItemStatus(id: T, owner: LifecycleOwner, observer: Observer<List<CommonUIModel<T>>>)
+    fun changeItemStatus(id: T, owner: LifecycleOwner, observer: Observer<List<CommonUIModel<T>>>): Int
     //fun chooseFavorites(favorites: Boolean)
     fun observe(owner: LifecycleOwner, observer: Observer<State>)
     fun observeList(owner: LifecycleOwner, observer: Observer<List<CommonUIModel<T>>>)

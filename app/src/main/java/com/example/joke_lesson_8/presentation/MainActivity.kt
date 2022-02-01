@@ -49,8 +49,8 @@ class MainActivity : AppCompatActivity() {
                     favoriteDataView,  R.string.remove_from_favorites,
                     Snackbar.LENGTH_SHORT
                 ).setAction(R.string.yes){
-                    baseViewModel.changeItemStatus(id, this@MainActivity, observer)
-                    adapter.update(Pair(false, id))
+                    val deleteItemPosition = baseViewModel.changeItemStatus(id, this@MainActivity, observer)
+                    adapter.update(Pair(false, deleteItemPosition))
                 }.show()
             }
         }, jokeCommunication)

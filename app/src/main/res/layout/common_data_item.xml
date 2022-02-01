@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/commonDataLL"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,14 +10,19 @@
     android:padding="@dimen/padding">
 
     <com.example.joke_lesson_8.presentation.CorrectTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/commonDataTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
         android:ellipsize="end"
         android:maxLines="2"
         android:padding="@dimen/padding"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        tools:text="some text for testing current width with o"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/changeBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="some text for testing current width with o" />
 
     <com.example.joke_lesson_8.presentation.CorrectImageButton
         android:id="@+id/changeBtn"
@@ -26,8 +31,11 @@
         android:background="?selectableItemBackground"
         android:minWidth="48dp"
         android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_input_add"
         tools:ignore="SpeakableTextPresentCheck" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

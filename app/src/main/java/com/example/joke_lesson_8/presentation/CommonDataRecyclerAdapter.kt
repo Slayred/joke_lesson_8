@@ -24,14 +24,14 @@ RecyclerView.Adapter<CommonDataRecyclerAdapter.CommonDataViewHolder<T>>() {
         notifyDataSetChanged()
     }
 
-    fun removeItem(id: T) {
-        val element = list.find {
-            it.matches(id)
-        }
-        val position = list.indexOf(element)
-        list.remove(element)
-        notifyItemChanged(position)
-    }
+//    fun removeItem(id: T) {
+//        val element = list.find {
+//            it.matches(id)
+//        }
+//        val position = list.indexOf(element)
+//        list.remove(element)
+//        notifyItemChanged(position)
+//    }
 
     fun update() {
         notifyDataSetChanged()

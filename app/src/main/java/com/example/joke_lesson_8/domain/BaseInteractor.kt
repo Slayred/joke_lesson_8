@@ -45,4 +45,8 @@ class BaseInteractor<E> (
     override fun getFavoriteJokes(favorites: Boolean) {
         repository.chooseDataSource(favorites)
     }
+
+    override suspend fun removeItem(id: E) {
+        repository.remove(id)
+    }
 }

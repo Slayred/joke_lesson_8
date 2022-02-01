@@ -17,10 +17,9 @@
         tools:text="@string/show_favorite_joke" />
 
     <include
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         layout="@layout/common_data_item"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
     <com.example.joke_lesson_8.presentation.CorrectProgressBar

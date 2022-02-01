@@ -11,4 +11,6 @@ interface CommonIntercator<T> {
     suspend fun changeFavourites(): CommonItem<T>
 
     fun getFavoriteJokes(favorites: Boolean)
+
+    suspend fun removeItem(id: T)
 }

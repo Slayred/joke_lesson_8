@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.CheckBox
 import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.joke_lesson_8.R
 
 class FavoriteDataView: LinearLayout {
@@ -33,7 +34,7 @@ class FavoriteDataView: LinearLayout {
         /*val k =*/ (context.
         getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
             .inflate(R.layout.favorite_data_view,this,true)
-        val linear = findViewById<LinearLayout>(R.id.commonDataLL)
+        val linear = findViewById<ConstraintLayout>(R.id.commonDataLL)
         //val linear = getChildAt(1) as LinearLayout
         Log.d("TAG", "ID IS $linear.id")
         //checkBox = getChildAt(0) as CheckBox

@@ -41,13 +41,15 @@ class BaseCommunication<T>: CommonCommunication<T> {
 
     override fun removeItem(id: T
                             , owner: LifecycleOwner
-                            , observer: Observer<List<CommonUIModel<T>>>) {
-        //val source = listLiveData.value?: emptyList()
-       listLiveData.value?.find {
-            !it.matches(id)
-        }?.let {
-            listLiveData.value?.remove(it)
+                            , observer: Observer<List<CommonUIModel<T>>>): Int {
+       val found  = listLiveData.value?.find {
+           !it.matches(id)
        }
+        val position  = listLiveData.value?.indexOf(found)?: -1
+        found?.let {
+            listLiveData.value?.remove(it)
+        }
+        return position
     }
 
     override fun getList(): List<CommonUIModel<T>> {
