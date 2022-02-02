@@ -17,21 +17,13 @@
         tools:listitem="@layout/common_data_item"/>
 
     <com.example.joke_lesson_8.presentation.FavoriteDataView
-    android:id="@+id/showJoke"
+    android:id="@+id/favoriteDataView"
     custom:actionButtonText = "@string/get_joke"
     custom:checkBoxText="@string/show_favorite_joke"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_weight="0.2"/>
 
-
-<!--    <com.example.joke_lesson_8.presentation.FavoriteDataView-->
-<!--        android:id="@+id/showQuote"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        custom:actionButtonText="@string/get_quote"-->
-<!--        custom:checkBoxText="@string/show_favorite_quote"-->
-<!--        android:layout_weight="0.5"/>-->
 
 
 

@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import com.example.joke_lesson_8.R
-import com.example.joke_lesson_8.data.CommonDataModel
 import com.example.joke_lesson_8.domain.interfaces.FavoriteItemClickListener
 import com.google.android.material.snackbar.Snackbar
 
@@ -24,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         val jokeCommunication = (application as JokeApp).jokeCommunication
 //        quoteViewModel = (application as JokeApp).quoteViewModel
         recycleView = findViewById(R.id.recycleView)
-        val favoriteDataView = findViewById<FavoriteDataView>(R.id.showJoke)
+        val favoriteDataView = findViewById<FavoriteDataView>(R.id.favoriteDataView)
         val observer: (t: List<CommonUIModel<Int>>) -> Unit ={
             list -> adapter.show(list)
         }
