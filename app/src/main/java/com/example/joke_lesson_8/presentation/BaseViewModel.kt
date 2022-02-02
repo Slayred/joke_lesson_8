@@ -39,12 +39,12 @@ class BaseViewModel<T>(private val intercator: CommonIntercator<T>,
         }
     }
 
-    override fun changeItemStatus(id: T): Int {
-        val found = communication.removeItem(id)
+    override fun changeItemStatus(id: T) {
+
         viewModelScope.launch(dispatcher) {
             intercator.removeItem(id)
+            communication.showDataList(intercator.getItemList().map { it.to() })
         }
-        return found
     }
 
 

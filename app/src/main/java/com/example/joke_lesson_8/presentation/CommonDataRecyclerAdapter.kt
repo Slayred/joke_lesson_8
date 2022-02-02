@@ -34,7 +34,8 @@ RecyclerView.Adapter<CommonDataRecyclerAdapter.CommonDataViewHolder<T>>() {
 //    }
 
     fun update() {
-        notifyDataSetChanged()
+        val result = communication.getDiffResult()
+        result.dispatchUpdatesTo(this)
     }
 
     fun update(pair: Pair<Boolean, Int>) {
