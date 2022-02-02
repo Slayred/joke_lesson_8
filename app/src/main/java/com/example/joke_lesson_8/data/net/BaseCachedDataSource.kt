@@ -73,6 +73,15 @@ private fun <R> getRealmData(block: (list:RealmResults<T>) -> R): R{
             }
         }
 
+    override suspend fun remove(id: E)  = withContext(Dispatchers.IO) {
+        realmProvider.provide().use {
+            realm ->
+            realm.executeTransaction {
+                findRealmObject(realm, id)?.deleteFromRealm()
+            }
+        }
+    }
+
 
 
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.joke_lesson_8.presentation.CorrectTextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/commonDataTextView"
+    android:background="@color/teal_200"
+    android:gravity="center">
+
+</com.example.joke_lesson_8.presentation.CorrectTextView>

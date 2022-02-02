@@ -10,9 +10,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class BaseViewModel(private val intercator: CommonIntercator,
-                    private val communication: CommonCommunication,
-                    private val dispatcher: CoroutineDispatcher = Dispatchers.Main) : ViewModel(), CommonViewModel {
+class BaseViewModel<T>(private val intercator: CommonIntercator<T>,
+                    private val communication: CommonCommunication<T>,
+                    private val dispatcher: CoroutineDispatcher = Dispatchers.Main) : ViewModel(), CommonViewModel<T> {
 
 
     override fun getItem() {
@@ -28,20 +28,31 @@ class BaseViewModel(private val intercator: CommonIntercator,
         }
     }
 
-    override fun changeStatus() {
+    override fun changeItemStatus() {
         viewModelScope.launch(dispatcher) {
-            if (communication.isState(State.INITIAL))
+            if (communication.isState(State.INITIAL)) {
                 intercator.changeFavourites().to().show(communication)
+                communication.showDataList(intercator.getItemList().map {
+                    it.to()
+                })
+            }
         }
     }
 
+    override fun changeItemStatus(id: T): Int {
+        val found = communication.removeItem(id)
+        viewModelScope.launch(dispatcher) {
+            intercator.removeItem(id)
+        }
+        return found
+    }
 
 
     override fun chooseFavorites(favorites: Boolean) =  intercator.getFavoriteJokes(favorites)
 
 
     override  fun observe(owner: LifecycleOwner, observer: Observer<State>) = communication.observe(owner, observer)
-    override fun observeList(owner: LifecycleOwner, observer: Observer<List<CommonUIModel>>) {
+    override fun observeList(owner: LifecycleOwner, observer: Observer<List<CommonUIModel<T>>>) {
         communication.observeList(owner, observer)
     }
 

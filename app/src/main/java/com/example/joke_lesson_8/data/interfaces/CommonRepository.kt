@@ -10,7 +10,7 @@ interface CommonRepository<E>{
     suspend fun changeStatus() : CommonDataModel<E>
 
     fun chooseDataSource(favorites: Boolean)
-
+    suspend fun remove(id: E)
 
 
 }

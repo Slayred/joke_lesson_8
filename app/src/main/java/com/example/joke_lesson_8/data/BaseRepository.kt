@@ -42,5 +42,9 @@ class BaseRepository<E>(
         cacheDataSource.getDataList()
     }
 
+    override suspend fun remove(id: E)  = withContext(Dispatchers.IO) {
+        cacheDataSource.remove(id)
+    }
+
 
 }
