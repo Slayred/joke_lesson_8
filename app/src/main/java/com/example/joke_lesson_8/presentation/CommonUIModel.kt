@@ -24,5 +24,7 @@ abstract class CommonUIModel<T>(private val first: String, private val second: S
 
     open fun matches(id: T): Boolean = false
 
+    open fun same(commonUIModel: CommonUIModel<T>): Boolean = false
+
 }
 

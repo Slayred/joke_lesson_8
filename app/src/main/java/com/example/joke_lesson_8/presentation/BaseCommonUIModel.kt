@@ -26,6 +26,10 @@ class FavoriteCommonUIModel<E>(private val id: E, text: String, punchline: Strin
     }
 
     override fun matches(id: E): Boolean  = this.id == id
+
+    override fun same(commonUIModel: CommonUIModel<E>): Boolean {
+        return commonUIModel is FavoriteCommonUIModel<E> && commonUIModel.id == id
+    }
 }
 
 class FailedCommonUIModel<E>(private val text: String): CommonUIModel<E>(text,""){
@@ -56,7 +60,7 @@ class ServiceUnavailible(private val baseResourceManager: ResourceManager): Fail
     }
 }
 
-class SSLFailure_exception(private val baseResourceManager: ResourceManager): Failure {
+class SSLFailureException(private val baseResourceManager: ResourceManager): Failure {
     override fun getMessage(): String {
         return baseResourceManager.getString(R.string.ssl_error)
     }

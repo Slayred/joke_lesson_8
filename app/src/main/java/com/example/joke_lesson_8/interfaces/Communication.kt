@@ -2,6 +2,7 @@ package com.example.joke_lesson_8.interfaces
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DiffUtil
 import com.example.joke_lesson_8.presentation.CommonUIModel
 import com.example.joke_lesson_8.presentation.State
 
@@ -20,4 +21,5 @@ interface Communication {
 
 
     fun isState(type: Int): Boolean
+    fun getDiffResult(): DiffUtil.DiffResult
 }
