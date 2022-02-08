@@ -1,31 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
+<androidx.viewpager2.widget.ViewPager2
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/viewPager"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_gravity="center"
-    android:padding="@dimen/padding">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleView"
-        android:layout_weight="1"
-        custom:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        tools:listitem="@layout/common_data_item"/>
-
-    <com.example.joke_lesson_8.presentation.FavoriteDataView
-    android:id="@+id/favoriteDataView"
-    custom:actionButtonText = "@string/get_joke"
-    custom:checkBoxText="@string/show_favorite_joke"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_weight="0.2"/>
-
-
-
-
-
-</LinearLayout>
+    android:orientation="horizontal" />

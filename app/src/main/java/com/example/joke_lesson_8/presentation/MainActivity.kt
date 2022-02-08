@@ -3,65 +3,61 @@ package com.example.joke_lesson_8.presentation
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.example.joke_lesson_8.R
 import com.example.joke_lesson_8.domain.interfaces.FavoriteItemClickListener
+import com.example.joke_lesson_8.presentation.viewPager.PagerAdapter
 import com.google.android.material.snackbar.Snackbar
 
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var baseViewModel: BaseViewModel<Int>
+//    private lateinit var baseViewModel: BaseViewModel<Int>
 //    private lateinit var quoteViewModel: BaseViewModel
-    private lateinit var recycleView: RecyclerView
-    private lateinit var adapter: CommonDataRecyclerAdapter<Int>
+//    private lateinit var recycleView: RecyclerView
+//    private lateinit var adapter: CommonDataRecyclerAdapter<Int>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        baseViewModel = (application as JokeApp).baseViewModel
-        val jokeCommunication = (application as JokeApp).jokeCommunication
-//        quoteViewModel = (application as JokeApp).quoteViewModel
-        recycleView = findViewById(R.id.recycleView)
-        val favoriteDataView = findViewById<FavoriteDataView>(R.id.favoriteDataView)
-        val observer: (t: List<CommonUIModel<Int>>) -> Unit ={
-            list -> adapter.show(list)
-        }
-//        val quoteFavoriteDataView = findViewById<FavoriteDataView>(R.id.showQuote)
+        val viewPager = findViewById<ViewPager2>(R.id.viewPager)
+        viewPager.adapter = PagerAdapter(this)
+//        baseViewModel = (application as JokeApp).baseViewModel
+//        val jokeCommunication = (application as JokeApp).jokeCommunication
+//        recycleView = findViewById(R.id.recycleView)
+//        val favoriteDataView = findViewById<FavoriteDataView>(R.id.favoriteDataView)
+//        val observer: (t: List<CommonUIModel<Int>>) -> Unit ={
+//            list -> adapter.show(list)
+//        }
+
+
+//        favoriteDataView.linkWith(baseViewModel)
+//        baseViewModel.observe(this) { state ->
+//            favoriteDataView.show(state)
+//        }
 //
-//        quoteFavoriteDataView.linkWith(quoteViewModel)
-//        quoteViewModel.observe(this, {
-//                state ->
-//            quoteFavoriteDataView.show(state)
-//        })
-
-
-        favoriteDataView.linkWith(baseViewModel)
-        baseViewModel.observe(this) { state ->
-            favoriteDataView.show(state)
-        }
-
-        adapter = CommonDataRecyclerAdapter(object : FavoriteItemClickListener<Int>{
-            override fun changeId(id: Int) {
-                //baseViewModel.changeItemStatus(it)
-                Snackbar.make(
-                    favoriteDataView,  R.string.remove_from_favorites,
-                    Snackbar.LENGTH_SHORT
-                ).setAction(R.string.yes){
-                    //val deleteItemPosition = baseViewModel.changeItemStatus(id)
-                    baseViewModel.changeItemStatus(id)
-                    //adapter.update(Pair(false, deleteItemPosition))
-                }.show()
-            }
-        }, jokeCommunication)
-        recycleView.adapter = adapter
-        baseViewModel.observeList(this) { list ->
-            adapter.show(list)
-        }
+//        adapter = CommonDataRecyclerAdapter(object : FavoriteItemClickListener<Int>{
+//            override fun changeId(id: Int) {
+//                //baseViewModel.changeItemStatus(it)
+//                Snackbar.make(
+//                    favoriteDataView,  R.string.remove_from_favorites,
+//                    Snackbar.LENGTH_SHORT
+//                ).setAction(R.string.yes){
+//                    //val deleteItemPosition = baseViewModel.changeItemStatus(id)
+//                    baseViewModel.changeItemStatus(id)
+//                    //adapter.update(Pair(false, deleteItemPosition))
+//                }.show()
+//            }
+//        }, jokeCommunication)
+//        recycleView.adapter = adapter
+//        baseViewModel.observeList(this) { list ->
+//            adapter.show(list)
+//        }
 //        baseViewModel.observeList(this, {
 //            list -> adapter.show(list)
 //        })
-        baseViewModel.getItemList()
+//        baseViewModel.getItemList()
 
 
 
