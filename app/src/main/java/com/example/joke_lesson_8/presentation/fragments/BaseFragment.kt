@@ -8,11 +8,11 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.joke_lesson_8.R
+import com.example.joke_lesson_8.domain.interfaces.FavoriteItemClickListener
 import com.example.joke_lesson_8.interfaces.Communication
 import com.example.joke_lesson_8.model.BaseCommunication
-import com.example.joke_lesson_8.presentation.BaseViewModel
-import com.example.joke_lesson_8.presentation.FavoriteDataView
-import com.example.joke_lesson_8.presentation.JokeApp
+import com.example.joke_lesson_8.presentation.*
+import com.google.android.material.snackbar.Snackbar
 
 abstract class BaseFragment<T>: Fragment() {
 
@@ -33,12 +33,39 @@ abstract class BaseFragment<T>: Fragment() {
         val application = requireActivity().application as JokeApp
         val viewModel = getViewModel(application)
         val communication = getCommunication(application)
+
         val favoriteDataView = view.findViewById<FavoriteDataView>(R.id.favoriteDataViewFragment)
         favoriteDataView.checkBoxText(checkBoxText())
         favoriteDataView.actionButtonText(actionButtonText())
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycleViewFragment)
 
+        favoriteDataView.linkWith(viewModel)
+        viewModel.observe(this) {
+            state -> favoriteDataView.show(state)
+        }
+        val adapter = CommonDataRecyclerAdapter<T>(object: FavoriteItemClickListener<T>{
+            override fun changeId(id: T) {
+                Snackbar.make(
+                    favoriteDataView, R.string.remove_from_favorites,
+                    Snackbar.LENGTH_SHORT
+                ).setAction(R.string.yes){
+                    viewModel.changeItemStatus(id)
+                }.show()
+            }
 
+        }, communication)
+//        val observer: (t: List<CommonUIModel<T>>) -> Unit = {
+//                list -> adapter.show(list)
+//        }
+
+        recyclerView.adapter = adapter
+        viewModel.observeList(this) {
+            list -> adapter.show(list)
+        }
+        viewModel.getItemList()
+        viewModel.observe(this) {
+
+        }
     }
 
     @StringRes

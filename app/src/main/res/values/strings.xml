@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">joke_lesson_8</string>
+    <string name="app_name">Jokes and Quotes</string>
     <string name="get_joke">GET JOKE</string>
     <string name="no_connection">NO CONNECTION</string>
     <string name="service_unavailable">SERVICE UNAVAILABLE</string>
@@ -8,7 +8,9 @@
     <string name="no_cached_joke">No favorites joke! Add one by heart icon</string>
     <string name="generic_fail_messages">FAILEEEE</string>
     <string name="get_quote">GET QUOTE</string>
-    <string name="show_favorite_quote"></string>
+    <string name="show_favorite_quote">Show Favorite Quote</string>
     <string name="remove_from_favorites">Remove from favorites?</string>
     <string name="yes">YES</string>
+    <string name="quotes">Quotes</string>
+    <string name="jokes">Jokes</string>
 </resources>
