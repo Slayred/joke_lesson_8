@@ -13,8 +13,7 @@ import com.example.joke_lesson_8.presentation.util.CommonDiffUtilCallback
 class BaseCommunication<T>: CommonCommunication<T> {
 
     private val liveData = MutableLiveData<State>()
-    private val listLiveData = MutableLiveData<ArrayList<CommonUIModel<T>>>()
-    private lateinit var diffResult: DiffUtil.DiffResult
+
 
 
 
@@ -25,6 +24,9 @@ class BaseCommunication<T>: CommonCommunication<T> {
     override fun showState(state: State) {
         liveData.value = state
     }
+
+    private val listLiveData = MutableLiveData<ArrayList<CommonUIModel<T>>>()
+    private lateinit var diffResult: DiffUtil.DiffResult
 
     override fun showDataList(list: List<CommonUIModel<T>>) {
         val callback = CommonDiffUtilCallback(listLiveData.value ?: emptyList(), list)

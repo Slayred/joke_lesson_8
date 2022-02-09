@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.CheckBox
 import android.widget.LinearLayout
+import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.joke_lesson_8.R
 
@@ -31,12 +32,11 @@ class FavoriteDataView: LinearLayout {
 
     private fun init(attrs: AttributeSet){
         orientation = VERTICAL
-        /*val k =*/ (context.
+        (context.
         getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
             .inflate(R.layout.favorite_data_view,this,true)
         val linear = findViewById<ConstraintLayout>(R.id.commonDataLL)
         //val linear = getChildAt(1) as LinearLayout
-        Log.d("TAG", "ID IS $linear.id")
         //checkBox = getChildAt(0) as CheckBox
         checkBox = findViewById(R.id.checkBox)
         textView = linear.findViewById(R.id.commonDataTextView)
@@ -75,6 +75,9 @@ class FavoriteDataView: LinearLayout {
     }
 
     fun show(state: State) = state.show(progressBar,actionButton,textView,changeButton)
+
+    fun checkBoxText(@StringRes id: Int) = checkBox.setText(id)
+    fun actionButtonText(@StringRes id: Int) = actionButton.setText(id)
 
     fun linkWith(commonViewModel: CommonItemViewModel) {
 

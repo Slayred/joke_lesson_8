@@ -17,10 +17,13 @@ import com.example.joke_lesson_8.domain.BaseInteractor
 
 class JokeApp: Application() {
 
-//region existCode
+
+
+    //region existCode
     lateinit var baseViewModel: BaseViewModel<Int>
     lateinit var quoteViewModel: BaseViewModel<String>
     lateinit var jokeCommunication: BaseCommunication<Int>
+    lateinit var quoteCommunication: BaseCommunication<String>
     //private val BASE_OLD_JOKE_URL = "http://92.63.192.103:3005"
     private val BASE_Joke_URL = "https://karljoke.herokuapp.com"
     private val BASE_QUOTE_JOKE = "https://api.quotable.io/random/"
@@ -51,8 +54,10 @@ class JokeApp: Application() {
         super.onCreate()
         Realm.init(this)
         jokeCommunication = BaseCommunication()
+        quoteCommunication = BaseCommunication()
         baseViewModel = BaseViewModel(jokeInteractor, jokeCommunication)
-        quoteViewModel = BaseViewModel(quoteInteractor, BaseCommunication())
+        quoteViewModel = BaseViewModel(quoteInteractor, quoteCommunication )
+
 
     }
 }
