@@ -54,9 +54,10 @@ class JokeApp: Application() {
         super.onCreate()
         Realm.init(this)
         jokeCommunication = BaseCommunication()
-        baseViewModel = BaseViewModel(jokeInteractor, jokeCommunication)
-        quoteViewModel = BaseViewModel(quoteInteractor, BaseCommunication())
         quoteCommunication = BaseCommunication()
+        baseViewModel = BaseViewModel(jokeInteractor, jokeCommunication)
+        quoteViewModel = BaseViewModel(quoteInteractor, quoteCommunication )
+
 
     }
 }

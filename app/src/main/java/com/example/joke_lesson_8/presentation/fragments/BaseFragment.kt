@@ -43,7 +43,7 @@ abstract class BaseFragment<T>: Fragment() {
         viewModel.observe(this) {
             state -> favoriteDataView.show(state)
         }
-        val adapter = CommonDataRecyclerAdapter<T>(object: FavoriteItemClickListener<T>{
+        val adapter = CommonDataRecyclerAdapter(object: FavoriteItemClickListener<T>{
             override fun changeId(id: T) {
                 Snackbar.make(
                     favoriteDataView, R.string.remove_from_favorites,
@@ -54,9 +54,6 @@ abstract class BaseFragment<T>: Fragment() {
             }
 
         }, communication)
-//        val observer: (t: List<CommonUIModel<T>>) -> Unit = {
-//                list -> adapter.show(list)
-//        }
 
         recyclerView.adapter = adapter
         viewModel.getItemList()

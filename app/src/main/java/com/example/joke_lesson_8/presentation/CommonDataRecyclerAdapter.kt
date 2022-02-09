@@ -18,34 +18,11 @@ RecyclerView.Adapter<CommonDataRecyclerAdapter.CommonDataViewHolder<T>>() {
     private var onCreateViewHolderCallsCount = 0
     private var onBindViewHolderCount = 0
 
-//    fun show(data: List<CommonUIModel<T>>) {
-//        list.clear()
-//        list.addAll(data)
-//        notifyDataSetChanged()
-//    }
-
-//    fun removeItem(id: T) {
-//        val element = list.find {
-//            it.matches(id)
-//        }
-//        val position = list.indexOf(element)
-//        list.remove(element)
-//        notifyItemChanged(position)
-//    }
 
     fun update() {
-
     communication.getDiffResult().dispatchUpdatesTo(this)
-        //result.dispatchUpdatesTo(this)
     }
 
-//    fun update(pair: Pair<Boolean, Int>) {
-//        if(pair.first) {
-//            notifyItemInserted(pair.second)
-//        } else {
-//            notifyItemRemoved(pair.second)
-//        }
-//    }
 
     override fun getItemViewType(position: Int): Int {
        return when(communication.getList()[position]){
