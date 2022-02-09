@@ -12,7 +12,7 @@ class PagerAdapter(activity: FragmentActivity): FragmentStateAdapter(activity) {
 
     override fun createFragment(position: Int): Fragment {
         return if(position == 0){
-            JokesFragment()
-        } else QuotesFragment()
+            QuotesFragment()
+        } else JokesFragment()
     }
 }

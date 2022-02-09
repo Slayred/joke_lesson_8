@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.joke_lesson_8.R
 import com.example.joke_lesson_8.domain.interfaces.FavoriteItemClickListener
-import com.example.joke_lesson_8.interfaces.Communication
 import com.example.joke_lesson_8.model.BaseCommunication
 import com.example.joke_lesson_8.presentation.*
 import com.google.android.material.snackbar.Snackbar
@@ -40,6 +39,7 @@ abstract class BaseFragment<T>: Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycleViewFragment)
 
         favoriteDataView.linkWith(viewModel)
+
         viewModel.observe(this) {
             state -> favoriteDataView.show(state)
         }
@@ -59,13 +59,11 @@ abstract class BaseFragment<T>: Fragment() {
 //        }
 
         recyclerView.adapter = adapter
-        viewModel.observeList(this) {
-            list -> adapter.show(list)
-        }
         viewModel.getItemList()
-        viewModel.observe(this) {
-
+        viewModel.observeList(this) {
+            adapter.update()
         }
+
     }
 
     @StringRes

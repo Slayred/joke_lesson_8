@@ -14,15 +14,15 @@ class CommonDataRecyclerAdapter<T>(private val listener: FavoriteItemClickListen
 , private val communication: CommonCommunication<T>):
 RecyclerView.Adapter<CommonDataRecyclerAdapter.CommonDataViewHolder<T>>() {
 
-    private val list = ArrayList<CommonUIModel<T>>()
+    //private val list = ArrayList<CommonUIModel<T>>()
     private var onCreateViewHolderCallsCount = 0
     private var onBindViewHolderCount = 0
 
-    fun show(data: List<CommonUIModel<T>>) {
-        list.clear()
-        list.addAll(data)
-        notifyDataSetChanged()
-    }
+//    fun show(data: List<CommonUIModel<T>>) {
+//        list.clear()
+//        list.addAll(data)
+//        notifyDataSetChanged()
+//    }
 
 //    fun removeItem(id: T) {
 //        val element = list.find {
@@ -34,17 +34,18 @@ RecyclerView.Adapter<CommonDataRecyclerAdapter.CommonDataViewHolder<T>>() {
 //    }
 
     fun update() {
-        val result = communication.getDiffResult()
-        result.dispatchUpdatesTo(this)
+
+    communication.getDiffResult().dispatchUpdatesTo(this)
+        //result.dispatchUpdatesTo(this)
     }
 
-    fun update(pair: Pair<Boolean, Int>) {
-        if(pair.first) {
-            notifyItemInserted(pair.second)
-        } else {
-            notifyItemRemoved(pair.second)
-        }
-    }
+//    fun update(pair: Pair<Boolean, Int>) {
+//        if(pair.first) {
+//            notifyItemInserted(pair.second)
+//        } else {
+//            notifyItemRemoved(pair.second)
+//        }
+//    }
 
     override fun getItemViewType(position: Int): Int {
        return when(communication.getList()[position]){
