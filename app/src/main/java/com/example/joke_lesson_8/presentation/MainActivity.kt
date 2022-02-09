@@ -23,13 +23,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val viewPager = findViewById<ViewPager2>(R.id.viewPager)
+//        val viewPager = findViewById<ViewPager2>(R.id.viewPager)
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
-        viewPager.adapter = PagerAdapter(this)
-        TabLayoutMediator(tabLayout, viewPager) {
-            tab, position ->
-            tab.text = getString(if (position == 0) R.string.jokes else R.string.quotes)
-        }.attach()
+        val tabChosen: (Boolean) -> Unit = {
+            t -> if(t)
+                showJokes()
+            else
+                showQuotes()
+        }
+        tabLayout.addOnTabSelectedListener(TabListener(tabChosen))
+//        viewPager.adapter = PagerAdapter(this)
+//        TabLayoutMediator(tabLayout, viewPager) {
+//            tab, position ->
+//            tab.text = getString(if (position == 0) R.string.jokes else R.string.quotes)
+//        }.attach()
 //        baseViewModel = (application as JokeApp).baseViewModel
 //        val jokeCommunication = (application as JokeApp).jokeCommunication
 //        recycleView = findViewById(R.id.recycleView)
@@ -86,6 +93,14 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    }
+
+    private fun showQuotes() {
+        TODO("Not yet implemented")
+    }
+
+    private fun showJokes() {
+        TODO("Not yet implemented")
     }
 
 }
