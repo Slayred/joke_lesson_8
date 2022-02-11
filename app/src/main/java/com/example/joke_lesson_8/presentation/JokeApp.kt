@@ -14,6 +14,7 @@ import com.example.joke_lesson_8.data.interfaces.QuoteService
 import com.example.joke_lesson_8.data.net.NewJokeCloudDataSource
 import com.example.joke_lesson_8.data.net.QuoteCloudDataSource
 import com.example.joke_lesson_8.domain.BaseInteractor
+import com.example.joke_lesson_8.presentation.viewModels.BaseViewModel
 
 class JokeApp: Application() {
 
@@ -55,8 +56,8 @@ class JokeApp: Application() {
         Realm.init(this)
         jokeCommunication = BaseCommunication()
         quoteCommunication = BaseCommunication()
-        baseViewModel = BaseViewModel(jokeInteractor, jokeCommunication)
-        quoteViewModel = BaseViewModel(quoteInteractor, quoteCommunication )
+        baseViewModel = BaseViewModel(jokeInteractor, jokeCommunication,"Jokes")
+        quoteViewModel = BaseViewModel(quoteInteractor, quoteCommunication ,"Quotes")
 
 
     }

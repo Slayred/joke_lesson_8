@@ -2,10 +2,14 @@ package com.example.joke_lesson_8.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDialogFragment
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.joke_lesson_8.R
 import com.example.joke_lesson_8.domain.interfaces.FavoriteItemClickListener
+import com.example.joke_lesson_8.presentation.fragments.JokesFragment
+import com.example.joke_lesson_8.presentation.fragments.QuotesFragment
 import com.example.joke_lesson_8.presentation.viewPager.PagerAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
@@ -27,11 +31,12 @@ class MainActivity : AppCompatActivity() {
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
         val tabChosen: (Boolean) -> Unit = {
             t -> if(t)
-                showJokes()
+                show(JokesFragment())
             else
-                showQuotes()
+                show(QuotesFragment())
         }
         tabLayout.addOnTabSelectedListener(TabListener(tabChosen))
+        show(JokesFragment())
 //        viewPager.adapter = PagerAdapter(this)
 //        TabLayoutMediator(tabLayout, viewPager) {
 //            tab, position ->
@@ -93,6 +98,12 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    }
+
+    private fun show(fragment: Fragment){
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, fragment)
+            .commit()
     }
 
     private fun showQuotes() {

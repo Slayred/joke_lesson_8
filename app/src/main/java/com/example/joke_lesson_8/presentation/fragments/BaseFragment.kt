@@ -1,6 +1,7 @@
 package com.example.joke_lesson_8.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import com.example.joke_lesson_8.R
 import com.example.joke_lesson_8.domain.interfaces.FavoriteItemClickListener
 import com.example.joke_lesson_8.model.BaseCommunication
 import com.example.joke_lesson_8.presentation.*
+import com.example.joke_lesson_8.presentation.viewModels.BaseViewModel
 import com.google.android.material.snackbar.Snackbar
 
 abstract class BaseFragment<T>: Fragment() {
@@ -20,6 +22,7 @@ abstract class BaseFragment<T>: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("BaseFragmentTag", "onCreatedView() ${javaClass.simpleName}")
         return inflater.inflate(R.layout.data_fragment, container, false)
     }
 
@@ -61,6 +64,11 @@ abstract class BaseFragment<T>: Fragment() {
             adapter.update()
         }
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("BaseFragmentTag", "onDestroy() ${javaClass.simpleName}")
     }
 
     @StringRes

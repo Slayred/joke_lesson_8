@@ -1,7 +1,7 @@
-package com.example.joke_lesson_8.presentation
+package com.example.joke_lesson_8.presentation.viewModels
 
+import android.util.Log
 import androidx.lifecycle.*
-import com.example.joke_lesson_8.interfaces.Communication
 import com.example.joke_lesson_8.data.interfaces.CommonIntercator
 import com.example.joke_lesson_8.interfaces.CommonCommunication
 import com.example.joke_lesson_8.presentation.*
@@ -10,10 +10,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class BaseViewModel<T>(private val intercator: CommonIntercator<T>,
+abstract class BaseViewModel<T>(private val intercator: CommonIntercator<T>,
                     private val communication: CommonCommunication<T>,
+                       private val name: String,
                     private val dispatcher: CoroutineDispatcher = Dispatchers.Main) : ViewModel(), CommonViewModel<T> {
 
+    init {
+        Log.d("BaseViewModelTag", "init $name")
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("BaseViewModelTag", "onCleared() $name")
+    }
 
     override fun getItem() {
         viewModelScope.launch(dispatcher) {

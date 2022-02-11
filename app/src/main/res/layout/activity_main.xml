@@ -23,12 +23,14 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Monday" />
+            tools:text="Monday"
+            android:text="@string/jokes"/>
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Tuesday" />
+            tools:text="Tuesday"
+            android:text="@string/quotes"/>
 
     </com.google.android.material.tabs.TabLayout>
 

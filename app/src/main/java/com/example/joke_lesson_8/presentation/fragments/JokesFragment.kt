@@ -1,9 +1,8 @@
 package com.example.joke_lesson_8.presentation.fragments
 
 import com.example.joke_lesson_8.R
-import com.example.joke_lesson_8.interfaces.Communication
 import com.example.joke_lesson_8.model.BaseCommunication
-import com.example.joke_lesson_8.presentation.BaseViewModel
+import com.example.joke_lesson_8.presentation.viewModels.BaseViewModel
 import com.example.joke_lesson_8.presentation.JokeApp
 
 class JokesFragment: BaseFragment<Int>() {
