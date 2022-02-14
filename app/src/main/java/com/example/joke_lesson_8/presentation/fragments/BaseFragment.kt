@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.joke_lesson_8.R
 import com.example.joke_lesson_8.domain.interfaces.FavoriteItemClickListener
@@ -15,7 +16,9 @@ import com.example.joke_lesson_8.presentation.*
 import com.example.joke_lesson_8.presentation.viewModels.BaseViewModel
 import com.google.android.material.snackbar.Snackbar
 
-abstract class BaseFragment<T>: Fragment() {
+abstract class BaseFragment<V: BaseViewModel<T>,T>: Fragment() {
+
+    private lateinit var viewModel: BaseViewModel<T>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,15 +29,25 @@ abstract class BaseFragment<T>: Fragment() {
         return inflater.inflate(R.layout.data_fragment, container, false)
     }
 
-    protected abstract fun getViewModel(app: JokeApp): BaseViewModel<T>
+   // protected abstract fun getViewModel(app: JokeApp): BaseViewModel<T>
 
-    protected abstract fun getCommunication(app: JokeApp): BaseCommunication<T>
+    //protected abstract fun getCommunication(app: JokeApp): BaseCommunication<T>
+
+    override fun onCreate(savedInstanceState: Bundle?){
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(
+            this,
+            (requireActivity().application as JokeApp).viewModelsFactory
+        ).get(getViewModelClass())
+    }
+
+    protected abstract fun getViewModelClass(): Class<V>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val application = requireActivity().application as JokeApp
-        val viewModel = getViewModel(application)
-        val communication = getCommunication(application)
+        //val viewModel = getViewModel(application)
+        //val communication = getCommunication(application)
 
         val favoriteDataView = view.findViewById<FavoriteDataView>(R.id.favoriteDataViewFragment)
         favoriteDataView.checkBoxText(checkBoxText())
@@ -56,7 +69,7 @@ abstract class BaseFragment<T>: Fragment() {
                 }.show()
             }
 
-        }, communication)
+        }, viewModel.communication)
 
         recyclerView.adapter = adapter
         viewModel.getItemList()
