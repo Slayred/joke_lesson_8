@@ -72,6 +72,8 @@ class JokeApp: Application() {
         Realm.init(this)
 
         retrofit = RetrofitFactory.getRetrofitInstance("http://92.63.192.103:3005")
+        failureHandler = FailureHandlerFactory(BaseResourceManager(this))
+        realmProvider = BaseRealmProvider()
 //        jokeCommunication = BaseCommunication()
 //        quoteCommunication = BaseCommunication()
 //        baseViewModel = BaseViewModel(jokeInteractor, jokeCommunication,"Jokes")

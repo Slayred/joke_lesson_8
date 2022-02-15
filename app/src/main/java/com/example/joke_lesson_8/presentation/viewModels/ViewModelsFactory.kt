@@ -15,6 +15,6 @@ class ViewModelsFactory(
             modelClass.isAssignableFrom(QuoteViewModel::class.java) -> quotesModule
             else -> throw IllegalStateException("unknown type of viewModel")
         }
-        return viewModel as T
+        return viewModel.getViewModel() as T
     }
 }
